@@ -2,7 +2,24 @@ import { useState } from 'react';
 
 const initialState = {
   stateViewMenuNav: false,
-  viewConsultarRutas: true,
+  viewConsultarRutas: {
+    title: 'Consultar Rutas',
+    stateView: true,
+    entidad: 'ruta',
+    search: true,
+    filtros: [
+      {
+        id: 'filtro-1',
+        description: 'Dia/Preventa',
+        values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'],
+      },
+      {
+        id: 'filtro-2',
+        description: 'Dia/Entrega',
+        values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'],
+      },
+    ],
+  },
   user: 'Daniel Cespedes',
 };
 
@@ -19,7 +36,10 @@ const useInitialState = () => {
   const toggleConsultarRutas = (newState) => {
     setState({
       ...state,
-      viewConsultarRutas: newState,
+      viewConsultarRutas: {
+        ...state.viewConsultarRutas,
+        stateView: newState,
+      },
     });
   };
 

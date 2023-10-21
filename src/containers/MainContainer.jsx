@@ -1,12 +1,16 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
 import styles from '@styles/MainContainer.module.scss';
+import SearchBar from '@common/SearchBar';
+import ContentPane from './ContentPane';
 
 const MainConatiner = (props) => {
-  const { title } = props;
+  const { element } = props;
+
   return (
     <div className={styles.MainConatiner}>
-      <h3 className={styles.title}>{title}</h3>
+      <h3 className={styles.title}>{element.title}</h3>
+      {element.search && <SearchBar entidad={element.entidad} />}
+      <ContentPane filtros={element.filtros} />
     </div>
   );
 };

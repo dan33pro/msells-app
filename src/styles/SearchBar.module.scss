@@ -1,0 +1,23 @@
+@import 'vars';
+
+.SearchBar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    gap: 10px;
+    width: 75vw;
+    padding: 8px 20px;
+    border-radius: 16px;
+    background: $--white;
+    box-shadow: 4px 4px 4px $--black-tr;
+    border: 1px solid $--gary;
+
+    input {
+        display: flex;
+        align-items: center;
+        background: $--white;
+        font-size: $--md;
+        border: none;
+        border-right: 1px dashed $--black;
+    }
+}
