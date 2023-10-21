@@ -1,0 +1,75 @@
+@import 'vars';
+
+.ContentPane {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    place-items: center;
+    width: 75vw;
+    height: 65vh;
+    padding: 20px;
+    border-radius: 16px;
+    background: $--white;
+    box-shadow: 4px 4px 4px $--black-tr;
+    border: 1px solid $--gary;
+}
+
+.filtros {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+
+    .container-filtro {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: $--white;
+
+        select,
+        label {
+            padding: 0 10px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: $--blue-color;
+            border-radius: 8px;
+            font-size: $--sm;
+        }
+    }
+}
+
+.results {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat( auto-fit, minmax(420px, 1fr) );
+    place-items: center;
+    overflow-y: scroll;
+}
+
+.results::-webkit-scrollbar {
+    --webkit-appearance: none;
+
+    :vertical,
+    :horizontal {
+        width: 10px;
+    }
+}
+
+.results::-webkit-scrollbar-button,
+.results::-webkit-scrollbar-button:increment {
+    display: none;
+}
+
+.results::-webkit-scrollbar-thumb {
+    background: $--blue-color;
+    border: 4px solid $--white;
+    border-radius: 20px;
+}
+
+.results::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
