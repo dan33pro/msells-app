@@ -1,0 +1,57 @@
+@import 'vars';
+
+.NavDesktop {
+    position: fixed;
+    top: 73px;
+    width: 70px;
+    height: calc(100vh - 73px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $--white;
+    color: $--black;
+    filter: drop-shadow(0px 4px 4px $--black-tr);
+}
+
+.menu {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    cursor: pointer;
+
+    .option-menu {
+        padding: 20px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $--blue-color;
+        border-radius: 8px;
+        box-shadow: 3px 3px 3px $--black-tr;
+        cursor: pointer;
+    }
+}
+
+.config-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: $--blue-tr-color;
+    position: absolute;
+    bottom: 20px;
+    cursor: pointer;
+
+    img {
+        width: auto;
+        height: 70%;
+    }
+}
+
+@media (max-width: 760px) {}
