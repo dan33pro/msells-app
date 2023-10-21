@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 const initialState = {
   stateViewMenuNav: false,
+  viewConsultarRutas: true,
   user: 'Daniel Cespedes',
 };
 
@@ -12,6 +13,13 @@ const useInitialState = () => {
     setState({
       ...state,
       stateViewMenuNav: newState,
+    });
+  };
+
+  const toggleConsultarRutas = (newState) => {
+    setState({
+      ...state,
+      viewConsultarRutas: newState,
     });
   };
 
@@ -26,6 +34,7 @@ const useInitialState = () => {
     state,
     toggleMenuNav,
     changeUser,
+    toggleConsultarRutas,
   };
 };
 

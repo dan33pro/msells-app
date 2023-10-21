@@ -1,0 +1,10 @@
+@import 'vars';
+
+.Layout {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: $--blue-tr-color;
+    width: calc(100vw - 70px);
+    height: calc(100vh - 70px);
+}
