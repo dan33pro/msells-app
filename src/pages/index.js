@@ -1,6 +1,12 @@
+import Layout from '@containers/Layout';
+import MainConatiner from '@containers/MainContainer';
+import AppContext from '@context/AppContext';
 import Head from 'next/head';
+import { useContext } from 'react';
 
 export default function Home() {
+  const { state } = useContext(AppContext);
+
   return (
     <>
       <Head>
@@ -9,6 +15,9 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Layout>
+        {state.viewConsultarRutas && <MainConatiner element={state.viewConsultarRutas} />}
+      </Layout>
     </>
   );
 }

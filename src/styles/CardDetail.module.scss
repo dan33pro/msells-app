@@ -1,0 +1,59 @@
+@import 'vars';
+
+.CardDetail {
+    width: 420px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    background: $--blue-color;
+    padding: 15px 30px;
+    border-radius: 8px;
+
+    .title {
+        align-self: flex-start;
+        font-weight: 600;
+        font-size: $--md;
+    }
+
+    .description {
+        margin: 0;
+        font-size: $--sm;
+        text-align: justify;
+    }
+
+    .caracteristics {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: $--sm;
+
+        span {
+            font-weight: bold;
+        }
+    }
+
+    .container-btns {
+        display: flex;
+        gap: 15px;
+
+        .btn {
+            padding: 6px 20px;
+            border-radius: 16px;
+            border: 1px solid $--white;
+        }
+    
+        .primary {
+            background: $--white;
+            color: $--black;
+        }
+    
+        .secondary {
+            background: $--blue-color;
+            color: $--white;
+        }
+    }
+}
