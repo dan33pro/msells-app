@@ -1,0 +1,42 @@
+@import 'vars';
+
+.MenuDesktop {
+    position: fixed;
+    right: 10px;
+    top: 73px;
+    width: 220px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0px 4px 4px $--black-tr);
+    border-radius: 0 0 6px 6px;
+    background: $--white;
+    z-index: 1;
+}
+
+.MenuDesktop ul {
+    margin: 20px;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    font-weight: bold;
+}
+
+.MenuDesktop ul li {
+    text-align: center;
+}
+
+.MenuDesktop ul li:last-child a {
+    color: black;
+    font-size: $--md;
+}
+
+@media (max-width: 761px) {
+    .MenuDesktop {
+        display: none;
+    }
+}
