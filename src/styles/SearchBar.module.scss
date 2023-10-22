@@ -27,5 +27,9 @@
 @media (max-width: 650px) {
     .SearchBar {
         width: 90vw;
+
+        input {
+            font-size: $--sm;
+        }
     }
 }
