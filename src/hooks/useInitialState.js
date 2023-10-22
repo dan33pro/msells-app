@@ -1,26 +1,42 @@
 import { useState } from 'react';
 
+class Filtro {
+  constructor({id, description, values}) {
+    this.id = typeof id == 'string' ? id : null;
+    this.description = typeof description == 'string' ? description : null;
+    this.values = Array.isArray(values)  ? values : null;
+  }
+}
+class View {
+  constructor({title, stateView, entidad, search}) {
+    this.title = typeof title == 'string' ? title : null;
+    this.stateView = typeof stateView == 'boolean' ? stateView : null;
+    this.entidad = typeof entidad == 'string' ? entidad : null;
+    this.search = typeof search == 'boolean' ? search : null;
+    this.filtros = [];
+  }
+
+  addFilter(filter) {
+    if(filter instanceof Filtro) {
+      this.filtros.push(filter);
+    }
+  }
+
+  set setStateView(newState) {
+    this.stateView = newState;
+  }
+}
+
+const filter1 = new Filtro({id: 'filtro-1', description: 'Dia/Preventa', values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']});
+const filter2 = new Filtro({id: 'filtro-2', description: 'Dia/Entrega', values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']});
+const viewConsultarRutas = new View({title:'Consultar Rutas', stateView:false, entidad:'ruta', search:true});
+viewConsultarRutas.addFilter(filter1);
+viewConsultarRutas.addFilter(filter2);
+
 const initialState = {
   isViewMenuDesktop: false,
   isViewMenuMobile: false,
-  viewConsultarRutas: {
-    title: 'Consultar Rutas',
-    stateView: true,
-    entidad: 'ruta',
-    search: true,
-    filtros: [
-      {
-        id: 'filtro-1',
-        description: 'Dia/Preventa',
-        values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'],
-      },
-      {
-        id: 'filtro-2',
-        description: 'Dia/Entrega',
-        values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'],
-      },
-    ],
-  },
+  viewConsultarRutas: viewConsultarRutas,
   user: 'Daniel Cespedes',
 };
 
@@ -42,13 +58,10 @@ const useInitialState = () => {
   };
 
   const toggleConsultarRutas = (newState) => {
+    state.viewConsultarRutas.stateView = newState;
     setState({
       ...state,
-      viewConsultarRutas: {
-        ...state.viewConsultarRutas,
-        stateView: newState,
-      },
-    });
+    })
   };
 
   const changeUser = (nameUser) => {

@@ -16,7 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {state.viewConsultarRutas && <MainConatiner element={state.viewConsultarRutas} />}
+        {state.viewConsultarRutas.stateView && <MainConatiner element={state.viewConsultarRutas} />}
       </Layout>
     </>
   );

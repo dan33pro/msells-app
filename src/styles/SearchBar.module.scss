@@ -13,9 +13,11 @@
     border: 1px solid $--gary;
 
     input {
+        padding: 0 5px;
         display: flex;
         align-items: center;
         background: $--white;
+        color: $--black;
         font-size: $--md;
         border: none;
         border-right: 1px dashed $--black;
