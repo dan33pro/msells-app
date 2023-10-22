@@ -48,7 +48,7 @@
     height: 100%;
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat( auto-fit, minmax(1fr, 420px) );
+    grid-template-columns: repeat( auto-fit, minmax(420px, 1fr) );
     place-items: center;
     overflow-y: scroll;
 }
@@ -80,6 +80,10 @@
 @media (max-width: 650px) {
     .ContentPane {
         width: 90vw;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
     }
 }
 
