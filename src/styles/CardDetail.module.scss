@@ -1,7 +1,8 @@
 @import 'vars';
 
 .CardDetail {
-    width: 420px;
+    max-width: 420px;
+    width: fit-content;
     height: auto;
     display: flex;
     align-items: center;
@@ -27,6 +28,7 @@
     .caracteristics {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
         font-size: $--sm;
@@ -38,12 +40,16 @@
 
     .container-btns {
         display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
         gap: 15px;
 
         .btn {
             padding: 6px 20px;
             border-radius: 16px;
             border: 1px solid $--white;
+            cursor: pointer;
         }
     
         .primary {

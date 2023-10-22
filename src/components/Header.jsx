@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import Image from 'next/image';
 
 import MenuNav from '@components/MenuDesktop';
@@ -6,21 +6,21 @@ import AppContext from '@context/AppContext';
 
 import logoMS from '@logos/logo_msells.svg';
 import iconPerson from '@icons/person_icon.svg';
+import iconMenu from '@icons/menu_icon.svg';
 
 import styles from '@styles/Header.module.scss';
 
 const Header = () => {
-  const { state, toggleMenuNav } = useContext(AppContext);
+  const { state, toggleMenuDesktop, toggleMenuMobile } = useContext(AppContext);
 
   const handleToggleD = () => {
-    setToggleM(false);
-    toggleMenuNav(!state.stateViewMenuNav);
+    toggleMenuMobile(false);
+    toggleMenuDesktop(!state.isViewMenuDesktop);
   };
 
-  const [toggleM, setToggleM] = useState(false);
   const handleToggleM = () => {
-    setToggleM(!toggleM);
-    toggleMenuNav(!state.stateViewMenuNav);
+    toggleMenuDesktop(false);
+    toggleMenuMobile(!state.isViewMenuMobile);
   };
 
   return (
@@ -38,8 +38,11 @@ const Header = () => {
             <Image src={iconPerson} alt="" />
           </li>
         </ul>
+        <button className={styles['btn-menu']} onClick={handleToggleM} onKeyDown={handleToggleM}>
+          <Image src={iconMenu} alt='Icono menu' />
+        </button>
       </div>
-      {state.stateViewMenuNav && <MenuNav />}
+      {state.isViewMenuDesktop && <MenuNav />}
     </nav>
   );
 };

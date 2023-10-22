@@ -8,3 +8,9 @@
     width: calc(100vw - 70px);
     height: calc(100vh - 70px);
 }
+
+@media (max-width: 650px) {
+    .Layout {
+        width: 100vw;
+    }
+}

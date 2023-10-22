@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 const initialState = {
-  stateViewMenuNav: false,
+  isViewMenuDesktop: false,
+  isViewMenuMobile: false,
   viewConsultarRutas: {
     title: 'Consultar Rutas',
     stateView: true,
@@ -26,10 +27,17 @@ const initialState = {
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
 
-  const toggleMenuNav = (newState) => {
+  const toggleMenuDesktop = (newState) => {
     setState({
       ...state,
-      stateViewMenuNav: newState,
+      isViewMenuDesktop: newState,
+    });
+  };
+
+  const toggleMenuMobile = (newState) => {
+    setState({
+      ...state,
+      isViewMenuMobile: newState,
     });
   };
 
@@ -52,7 +60,8 @@ const useInitialState = () => {
 
   return {
     state,
-    toggleMenuNav,
+    toggleMenuDesktop,
+    toggleMenuMobile,
     changeUser,
     toggleConsultarRutas,
   };
