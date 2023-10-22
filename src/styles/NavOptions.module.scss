@@ -1,0 +1,115 @@
+@import 'vars';
+
+.NavOptions {
+    padding: 30px 0;
+    position: fixed;
+    top: 73px;
+    width: 70px;
+    height: calc(100vh - 73px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $--white;
+    color: $--black;
+    filter: drop-shadow(0px 4px 4px $--black-tr);
+    z-index: 2;
+}
+
+.menu {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    list-style: none;
+    cursor: pointer;
+
+    .option-menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .container-img {
+        padding: 20px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: $--blue-color;
+        border-radius: 8px;
+        box-shadow: 3px 3px 3px $--black-tr;
+        cursor: pointer;
+    }
+}
+
+.config-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    cursor: pointer;
+    gap: 15px;
+
+    button {
+        color: $--black;
+        border: none;
+        background: none;
+        font-weight: bold !important;
+        font-size: $--md;
+        cursor: pointer;
+    }
+
+    .container-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: $--blue-tr-color;
+
+        img {
+            width: 17px;
+            height: 17px;
+        }
+    }
+}
+
+.info-mobile {
+    display: none;
+    font-weight: bold;
+}
+
+@media (max-width: 650px) {
+    .info-mobile {
+        display: block;
+    }
+
+    .NavOptions {
+        flex-direction: column;
+        justify-content: space-between;
+        top: calc(73px + 10px);
+        right: 0;
+        width: max-content;
+        padding: 30px;
+        height: calc(100vh - 73px - 20px);
+        border: 1px solid $--gary;
+        border-radius: 8px 0 0 8px;
+        box-shadow: -4px 4px 4px $--black-tr;
+        transform: translateX(101%);
+        transition: transform ease-in 500ms;
+        will-change: transform;
+    }
+
+    .NavOptionsAnimantion {
+        transform: translateX(0);
+    }
+
+    .config-btn {
+        position: static;
+    }
+}

@@ -4,7 +4,7 @@ import Header from '@components/Header';
 import Script from 'next/script';
 
 import '@styles/globals.scss';
-import NavDesktop from '@components/NavDesktop';
+import NavOptions from '@components/NavOptions';
 
 export default function App({ Component, pageProps }) {
   const initialState = useInitialState();
@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }) {
         `}
       </Script>
       <Header />
-      <NavDesktop />
+      <NavOptions />
       <Component {...pageProps} />
     </AppContext.Provider>
   );

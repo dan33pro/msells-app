@@ -17,6 +17,9 @@
 .filtros {
     margin-bottom: 20px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
 
     .container-filtro {
@@ -72,4 +75,20 @@
 
 .results::-webkit-scrollbar-track {
     border-radius: 10px;
+}
+
+@media (max-width: 650px) {
+    .ContentPane {
+        width: 90vw;
+    }
+
+    .results {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 280px) {
+    .ContentPane {
+        width: 100vw;
+    }
 }

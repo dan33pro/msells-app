@@ -21,3 +21,9 @@
         border-right: 1px dashed $--black;
     }
 }
+
+@media (max-width: 650px) {
+    .SearchBar {
+        width: 90vw;
+    }
+}

@@ -7,40 +7,49 @@ import iconList from '@icons/list_icon.svg';
 import iconSearch from '@icons/register_icon.svg';
 import iconSetings from '@icons/setings_icon.svg';
 
-import styles from '@styles/NavDesktop.module.scss';
+import styles from '@styles/NavOptions.module.scss';
 
-const NavDesktop = () => {
-  const { state, toggleMenuNav } = useContext(AppContext);
+const NavOptions = () => {
+  const { state, toggleMenuDesktop } = useContext(AppContext);
 
   const [toggleListOptions, setToggleListOptions] = useState(false);
   const handleToggleListOptions = () => {
     setToggleListOptions(!toggleListOptions);
     setToggleRegisterOptions(false);
-    toggleMenuNav(false);
+    toggleMenuDesktop(false);
   };
 
   const [toggleRegisterOptions, setToggleRegisterOptions] = useState(false);
   const handleToggleRegisterOptions = () => {
     setToggleRegisterOptions(!toggleRegisterOptions);
     setToggleListOptions(false);
-    toggleMenuNav(false);
+    toggleMenuDesktop(false);
   };
 
   return (
-    <aside className={styles.NavDesktop}>
+    <aside className={`${styles.NavOptions} ${state.isViewMenuMobile ? styles['NavOptionsAnimantion'] : ''}`}>
       <ul className={styles.menu} onClick={handleToggleListOptions}>
         <li className={styles['option-menu']} onClick={handleToggleListOptions} onKeyDown={handleToggleListOptions}>
-          <Image src={iconList} alt="" />
+          <div className={styles['container-img']}>
+            <Image src={iconList} alt="" />
+          </div>
+          <span className={styles['info-mobile']}>Opciones de consulta</span>
         </li>
         <li className={styles['option-menu']} onClick={handleToggleRegisterOptions} onKeyDown={handleToggleRegisterOptions}>
-          <Image src={iconSearch} alt="" />
+          <div className={styles['container-img']}>
+            <Image src={iconSearch} alt="" />
+          </div>
+          <span className={styles['info-mobile']}>Opciones de registro</span>
         </li>
       </ul>
       <div className={styles['config-btn']}>
-        <Image src={iconSetings} alt='boton de configuraciones' />
+        <button className={styles['info-mobile']}>Cerrar Sesión</button>
+        <div className={styles['container-img']}>
+          <Image src={iconSetings} alt="boton de configuraciones" />
+        </div>
       </div>
     </aside>
   );
 };
 
-export default NavDesktop;
+export default NavOptions;

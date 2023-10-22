@@ -69,4 +69,24 @@
     }
 }
 
-@media (max-width: 760px) {}
+.btn-menu {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: $--blue-tr-color;
+}
+
+@media (max-width: 650px) {
+    .btn-menu {
+        display: flex;
+        background: $--blue-tr-color;
+    }
+
+    .menu {
+        display: none;
+    }
+}
