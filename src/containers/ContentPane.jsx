@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styles from '@styles/ContentPane.module.scss';
-import { flightRouterStateSchema } from 'next/dist/server/app-render/types';
 import CardDetail from '@common/CardDetail';
+import ProductCard from '@common/ProductCard';
 
 const ContentPane = (props) => {
-  const { filtros, cardsDetail } = props;
+  const { filtros, cardsDetail, cardElement } = props;
 
   return (
     <div className={styles.ContentPane}>
@@ -21,7 +21,8 @@ const ContentPane = (props) => {
         ))}
       </div>
       <article className={styles.results}>
-        {cardsDetail.map((cardDetail) => <CardDetail cardDetail={cardDetail} />)}
+        {cardElement == 'CardDetail' && cardsDetail.map((cardDetail) => <CardDetail cardDetail={cardDetail} />)}
+        {cardElement == 'ProductCard' && cardsDetail.map((cardDetail) => <ProductCard cardDetail={cardDetail} />)}
       </article>
     </div>
   );

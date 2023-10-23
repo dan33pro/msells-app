@@ -10,7 +10,7 @@ const MainConatiner = (props) => {
     <div className={styles.MainConatiner}>
       <h3 className={styles.title}>{currentView.title}</h3>
       {currentView.search && <SearchBar entidad={currentView.entidad} />}
-      <ContentPane filtros={currentView.filtros} cardsDetail={currentView.content} />
+      <ContentPane filtros={currentView.filtros} cardsDetail={currentView.content} cardElement={currentView.cardElement} />
     </div>
   );
 };

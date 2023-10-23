@@ -1,0 +1,59 @@
+@import 'vars';
+
+.ProductCard {
+    max-width: 460px;
+    width: fit-content;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: $--blue-color;
+    padding: 15px 30px;
+    border-radius: 8px;
+
+    .product-info {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .nameProduct {
+            align-self: flex-start;
+            font-weight: 600;
+            font-size: $--md;
+        }
+
+        .description {
+            margin: 0;
+            font-size: $--sm;
+            text-align: justify;
+        }
+
+        .caracteristics {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            font-size: $--sm;
+
+            span {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .container-img {
+
+        img {
+            height: 100%;
+            width: auto;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .ProductCard {
+        flex-direction: column-reverse;
+    }
+}

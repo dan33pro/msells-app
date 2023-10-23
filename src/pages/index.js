@@ -24,6 +24,7 @@ export default function Home() {
         {state.viewConsultarRutas.stateView && <MainConatiner currentView={state.viewConsultarRutas} />}
         {state.viewConsultarPedidos.stateView && <MainConatiner currentView={state.viewConsultarPedidos} />}
         {state.viewConsultarClientes.stateView && <MainConatiner currentView={state.viewConsultarClientes} />}
+        {state.viewConsultarProductos.stateView && <MainConatiner currentView={state.viewConsultarProductos} />}
       </Layout>
     </>
   );
