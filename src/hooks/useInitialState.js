@@ -4,6 +4,8 @@ import { View, Filtro, Card, Button, } from '@hooks/useEntidades';
 // Filtros
 const filter1 = new Filtro({ id: 'filtro-1', description: 'Dia/Preventa', values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'] });
 const filter2 = new Filtro({ id: 'filtro-2', description: 'Dia/Entrega', values: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'] });
+const filter3 = new Filtro({ id: 'filtro-3', description: 'Tipo de Producto', values: ['Dulcería', 'Aseo', 'Abarrotes'] });
+const filter4 = new Filtro({ id: 'filtro-4', description: 'Empresa', values: ['Colombina', 'Super', 'Italo', 'Americandy', 'Quala'] });
 
 // Vistas
 const viewConsultarRutas = new View({ title: 'Consultar Rutas', stateView: false, entidad: 'ruta', search: true });
@@ -11,8 +13,10 @@ viewConsultarRutas.addFilters([filter1, filter2]);
 
 const viewConsultarPedidos = new View({ title: 'Consultar Pedidos', stateView: false, entidad: 'pedido', search: true });
 
-const viewConsultarClientes = new View({ title: 'Consultar Clientes', stateView: true, entidad: 'cliente', search: true });
+const viewConsultarClientes = new View({ title: 'Consultar Clientes', stateView: false, entidad: 'cliente', search: true });
 
+const viewConsultarProductos = new View({ title: 'Consultar Productos', stateView: true, entidad: 'producto', search: true });
+viewConsultarProductos.addFilters([filter3, filter4]);
 
 // Botones
 const btnWatchPedidos = new Button({
@@ -72,6 +76,9 @@ const cardCliente = new Card({
   caracteristics: ['CC: 1002480261', 'Dirección: Carrera 24 #5-55',],
 });
 cardCliente.addButtons([btnEditarFactura, btnNuevaFactura]);
+
+// Product Card
+
 
 // Añadir cards
 for (let i = 0; i < 20; i++ ) {
