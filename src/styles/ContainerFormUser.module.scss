@@ -1,0 +1,125 @@
+@import 'vars';
+
+.containerPrinciple {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0;
+  align-items: center;
+  width: 100vw;
+
+  .containerUser {
+    max-width: 900px;
+    width: 100%;
+    height: auto;
+    padding: 25px 30px;
+    justify-content: center;
+    background-color: lavender;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+    border: solid 1px #cbc9c9;
+    -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+    border-radius: 8px/7px;
+    -webkit-border-radius: 8px/7px;
+    -moz-border-radius: 8px/7px;
+
+    .title {
+      font-size: 2em;
+      color: $--blue-color;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .formularioUsuario {
+      .detalleUsuario {
+        display: flex;
+        flex-wrap: wrap;
+        .inputbox {
+          width: calc(100% / 2 - 20px);
+          padding-right: 5px;
+          padding-bottom: 20px;
+          .select {
+            width: 100%;
+            height: 45px;
+            background-color: $--white;
+            color: $--black;
+          }
+          .input {
+            height: 45px;
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: $--white;
+            color: $--black;
+          }
+          .details {
+            display: flex;
+            padding-bottom: 10px;
+            color: $--black;
+          }
+          .containerPhone {
+            display: flex;
+            flex-direction: row;
+            background-color: $--white;
+            color: $--black;
+            .select {
+              width: 20%;
+              height: 45px;
+              margin-right: 10px;
+              border-radius: 5px;
+            }
+          }
+
+          .containerButton {
+            display: flex;
+            height: auto;
+            justify-content: center;
+            width: 100%;
+            margin-top: 60px;
+            .input {
+              margin-right: 10px;
+              border-radius: 30px;
+              background-color: $--blue-color;
+              color: $--white;
+            }
+            .input[type='submit'] {
+              width: 40%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 912px) {
+  .containerPrinciple {
+    align-items: start;
+    justify-content: center;
+    .containerUser {
+      max-width: 100%;
+      height: 100vh;
+      overflow-y: auto;
+      .title {
+        margin-bottom: 70px;
+      }
+      .formularioUsuario {
+        .detalleUsuario {
+          max-height: 400px;
+          margin-left: 6px;
+          .inputbox {
+            display: block;
+            margin-bottom: 15px;
+            width: 100%;
+            .input[type='submit'] {
+              width: 80%;
+              display: flex;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
