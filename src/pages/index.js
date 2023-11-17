@@ -6,6 +6,7 @@ import NavOptions from '@components/NavOptions';
 import AppContext from '@context/AppContext';
 import Head from 'next/head';
 import { useContext } from 'react';
+import PedidoDetail from '@containers/PedidoDetail';
 
 export default function Home() {
   const { state } = useContext(AppContext);
@@ -25,6 +26,8 @@ export default function Home() {
         {state.viewConsultarPedidos.stateView && <MainConatiner currentView={state.viewConsultarPedidos} />}
         {state.viewConsultarClientes.stateView && <MainConatiner currentView={state.viewConsultarClientes} />}
         {state.viewConsultarProductos.stateView && <MainConatiner currentView={state.viewConsultarProductos} />}
+
+        {state.isViewPedidoDetail && <PedidoDetail />}
       </Layout>
     </>
   );

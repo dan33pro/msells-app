@@ -2,7 +2,6 @@ class Button {
   constructor({ description, classN, handler }) {
     this.description = typeof description == 'string' ? description : null;
     this.classN = typeof classN == 'string' ? classN : null;
-    this.handler = typeof handler == 'function' ? handler : null;
   }
 }
 

@@ -8,51 +8,36 @@ const filter3 = new Filtro({ id: 'filtro-3', description: 'Tipo de Producto', va
 const filter4 = new Filtro({ id: 'filtro-4', description: 'Empresa', values: ['Colombina', 'Super', 'Italo', 'Americandy', 'Quala'] });
 
 // Vistas
-const viewConsultarRutas = new View({ title: 'Consultar Rutas', stateView: false, entidad: 'ruta', search: true, cardElement: 'CardDetail' });
+const viewConsultarRutas = new View({ title: 'Consultar Rutas', stateView: true, entidad: 'ruta', search: true, cardElement: 'CardDetail' });
 viewConsultarRutas.addFilters([filter1, filter2]);
 
 const viewConsultarPedidos = new View({ title: 'Consultar Pedidos', stateView: false, entidad: 'pedido', search: true, cardElement: 'CardDetail' });
 
 const viewConsultarClientes = new View({ title: 'Consultar Clientes', stateView: false, entidad: 'cliente', search: true, cardElement: 'CardDetail' });
 
-const viewConsultarProductos = new View({ title: 'Consultar Productos', stateView: true, entidad: 'producto', search: true, cardElement: 'ProductCard' });
+const viewConsultarProductos = new View({ title: 'Consultar Productos', stateView: false, entidad: 'producto', search: true, cardElement: 'ProductCard' });
 viewConsultarProductos.addFilters([filter3, filter4]);
 
 // Botones
 const btnWatchPedidos = new Button({
-  description: 'Ver pepidos',
+  description: 'Ver pedidos',
   classN: 'secondary',
-  handler: () => {
-    console.log('logica para ver pedidos');
-  },
 });
 const btnWatchClientes = new Button({
   description: 'Ver clientes',
   classN: 'primary',
-  handler: () => {
-    console.log('logica para ver clientes');
-  },
 });
 const btnWatchPedido = new Button({
   description: 'Ver Pedido',
   classN: 'primary',
-  handler: () => {
-    console.log('logica para ver pedido');
-  },
 });
 const btnEditarFactura = new Button({
   description: 'Editar Factura',
   classN: 'secondary',
-  handler: () => {
-    console.log('logica para Editar Factura');
-  },
 });
 const btnNuevaFactura = new Button({
   description: 'Nueva Factura',
   classN: 'primary',
-  handler: () => {
-    console.log('logica para Nueva Factura');
-  },
 });
 
 // Cards
@@ -97,10 +82,17 @@ for (let i = 0; i < 20; i++ ) {
 const initialState = {
   isViewMenuDesktop: false,
   isViewMenuMobile: false,
+  isViewPedidoDetail: false,
+
   viewConsultarRutas: viewConsultarRutas,
   viewConsultarPedidos: viewConsultarPedidos,
   viewConsultarClientes: viewConsultarClientes,
   viewConsultarProductos: viewConsultarProductos,
+
+  elements: {
+    ruta: null,
+    client: null,
+  },
   user: 'Daniel Cespedes',
 };
 
@@ -118,6 +110,13 @@ const useInitialState = () => {
     setState({
       ...state,
       isViewMenuMobile: newState,
+    });
+  };
+
+  const togglePedidoDetail = (newState) => {
+    setState({
+      ...state,
+      isViewPedidoDetail: newState,
     });
   };
 
@@ -156,15 +155,32 @@ const useInitialState = () => {
     });
   };
 
+  const changeCurrentRuta = (idRuta) => {
+    state.elements.ruta = idRuta;
+    setState({
+      ...state,
+    });
+  };
+
+  const changeCurrentCliente = (client) => {
+    state.elements.client = client;
+    setState({
+      ...state,
+    });
+  };
+
   return {
     state,
     toggleMenuDesktop,
     toggleMenuMobile,
+    togglePedidoDetail,
     changeUser,
     toggleConsultarRutas,
     toggleConsultarPedidos,
     toggleviewConsultarClientes,
     toggleviewConsultarProductos,
+    changeCurrentRuta,
+    changeCurrentCliente,
   };
 };
 
