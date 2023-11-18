@@ -1,0 +1,42 @@
+@import 'vars';
+
+.containerPrinciple {
+  max-width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0;
+
+  .leftForm {
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    float: left;
+    background-color: $--white;
+    display: flex;
+    justify-content: center;
+    background-color: lavender;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+    -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+    border: solid 1px #cbc9c9;
+    border-radius: 8px/7px;
+    -webkit-border-radius: 8px/7px;
+    -moz-border-radius: 8px/7px;
+
+    .form{
+        height: 100%;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+
+        .title{
+            font-size: 2em;
+            color: $--blue-color;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    }
+  }
+}
