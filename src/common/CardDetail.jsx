@@ -20,14 +20,14 @@ const CardDetail = (props) => {
     switch(option) {
       case "clientes":
         toggleConsultarRutas(false);
-        idRuta = caracteristics.find(c => c.includes("ID: ")).split("ID: ")[1];
+        idRuta = caracteristics.find(c => c.includes("ID-Ruta: ")).split("ID-Ruta: ")[1];
         changeCurrentRuta(idRuta);
 
         toggleviewConsultarClientes(true);
         break;
       case "pedidos":
         toggleConsultarRutas(false);
-        idRuta = caracteristics.find(c => c.includes("ID: ")).split("ID: ")[1];
+        idRuta = caracteristics.find(c => c.includes("ID-Ruta: ")).split("ID-Ruta: ")[1];
         changeCurrentRuta(idRuta);
 
         toggleConsultarPedidos(true);
