@@ -8,13 +8,14 @@ export default function RegistroProducto() {
   const { state } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
-    nombreProducto: '',
+    nombre: '',
     descripcion: '',
-    precio: 0,
+    precio: '',
     empresa: '', 
-    tipoProducto: 0,
-    idAdmin: 0,
+    id_tipo_producto: 0,
+    id_usuario: 0,
     imagen: '',
+    accion: 'insert', //se agrega el campo "accion" con el valor "insert"
   });
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function RegistroProducto() {
       if (!isNaN(id_usuario)) {
         setFormData((prevData) => ({
           ...prevData,
-          idAdmin: idAdmin,
+          id_usuario: idAdmin,
         }));
         console.log('idAdmin: ', idAdmin);
       } else {
@@ -107,11 +108,10 @@ export default function RegistroProducto() {
               <label className={styles.details}>Nombre </label>
               <input
                 type="text"
-                name="nombreProducto"
-                id="nombreProducto"
+                name = "nombre"
                 placeholder="ingrese el precio"
                 className={styles.input}
-                value={formData.nombreProducto}
+                value={formData.nombre}
                 onChange={handleInputChangue}
                 required
               />
@@ -131,7 +131,7 @@ export default function RegistroProducto() {
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Tipo de producto </label>
-              <select name="tipoProducto" id="tipoProducto" className={styles.select} value={formData.tipoProducto} onChange={handleInputChangue} required>
+              <select name="id_tipo_producto" className={styles.select} value={formData.tipoProducto} onChange={handleInputChangue} required>
                 {Array.isArray(tiposProducto) &&
                   tiposProducto.map((tipo) => (
                     <option key={tipo.id} value={tipo.id} className={styles.option}>

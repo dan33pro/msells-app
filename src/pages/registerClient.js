@@ -2,6 +2,8 @@ import styles from '@styles/ContainerFormUser.module.scss';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '@context/AppContext';
 import clientService from '@services/api/clientService';
+import userStorage from '@services/api/userStorage';
+
 
 export default function RegistroCliente() {
   const { state } = useContext(AppContext);
@@ -14,7 +16,28 @@ export default function RegistroCliente() {
     numeroCelular: '',
     direccion: '',
     id_ruta: 0,
+    id_usuario: 0,
+    accion: 'insert'
   });
+
+  useEffect(() => {
+    const userDataString = userStorage.getUserData();
+
+    if (userDataString && userDataString.id_usuario) {
+      const idAdmin = parseInt(userDataString.id_usuario, 10);
+      if (!isNaN(id_usuario)) {
+        setFormData((prevData) => ({
+          ...prevData,
+          id_usuario: idAdmin,
+        }));
+        console.log('idAdmin: ', idAdmin);
+      } else {
+        console.error('El id del usuario no es valido. ');
+      }
+    } else {
+      console.error('No se encontro el id del usuario');
+    }
+  }, []);
 
   const handleRegistrarCliente = async (e) => {
     e.preventDefault();

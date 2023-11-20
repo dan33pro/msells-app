@@ -8,13 +8,14 @@ export default function RegistroUsuario() {
   const { state } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
-    nombre: '',
-    apellido: '',
+    nombres: '',
+    apellidos: '',
     correo: '',
-    telefono: '',
+    numeroCelular: '',
     codPais: 0,
-    password: '',
-    tipoRol: 0,
+    userPassword: '',
+    id_rol: 0,
+    accion: 'insert', 
   });
 
   const [confirmarCorreo, setConfirmarCorreo] = useState('');
@@ -101,7 +102,7 @@ export default function RegistroUsuario() {
                     57
                   </option>
                 </select>
-                <input type="number" name="telefono" placeholder="Ingrese su telefono" className={styles.input} value={formData.telefono} onChange={handleInputChange} required />
+                <input type="number" name="numeroCelular" placeholder="Ingrese su telefono" className={styles.input} value={formData.numeroCelular} onChange={handleInputChange} required />
               </div>
             </div>
             <div className={styles.inputbox}>
