@@ -6,10 +6,14 @@ const usuarioService = {
   registrarUsuario: async (userData) => {
     try {
       const response = await axios.post(`${API_URL}/api/user`, userData);
+      if(response === 200){
       return {
         success: true,
         data: response.data,
       };
+    }else{
+      console.error('error al registrar el usuario'); 
+    }
     } catch (error) {
       console.error('Error al registrar el usuario', error);
 
@@ -44,6 +48,9 @@ const usuarioService = {
       };
     }
   },
+
+
+
 };
 
 export default usuarioService;

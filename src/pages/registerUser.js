@@ -2,6 +2,8 @@ import styles from '@styles/ContainerFormUser.module.scss';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '@context/AppContext';
 import usuarioService from '@services/api/usuarioService';
+
+
 export default function RegistroUsuario() {
   const { state } = useContext(AppContext);
 
@@ -15,35 +17,59 @@ export default function RegistroUsuario() {
     tipoRol: 0,
   });
 
+  const [confirmarCorreo, setConfirmarCorreo] = useState('');
+  const [confirmarContrasena, setConfirmarContrasena] = useState('');
+
   const handleRegistroUsuario = async (e) => {
     e.preventDefault();
+
+    if (confirmarCorreo !== formData.correo) {
+      alert('Los correos electrónicos no coinciden');
+      return;
+    }else if (confirmarContrasena !== formData.password) {
+      alert('Los passwords no coinciden');
+      return;
+    }
+
     try {
       await usuarioService.registrarUsuario(formData);
     } catch (error) {
-      console.error('error al enviar los datos', error);
+      alert('Error al enviar los datos', error);
     }
   };
 
-  const handleInputChangue = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    if (name === 'confirmEmail' && value !== formData.correo) {
+      alert('Los correos electrónicos no coinciden');
+    }else if (name === 'confirmPassword' && value !== formData.password) {
+      alert('Los passwords no coinciden');
+    }
   };
+
   const [tiposRoles, setRoles] = useState([]);
 
   useEffect(() => {
     const obtenerRoles = async () => {
       try {
         const roles = await usuarioService.obtenerRol();
-        setRoles(roles);
+        setRoles(roles.data);
       } catch (error) {
         console.error('Error al obtener los roles: ', error);
       }
     };
+
     obtenerRoles();
   }, []);
+
+  const handleCancelar = () => {
+    window.location.reload(); 
+  }
 
   return (
     <section className={styles.containerPrinciple}>
@@ -53,53 +79,61 @@ export default function RegistroUsuario() {
           <div className={styles.detalleUsuario}>
             <div className={styles.inputbox}>
               <label className={styles.details}>Nombre </label>
-              <input type="text" placeholder="Ingrese su nombre" className={styles.input} value={formData.nombre} onChange={handleInputChangue} />
+              <input type="text" name="nombre" placeholder="Ingrese su nombre" className={styles.input} value={formData.nombre} onChange={handleInputChange} required/>
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Apellido </label>
-              <input type="text" placeholder="Ingrese su apellido" className={styles.input} value={formData.apellido} onChange={handleInputChangue} />
+              <input type="text" name="apellido" placeholder="Ingrese su apellido" className={styles.input} value={formData.apellido} onChange={handleInputChange} required/>
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Email </label>
-              <input type="email" placeholder="Ingrese su correo" className={styles.input} value={formData.correo} onChange={handleInputChangue} />
+              <input type="email" name="correo" placeholder="Ingrese su correo" className={styles.input} value={formData.correo} onChange={handleInputChange} />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Confirmar Email </label>
-              <input type="email" placeholder="Ingrese su email" className={styles.input} />
+              <input type="email" name="confirmEmail" placeholder="Ingrese su email" className={styles.input} value={confirmarCorreo} onChange={(e) => setConfirmarCorreo(e.target.value)} />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Telefono </label>
               <div className={styles.containerPhone}>
-                <select name="codPais" id="CodPais" className={styles.select} value={formData.codPais} onChange={handleInputChangue}>
-                  <option value="57" className={styles.option}>
+                <select select name="codPais" id="CodPais" className={styles.select} value={formData.codPais} onChange={handleInputChange}>
+                  <option value="57" name="codPais" className={styles.option}>
                     57
                   </option>
                 </select>
-                <input type="number" placeholder="Ingrese su telefono" className={styles.input} value={formData.telefono} onChange={handleInputChangue} />
+                <input type="number" name="telefono" placeholder="Ingrese su telefono" className={styles.input} value={formData.telefono} onChange={handleInputChange} required />
               </div>
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Password </label>
-              <input type="password" placeholder="Ingrese su password" className={styles.input} value={formData.password} onChange={handleInputChangue} />
+              <input type="password" name="password" placeholder="Ingrese su password" className={styles.input} value={formData.password} onChange={handleInputChange} />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Confirmar Password </label>
-              <input type="password" placeholder="Ingrese su password" className={styles.input} />
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Ingrese su password"
+                className={styles.input}
+                value={confirmarContrasena}
+                onChange={(e) => setConfirmarContrasena(e.target.value)}
+              />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Tipo de rol </label>
-              <select name="tipoRol" id="tipoRol" className={styles.select} value={formData.tipoRol} onChange={handleInputChangue}>
-                {tiposRoles.map((tipo) => (
-                  <option key={tipo.id} value={tipo.id} className={styles.option}>
-                    {tipo.nombreRol}
-                  </option>
-                ))}
+              <select select name="tipoRol" id="tipoRol" className={styles.select} value={formData.tipoRol} onChange={handleInputChange}>
+                {Array.isArray(tiposRoles) &&
+                  tiposRoles.map((tipo) => (
+                    <option key={tipo.id} value={tipo.id} className={styles.option}>
+                      {tipo.nombreRol}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className={styles.inputbox}>
               <div className={styles.containerButton}>
                 <input type="submit" value="Registrar" className={styles.input} />
-                <input type="reset" value="Cancelar" className={styles.input} />
+                <input type="button" value="Cancelar" className={styles.input} onClick={handleCancelar}/>
               </div>
             </div>
           </div>

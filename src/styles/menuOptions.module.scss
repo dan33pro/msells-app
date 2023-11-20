@@ -1,0 +1,53 @@
+@import 'vars';
+
+.titulo {
+  color: #0a54e7;
+  padding-left: 5px;
+}
+
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  width: 80vw;
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    --webkit-appearance: none;
+  }
+  &::-webkit-scrollbar:vertical {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar:horizontal {
+    height: 10px;
+  }
+  &::-webkit-scrollbar-button:increment,
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--blue-color);
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  .diseño1 {
+    display: flex;
+    width: 341px;
+    padding: 6px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    .negrilla{
+        font-weight: bold;
+    }
+  }
+}

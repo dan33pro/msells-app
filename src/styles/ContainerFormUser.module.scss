@@ -8,10 +8,11 @@
   margin: 0;
   align-items: center;
   width: 100vw;
+  height: 100vh;
 
   .containerUser {
     max-width: 900px;
-    width: 100%;
+    width: 100vw;
     height: auto;
     padding: 25px 30px;
     justify-content: center;
@@ -91,6 +92,8 @@
     }
   }
 }
+
+
 
 @media (max-width: 912px) {
   .containerPrinciple {

@@ -11,7 +11,7 @@
 
     .containerUser {
         max-width: 900px;
-        width: 100%;
+        width: 100vw;
         height: auto;
         padding: 25px 30px;
         justify-content: center;
@@ -93,6 +93,7 @@
                     .containerButton {
                         display: flex;
                         height: auto;
+                        margin-bottom: 15px;
                         justify-content: center;
                         width: 100%;
                         margin-top: 60px;

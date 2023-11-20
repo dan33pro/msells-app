@@ -31,9 +31,9 @@ export default function Login() {
         <form className={styles.formulariologin} onSubmit={handleLogin}>
           <h2 className={styles.h2title}>Inicio Sesion</h2>
           <label className={styles.label}>Correo</label>
-          <input type="email" value={formData.email} name="correo" id="correo" className={styles.input} placeholder="ingrese su correo" onChange={handleInputChangue} />
+          <input type="email" value={formData.email} name="email"  className={styles.input} placeholder="ingrese su correo" onChange={handleInputChangue} />
           <label className={styles.label}>Password </label>
-          <input type="password" value={formData.password} name="password" id="password" className={styles.input} placeholder="ingrese su password" onChange={handleInputChangue} />
+          <input type="password" value={formData.password} name="password"  className={styles.input} placeholder="ingrese su password" onChange={handleInputChangue} />
           <section className={styles.containerButton}>
             <input type="submit" value="Iniciar Sesion" className={styles.input} />
           </section>
