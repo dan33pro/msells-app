@@ -9,7 +9,7 @@ const ContentPane = (props) => {
   return (
     <div className={styles.ContentPane}>
       <div className={styles.filtros}>
-        {filtros.map((filtro) => (
+        {filtros != null && filtros?.length != 0 && filtros.map((filtro) => (
           <div className={styles['container-filtro']}>
             <label htmlFor={filtro.id}>{filtro.description}</label>
             <select name={filtro.description} id={filtro.id}>

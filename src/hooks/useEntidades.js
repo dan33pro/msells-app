@@ -68,6 +68,12 @@ class View {
     }
   }
 
+  removeContent() {
+    if (this.content.length != 0) {
+      this.content = [];
+    }
+  }
+
   set setStateView(newState) {
     this.stateView = newState;
   }
