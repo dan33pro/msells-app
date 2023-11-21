@@ -4,22 +4,26 @@ import productService from '@services/api/productService';
 
 const useProduct = () => {
 
-  const obtenerCardProductDetail = async (detallePedido) => {
-    let myProduct = await consultarProducto(detallePedido.id_producto);
-    if(myProduct) {
-      let imgBase64IS = myProduct.imagen.toString();
+  const obtenerCardsProductsDetail = async (detallesPedido) => {
+    let result = [];
+    for(let i = 0; i < detallesPedido.length; i++) {
+      let detallePedido = detallesPedido[i];
+      let myProduct = await consultarProducto(detallePedido.id_producto);
 
-      let productCard = new CardProduct({
-        nameProduct: myProduct.nombre,
-        description: `Cantidad: ${detallePedido.cantidad} - Precio Unitario: $${(detallePedido.total / detallePedido.cantidad)} - Precio Total: $${detallePedido.total}`,
-        caracteristics: [`ID: ${myProduct.id_producto}`, `TIPO: ${myProduct.id_tipo_producto}`, `Empresa: ${myProduct.empresa}`],
-        img: imgBase64IS,
-      });
+      if(myProduct) {
+        let imgBase64IS = Buffer.from(myProduct.imagen.data).toString();
 
-      return productCard;
+        let productCard = new CardProduct({
+          nameProduct: myProduct.nombre,
+          description: `Cantidad: ${detallePedido.cantidad} - Precio Unitario: $${(detallePedido.total / detallePedido.cantidad)} - Precio Total: $${detallePedido.total}`,
+          caracteristics: [`ID: ${myProduct.id_producto}`, `TIPO: ${myProduct.id_tipo_producto}`, `Empresa: ${myProduct.empresa}`],
+          img: imgBase64IS,
+        });
+
+        result[i] = productCard;
+      }
     }
-
-    return null;
+    return result;
   };
 
   const consultarProducto = async (idProducto) => {
@@ -34,7 +38,7 @@ const useProduct = () => {
   };
 
   return {
-    obtenerCardProductDetail,
+    obtenerCardsProductsDetail,
     consultarProducto,
   };
 };

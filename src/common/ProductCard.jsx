@@ -15,7 +15,7 @@ const ProductCard = (props) => {
         </div>
       </div>
       <div className={styles['container-img']}>
-        <Image src={img} alt />
+        <Image width={80} height={80} src={img} alt />
       </div>
     </div>
   );

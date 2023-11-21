@@ -34,11 +34,15 @@ const productService = {
 
   obtenerProducto: async (idProducto) => {
     let { token } = userStorage.getUserData();
-    if (token) {
-      token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMDUkM0JrbFU3UDZ1WTRCOTZFdVVuSFZBdVNMeEVmRi9kVVV2cVpzalZXcDFNWnhHcC9FVWZtdE8iLCJpYXQiOjE3MDA1MjcyNzJ9.D20gvlp9waSuPVja-AvT8SQjfI58-ZZ5LpeFCeLyJOs';
+    if ( !token ) {
+      token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoyLCJ1c2VyUGFzc3dvcmQiOiIkMmIkMDUkaFRSY0MyT1l2ZC5IUVo1akF0NlhZdUtQZjNDZnI3R3lNUXVRLnNVRHMzaUkwbG5TeXhObnEiLCJpYXQiOjE3MDA1MjkzNTd9.Pz7-2XxL9d85PdD9Eeea6am8YF-pOOSwORy6yWWomP8';
     }
     try {
-      const response = await axios.get(`${API_URL}/api/product/${idProducto}/`);
+      const response = await axios.get(`${API_URL}/api/product/${idProducto}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.status === 200) {
         const data = response.data;
         return {

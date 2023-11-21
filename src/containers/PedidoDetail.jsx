@@ -22,9 +22,8 @@ const PedidoDetail = () => {
     const myOrderer = useOrders();
     const myProducter = useProduct();
 
-    const updateProducts = (cardProduct) => {
-        products.push(cardProduct);
-        setProducts(products);
+    const updateProducts = (cardsProduct) => {
+        setProducts(cardsProduct);
     };
 
     const restartProducts = () => {
@@ -47,10 +46,8 @@ const PedidoDetail = () => {
                         if (products.length != 0) {
                             restartProducts();
                         }
-                        await orderDetails.forEach(async (orderDetail) => {
-                            let myCard = await myProducter.obtenerCardProductDetail(orderDetail)
-                            if (myCard) updateProducts(myCard);
-                        });
+                        let myCards = await myProducter.obtenerCardsProductsDetail(orderDetails);
+                        updateProducts(myCards);
                     }
                 }
             }
