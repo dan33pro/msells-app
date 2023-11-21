@@ -6,6 +6,7 @@ const CardDetail = (props) => {
   const {
     changeCurrentRuta,
     changeCurrentCliente,
+    changeCurrentPedido,
     toggleConsultarRutas,
     toggleConsultarPedidos,
     toggleviewConsultarClientes,
@@ -39,9 +40,10 @@ const CardDetail = (props) => {
           fullName: title,
           mail: contactInfo[0],
           phone: contactInfo[1],
-          cedulaCliente: infoClient[0],
-          address: infoClient[1],
+          idCliente: infoClient[1],
+          address: infoClient[3],
         });
+        changeCurrentPedido(infoClient[0]);
         togglePedidoDetail(true);
         break;
     }
