@@ -28,13 +28,15 @@ const useOrders = () => {
   const updateViewConsultarPedidos = (clients) => {
     state.viewConsultarPedidos.removeContent();
     clients.forEach((client) => {
-      let card = new Card({
-        title: client.nombres + ' ' + client.apellidos,
-        description: `Puede contactar al cliente a través de: Correo: ${client.correo} - Número: +${client.codPais} ${client.numeroCelular}`,
-        caracteristics: [`ID-Pedido: ${client.id_pedido}`, `ID-Cliente: ${client.id_cliente}`, `ID-Ruta: ${client.id_ruta}`, `Dirección: ${client.direccion}`],
-      });
-      card.addButtons([btnWatchPedido]);
-      state.viewConsultarPedidos.addContent(card);
+      if(client) {
+        let card = new Card({
+          title: client.nombres + ' ' + client.apellidos,
+          description: `Puede contactar al cliente a través de: Correo: ${client.correo} - Número: +${client.codPais} ${client.numeroCelular}`,
+          caracteristics: [`ID-Pedido: ${client.id_pedido}`, `ID-Cliente: ${client.id_cliente}`, `ID-Ruta: ${client.id_ruta}`, `Dirección: ${client.direccion}`],
+        });
+        card.addButtons([btnWatchPedido]);
+        state.viewConsultarPedidos.addContent(card);
+      }
     });
 
     changeState(state);
@@ -58,10 +60,12 @@ const useOrders = () => {
       let orders = await orderService.obtenerPedidos();
       if (orders.success) {
         let clientesConPedido = orders.data.body.map((order) => {
-          return {
-            ...clientes.data.body.find((cliente) => cliente.id_cliente == order.id_cliente),
-            id_pedido: order.id_pedido,
-          };
+          if(clientes.data.body.some((cliente) => cliente.id_cliente == order.id_cliente)) {
+            return {
+              ...clientes.data.body.find((cliente) => cliente.id_cliente == order.id_cliente),
+              id_pedido: order.id_pedido,
+            };
+          }
         });
         updateViewConsultarPedidos(clientesConPedido);
       }
@@ -79,10 +83,12 @@ const useOrders = () => {
       let orders = await orderService.obtenerPedidosPorAtributo({ key: 'id_estado', value: '1'});
       if(orders.success) {
         let clientesConPedido = orders.data.body.map((order) => {
-          return {
-            ...clientes.data.body.find((cliente) => cliente.id_cliente == order.id_cliente),
-            id_pedido: order.id_pedido,
-          };
+          if(clientes.data.body.some((cliente) => cliente.id_cliente == order.id_cliente)) {
+            return {
+              ...clientes.data.body.find((cliente) => cliente.id_cliente == order.id_cliente),
+              id_pedido: order.id_pedido,
+            };
+          }
         });
         updateViewConsultarPedidos(clientesConPedido);
       }
