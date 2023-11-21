@@ -19,6 +19,19 @@ export default function RegistroProducto() {
   });
 
   useEffect(() => {
+    const obtenerTipoProducto = async () => {
+      try {
+        const tipos = await productService.obtenerTipoProducto();
+        setTiposProducto(tipos.data);
+      } catch (error) {
+        console.error('Error al obtener tipos de productos: ', error);
+      }
+    };
+
+    obtenerTipoProducto();
+  }, []);
+
+  useEffect(() => {
     const userDataString = userStorage.getUserData();
 
     if (userDataString && userDataString.id_usuario) {
@@ -54,7 +67,7 @@ export default function RegistroProducto() {
   };
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.type.startWith('image/')) {
+    if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Img = reader.result;
@@ -71,18 +84,7 @@ export default function RegistroProducto() {
 
   const [tiposProducto, setTiposProducto] = useState([]);
 
-  useEffect(() => {
-    const obtenerTipoProducto = async () => {
-      try {
-        const tipos = await productService.obtenerTipoProducto();
-        setTiposProducto(tipos.data);
-      } catch (error) {
-        console.error('Error al obtener tipos de productos: ', error);
-      }
-    };
-
-    obtenerTipoProducto();
-  }, []);
+  
 
 
   const handleCancelar = () => {
@@ -109,7 +111,7 @@ export default function RegistroProducto() {
               <input
                 type="text"
                 name = "nombre"
-                placeholder="ingrese el precio"
+                placeholder="ingrese el nombre del producto"
                 className={styles.input}
                 value={formData.nombre}
                 onChange={handleInputChangue}
@@ -124,18 +126,18 @@ export default function RegistroProducto() {
                 id="empresa"
                 placeholder="ingrese el nombre de la empresa"
                 className={styles.input}
-                value={formData.nombreProducto}
+                value={formData.empresa}
                 onChange={handleInputChangue}
                 required
               />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Tipo de producto </label>
-              <select name="id_tipo_producto" className={styles.select} value={formData.tipoProducto} onChange={handleInputChangue} required>
+              <select name="id_tipo_producto" className={styles.select} value={formData.id_tipo_producto} onChange={handleInputChangue} required>
                 {Array.isArray(tiposProducto) &&
                   tiposProducto.map((tipo) => (
-                    <option key={tipo.id} value={tipo.id} className={styles.option}>
-                      {tipo.nombreTipoProducto}
+                    <option key={tipo.id_tipo_producto} value={tipo.id_tipo_producto} className={styles.option}>
+                      {tipo.detalle}
                     </option>
                   ))}
               </select>
