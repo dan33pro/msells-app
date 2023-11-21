@@ -91,6 +91,7 @@ const initialState = {
 
   elements: {
     ruta: null,
+    pedido: null,
     client: null,
   },
   user: 'Daniel Cespedes',
@@ -169,6 +170,13 @@ const useInitialState = () => {
     });
   };
 
+  const changeCurrentPedido = (idPedido) => {
+    state.elements.pedido = idPedido;
+    setState({
+      ...state,
+    });
+  };
+
   return {
     state,
     toggleMenuDesktop,
@@ -181,6 +189,7 @@ const useInitialState = () => {
     toggleviewConsultarProductos,
     changeCurrentRuta,
     changeCurrentCliente,
+    changeCurrentPedido,
   };
 };
 

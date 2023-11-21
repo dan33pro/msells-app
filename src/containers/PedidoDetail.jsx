@@ -2,7 +2,11 @@ import styles from '@styles/PedidoDetail.module.scss';
 import Image from 'next/image';
 
 import AppContext from '@context/AppContext';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
+
+import useOrders from '@hooks/useOrders';
+import { format } from 'date-fns';
+import es from 'date-fns/locale/es';
 
 import closeIcon from '@icons/close_icon.svg';
 import ContentPane from './ContentPane';
@@ -23,10 +27,27 @@ for (let i = 0; i < 5; i++) {
 
 const PedidoDetail = () => {
     const {state, togglePedidoDetail} = useContext(AppContext);
+    const [myOrder, setMyOrder] = useState({});
+    const myOrderer = useOrders();
+
+    const changeMyOrdre = (newOrder) => {
+        setMyOrder(newOrder);
+    };
+
+    useEffect(() => {
+        (async () => {
+            if (state.elements.pedido && !isNaN(state.elements.pedido)) {
+                let order = await myOrderer.consultarPedido(parseInt(state.elements.pedido));
+                if(order) {
+                    changeMyOrdre(order);
+                }
+            }
+        })();
+    }, [(state?.elements?.pedido)]);
 
     const closeView = () => {
         togglePedidoDetail(false);
-    }
+    };
 
     return (
         <aside className={styles.PedidoDetail}>
@@ -39,7 +60,7 @@ const PedidoDetail = () => {
             <header className={styles['info-client']}>
                 <div className={styles.firstColumn}>
                     <p>
-                        <span className={styles.bold}>ID: #Pedido</span>
+                        <span className={styles.bold}>ID_Pedido: {state?.elements?.pedido}</span>
                     </p>
                     <p>
                         <span className={styles.bold}>{state?.elements?.client?.fullName}</span>
@@ -47,8 +68,8 @@ const PedidoDetail = () => {
                 </div>
                 <div className={styles.middleColumn}>
                     <p>
-                        <span className={styles.bold}>CC: </span>
-                        <span>{state?.elements?.client?.cedulaCliente}</span>
+                        <span className={styles.bold}>ID-Cliente: </span>
+                        <span>{state?.elements?.client?.idCliente}</span>
                     </p>
                     <p>
                         <span className={styles.bold}>Dirección: </span>
@@ -72,16 +93,16 @@ const PedidoDetail = () => {
                 <div className={styles.middleColumn}>
                     <p>
                         <span className={styles.bold}>Estado: </span>
-                        <span>No entregado</span>
+                        <span>{myOrder?.id_estado == 1 ? 'No entregado' : myOrder?.id_estado == 2 ? 'Entregado' : 'Devuelto'}</span>
                     </p>
                     <p>
                         <span className={styles.bold}>Fecha de Preventa: </span>
-                        <span>10/10/23</span>
+                        <span>{myOrder?.fecha && format(new Date(myOrder.fecha), 'dd/MM/yyyy hh:mm a', { locale: es })}</span>
                     </p>
                 </div>
                 <p className={styles.totalPedido}>
                     <span className={styles.bold}>Total: </span>
-                    <span>$80000</span>
+                    <span>${myOrder?.total}</span>
                 </p>
             </bottom>
         </aside>

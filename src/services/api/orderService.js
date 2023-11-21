@@ -3,12 +3,12 @@ import userStorage from './userStorage';
 
 const API_URL = 'http://34.16.138.227:3103';
 
-const clientService = {
-  registrarCliente: async (clientData) => {
+const orderService = {
+  registrarPedido: async (orderData) => {
     const { token } = userStorage.getUserData();
 
     try {
-      const response = await axios.post(`${API_URL}/api/client`, clientData, {
+      const response = await axios.post(`${API_URL}/api/order`, orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -19,7 +19,7 @@ const clientService = {
           data: response.data,
         };
       } else {
-        console.error('error al registrar el cliente: ');
+        console.error('error al registrar el pedido: ');
       }
     } catch (error) {
       console.error('Error acceso a los datos', error);
@@ -33,10 +33,10 @@ const clientService = {
     }
   },
 
-  editarCliente: async (clientData) => {
+  editarPedido: async (orderData) => {
     const { token } = userStorage.getUserData();
     try {
-      const response = await axios.put(`${API_URL}/api/client`, clientData, {
+      const response = await axios.put(`${API_URL}/api/order`, orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,10 +47,10 @@ const clientService = {
           data: response.data,
         };
       } else {
-        console.error('Error al editar el cliente', response.status, response.data);
+        console.error('Error al editar el pedido', response.status, response.data);
       }
     } catch (error) {
-      console.error('Error al editar el cliente', error);
+      console.error('Error al editar el pedido', error);
 
       return {
         success: false,
@@ -61,10 +61,11 @@ const clientService = {
     }
   },
 
-  obtenerClientes: async () => {
+  obtenerPedidos: async () => {
     let { token } = userStorage.getUserData();
+
     try {
-      const response = await axios.get(`${API_URL}/api/client`, {
+      const response = await axios.get(`${API_URL}/api/order`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -76,7 +77,7 @@ const clientService = {
           data,
         };
       } else {
-        console.error('Error al obtener la informacion de los clientes');
+        console.error('Error al obtener la informacion de los pedidos');
       }
     } catch (error) {
       console.error('Error en la respuesta', error);
@@ -89,10 +90,13 @@ const clientService = {
     }
   },
 
-  obtenerCliente: async (idClient) => {
-    const { token } = userStorage.getUserData();
+  obtenerPedido: async (idPedido) => {
+    let { token } = userStorage.getUserData();
+    if ( !token ) {
+      token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxOSwidXNlclBhc3N3b3JkIjoiJDJiJDA1JFAxY3dDbkcvTkN1R1FPRFlDRkF1RS56UVFOU3pnTWdmTGJjbWNRaE1OQm9NeU5waDIxdlRHIiwiaWF0IjoxNzAwMzQ4NjM3fQ.5_l8L8cUeVJitQsIeI8hVdH2MQEvGD7mb9EFFzYaDMQ';
+    }
     try {
-      const response = await axios.get(`${API_URL}/api/client/${idClient}/`, {
+      const response = await axios.get(`${API_URL}/api/order/${idPedido}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -104,7 +108,7 @@ const clientService = {
           data,
         };
       } else {
-        console.error('Error al obtener la informacion del cliente');
+        console.error('Error al obtener la informacion del pedido');
       }
     } catch (error) {
       console.error('Error en la respuesta', error);
@@ -117,14 +121,14 @@ const clientService = {
     }
   },
 
-  obtenerClientesPorAtributo: async (query) => {
+  obtenerPedidosPorAtributo: async (query) => {
     const { key, value } = query;
     let { token } = userStorage.getUserData();
     if ( !token ) {
       token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxOSwidXNlclBhc3N3b3JkIjoiJDJiJDA1JFAxY3dDbkcvTkN1R1FPRFlDRkF1RS56UVFOU3pnTWdmTGJjbWNRaE1OQm9NeU5waDIxdlRHIiwiaWF0IjoxNzAwMzQ4NjM3fQ.5_l8L8cUeVJitQsIeI8hVdH2MQEvGD7mb9EFFzYaDMQ';
     }
     try {
-      const response = await axios.get(`${API_URL}/api/client/${key}/${value}/`, {
+      const response = await axios.get(`${API_URL}/api/order/${key}/${value}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -136,7 +140,7 @@ const clientService = {
           data,
         };
       } else {
-        console.error('Error al obtener la informacion de los clientes');
+        console.error('Error al obtener la informacion de los pedidos');
       }
     } catch (error) {
       console.error('Error en la respuesta', error);
@@ -149,10 +153,10 @@ const clientService = {
     }
   },
 
-  deleteClient: async (idClient) => {
+  deletePedido: async (idOrder) => {
     const { token } = userStorage.getUserData();
     try {
-      const response = await axios.delete(`${API_URL}/api/client/${idClient}/`, {
+      const response = await axios.delete(`${API_URL}/api/order/${idOrder}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -164,7 +168,7 @@ const clientService = {
           data,
         };
       } else {
-        console.error('Error al eliminar el cliente');
+        console.error('Error al eliminar el pedido');
       }
     } catch (error) {
       console.error('Error al eliminar', error);
@@ -177,28 +181,6 @@ const clientService = {
     }
   },
 
-  obtenerRutas: async () => {
-    try {
-      const response = await axios.get(`${API_URL}/api/routes`);
-      if (response === 200) {
-        const data = response.data;
-        return {
-          success: true,
-          data,
-        };
-      } else {
-        console.error('Error al obtener las rutas');
-      }
-    } catch (error) {
-      console.error('error en la solicitud');
-      return {
-        success: false,
-        message: error.message,
-        status: error.status,
-        data: error.response?.data,
-      };
-    }
-  },
 };
 
-export default clientService;
+export default orderService;
