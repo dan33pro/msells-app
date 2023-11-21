@@ -1,0 +1,56 @@
+.CardDetail {
+  max-width: 420px;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 15px;
+  background: #0A54E7;
+  padding: 15px 30px;
+  border-radius: 8px;
+}
+.CardDetail .title {
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 16px;
+}
+.CardDetail .description {
+  margin: 0;
+  font-size: 14px;
+  text-align: justify;
+}
+.CardDetail .caracteristics {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.CardDetail .caracteristics span {
+  font-weight: bold;
+}
+.CardDetail .container-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.CardDetail .container-btns .btn {
+  padding: 6px 20px;
+  border-radius: 16px;
+  border: 1px solid #FFFFFF;
+  cursor: pointer;
+}
+.CardDetail .container-btns .primary {
+  background: #FFFFFF;
+  color: #000000;
+}
+.CardDetail .container-btns .secondary {
+  background: #0A54E7;
+  color: #FFFFFF;
+}/*# sourceMappingURL=CardDetail.module.css.map */

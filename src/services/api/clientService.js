@@ -13,7 +13,7 @@ const clientService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response === 200) {
+      if (response.status === 201) {
         return {
           success: true,
           data: response.data,

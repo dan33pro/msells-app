@@ -1,0 +1,14 @@
+.Layout {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 84, 231, 0.3490196078);
+  width: calc(100vw - 70px);
+  height: calc(100vh - 70px);
+}
+
+@media (max-width: 650px) {
+  .Layout {
+    width: 100vw;
+  }
+}/*# sourceMappingURL=Layout.module.css.map */

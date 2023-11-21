@@ -8,12 +8,12 @@ import loginService from '@services/api/loginService';
 
 export default function Login() {
   const { state } = useContext(AppContext);
-  const [formData, setFormData] = useState({email: '', password: ''});
+  const [formData, setFormData] = useState({correo: '', userPassword: ''});
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await loginService(formData.email, formData.password);
+      await loginService(formData.correo, formData.userPassword);
     } catch (error) {
       console.error('error al iniciar sesion', error);
     }
@@ -31,9 +31,9 @@ export default function Login() {
         <form className={styles.formulariologin} onSubmit={handleLogin}>
           <h2 className={styles.h2title}>Inicio Sesion</h2>
           <label className={styles.label}>Correo</label>
-          <input type="email" value={formData.email} name="email"  className={styles.input} placeholder="ingrese su correo" onChange={handleInputChangue} />
+          <input type="email" value={formData.correo} name="correo"  className={styles.input} placeholder="ingrese su correo" onChange={handleInputChangue} />
           <label className={styles.label}>Password </label>
-          <input type="password" value={formData.password} name="password"  className={styles.input} placeholder="ingrese su password" onChange={handleInputChangue} />
+          <input type="password" value={formData.userPassword} name="userPassword"  className={styles.input} placeholder="ingrese su password" onChange={handleInputChangue} />
           <section className={styles.containerButton}>
             <input type="submit" value="Iniciar Sesion" className={styles.input} />
           </section>

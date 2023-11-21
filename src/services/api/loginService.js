@@ -1,35 +1,33 @@
 import axios from 'axios';
-import UserStorage from './userStorage'; 
+import UserStorage from './userStorage';
 
-
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://34.16.138.227:3102';
 
 const loginService = async (email, password) => {
   try {
-    const response = await axios.post(`${API_URL}/api/auth/login`, { email, password });
+    const response = await axios.post(`${API_URL}/api/auth/login`, { correo: email, userPassword: password });
 
-    if (response === 200) {
+    if (response.status === 200) {
       const { token, id_rol } = response.data.body;
 
-      
-      UserStorage.saveToken(token); 
+      UserStorage.saveToken(token);
 
-      const datosUsuario = await consultarUsuarioPorCorreo(email); 
-      if(datosUsuario){
-        UserStorage.saveidUser(datosUsuario.idUsuario); 
-        UserStorage.saveNombre(datosUsuario.nombres); 
-        UserStorage.saveApellido(datosUsuario.apellidos); 
-        UserStorage.saveCorreo(datosUsuario.correo); 
-        UserStorage.saveTelefono(datosUsuario.telefono); 
-        UserStorage.saveRol(datosUsuario.id_rol); 
+      const datosUsuario = await consultarUsuarioPorCorreo(email);
+      if (datosUsuario) {
+        
+        UserStorage.saveidUser(datosUsuario.id_usuario);
+        UserStorage.saveNombre(datosUsuario.nombres);
+        UserStorage.saveApellido(datosUsuario.apellidos);
+        UserStorage.saveCorreo(datosUsuario.correo);
+        UserStorage.saveTelefono(datosUsuario.numeroCelular);
+        UserStorage.saveRol(datosUsuario.id_rol);
       }
-
       if (id_rol === 1) {
-        window.location.href = './indexAdmin.js';
+        window.location.href = './main';
       } else if (id_rol === 2) {
-        window.location.href = './indexVendedor.js';
+        window.location.href = './main';
       } else if (id_rol === 3) {
-        window.location.href = './indexDelivery.js';
+        window.location.href = './main';
       }
       return {
         success: true,
@@ -37,22 +35,15 @@ const loginService = async (email, password) => {
         id_rol,
       };
     } else {
+      alert('no se pudo acceder');
       return {
         success: false,
-        message: response.data.body.error,
+        message: response.data.body.message,
         status: response.status,
       };
     }
   } catch (error) {
     console.error('Error en la solicitud', error);
-
-    if (error.response) {
-      console.error('Error en la respuesta: ', error.response.status, error.response.data);
-    } else if (error.request) {
-      console.error('no se recibio la respuesta del servidor');
-    } else {
-      console.error('Error en la configuracion de la solicitud: ', error.message);
-    }
 
     return {
       success: false,
@@ -63,12 +54,25 @@ const loginService = async (email, password) => {
 
 const consultarUsuarioPorCorreo = async (email) => {
   try {
-    const response = await axios.get(`${API_URL}/api/auth/consultarUsuario`, {
-      params: { email },
-    });
+    const response = await axios.get(`${API_URL}/api/user/correo/${email}`); 
+   
+    if (response.status === 200 && response.data.error === false) {
+      const userDataArray = response.data.body;
+      if (userDataArray.length > 0) {
+        const userData = userDataArray[0];
 
-    if (response === 200) {
-      return response.data.body;
+        return {
+          id_usuario: userData.id_usuario,
+          nombres: userData.nombres,
+          apellidos: userData.apellidos,
+          correo: userData.correo,
+          numeroCelular: userData.numeroCelular,
+          id_rol: userData.id_rol,
+        };
+      }else{
+        console.error('no se encontro un usuario con el correo proporcionado'); 
+        return null; 
+      }
     } else {
       console.error('Error al consultar el usuario', response.status, response.data);
       return null;
@@ -78,6 +82,5 @@ const consultarUsuarioPorCorreo = async (email) => {
     return null;
   }
 };
-
 
 export default loginService;

@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://34.16.138.227:3102';
+const API_ROL = 'http://34.16.138.227:3101';
 
 const usuarioService = {
   registrarUsuario: async (userData) => {
     try {
       const response = await axios.post(`${API_URL}/api/user`, userData);
-      if(response === 200){
+      if(response.status === 201){
       return {
         success: true,
         data: response.data,
@@ -28,7 +29,7 @@ const usuarioService = {
 
   obtenerRol: async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/user/rol`);
+      const response = await axios.get(`${API_ROL}/Roles`);
       if (response.status === 200) {
         const data = response.data;
         return {

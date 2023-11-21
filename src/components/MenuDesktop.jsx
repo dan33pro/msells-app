@@ -12,7 +12,7 @@ const MenuDesktop = () => {
   const cerrarSesion = () => {
 
     userStorage.clearUserData(); 
-    router.push('/login'); 
+    router.push('/'); 
     
   };
 
