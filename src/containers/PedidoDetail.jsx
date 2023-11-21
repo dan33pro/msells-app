@@ -5,30 +5,31 @@ import AppContext from '@context/AppContext';
 import { useContext, useState, useEffect } from 'react';
 
 import useOrders from '@hooks/useOrders';
+import useProduct from '@hooks/useProduct';
+
 import { format } from 'date-fns';
 import es from 'date-fns/locale/es';
 
 import closeIcon from '@icons/close_icon.svg';
 import ContentPane from './ContentPane';
-import {CardProduct} from '@hooks/useEntidades';
-import productImage from '@images/product_image.svg'; 
 
-const productCardForList = new CardProduct({
-    nameProduct: 'Nombre de un producto',
-    description: 'Cantidad: 4 - Precio Unitario: $2000 - Precio total: $8000',
-    caracteristics: ['ID: Producto', 'Tipo/producto ', 'Empresa: Nombre'],
-    img: productImage,
-});
-
-let productsUtil = [];
-for (let i = 0; i < 5; i++) {
-    productsUtil.push(productCardForList);
-}
+import orderDetailService from '@services/api/orderDetailService';
 
 const PedidoDetail = () => {
     const {state, togglePedidoDetail} = useContext(AppContext);
     const [myOrder, setMyOrder] = useState({});
+    const [products, setProducts] = useState([]);
     const myOrderer = useOrders();
+    const myProducter = useProduct();
+
+    const updateProducts = (cardProduct) => {
+        products.push(cardProduct);
+        setProducts(products);
+    };
+
+    const restartProducts = () => {
+        setProducts([]);
+    };
 
     const changeMyOrdre = (newOrder) => {
         setMyOrder(newOrder);
@@ -40,6 +41,17 @@ const PedidoDetail = () => {
                 let order = await myOrderer.consultarPedido(parseInt(state.elements.pedido));
                 if(order) {
                     changeMyOrdre(order);
+                    let orderDetailRes = await orderDetailService.obtenerDetallesPedidosPorAtributo({ key: 'id_pedido', value: parseInt(state.elements.pedido)})
+                    if(orderDetailRes.success) {
+                        let orderDetails = orderDetailRes.data.body;
+                        if (products.length != 0) {
+                            restartProducts();
+                        }
+                        await orderDetails.forEach(async (orderDetail) => {
+                            let myCard = await myProducter.obtenerCardProductDetail(orderDetail)
+                            if (myCard) updateProducts(myCard);
+                        });
+                    }
                 }
             }
         })();
@@ -88,7 +100,7 @@ const PedidoDetail = () => {
                     </p>
                 </div>
             </header>
-            <ContentPane filtros={[]} cardsDetail={productsUtil} cardElement='ProductCard' />
+            <ContentPane filtros={[]} cardsDetail={products} cardElement='ProductCard' />
             <bottom className={styles['info-pedido']}>
                 <div className={styles.middleColumn}>
                     <p>
