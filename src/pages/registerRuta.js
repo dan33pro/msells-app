@@ -1,10 +1,9 @@
 import styles from '@styles/ContainerFormProduct.module.scss';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '@context/AppContext';
-import productService from '@services/api/productService';
 import userStorage from '@services/api/userStorage';
 
-export default function RegistroProducto() {
+export default function RegistroRuta() {
   const { state } = useContext(AppContext);
 
   const [formData, setFormData] = useState({

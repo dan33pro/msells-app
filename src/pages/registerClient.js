@@ -4,7 +4,6 @@ import AppContext from '@context/AppContext';
 import clientService from '@services/api/clientService';
 import userStorage from '@services/api/userStorage';
 
-
 export default function RegistroCliente() {
   const { state } = useContext(AppContext);
 
@@ -12,25 +11,25 @@ export default function RegistroCliente() {
     nombres: '',
     apellidos: '',
     correo: '',
-    codPais: 0,
+    codPais: 57,
     numeroCelular: '',
     direccion: '',
     id_ruta: 0,
     id_usuario: 0,
-    accion: 'insert'
+    accion: 'insert',
   });
 
   useEffect(() => {
     const userDataString = userStorage.getUserData();
 
     if (userDataString && userDataString.id_usuario) {
-      const idAdmin = parseInt(userDataString.id_usuario, 10);
-      if (!isNaN(id_usuario)) {
+      const idVendedor = parseInt(userDataString.id_usuario, 10);
+      if (!isNaN(idVendedor)) {
         setFormData((prevData) => ({
           ...prevData,
-          id_usuario: idAdmin,
+          id_usuario: idVendedor,
         }));
-        console.log('idAdmin: ', idAdmin);
+        console.log('idVendedor: ', idVendedor);
       } else {
         console.error('El id del usuario no es valido. ');
       }
@@ -42,7 +41,16 @@ export default function RegistroCliente() {
   const handleRegistrarCliente = async (e) => {
     e.preventDefault();
     try {
-      await clientService.registrarCliente(formData);
+      const response = await clientService.registrarCliente(formData);
+      console.log(formData)
+      if (response.success) {
+        alert('Cliente registrado exitosamente');
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        alert('Error al registrar el cliente');
+      }
     } catch (error) {
       console.error('error al enviar los datos ', error);
     }
@@ -50,10 +58,18 @@ export default function RegistroCliente() {
 
   const handleInputChangue = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+
+    if (name === 'id_ruta') {
+      setFormData((prevData) => ({
+        ...prevData,
+        id_ruta: parseInt(value, 10),
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
 
   const [rutas, setRutas] = useState([]);
@@ -62,7 +78,11 @@ export default function RegistroCliente() {
     const obtenerRutas = async () => {
       try {
         const ruta = await clientService.obtenerRutas();
-        setRutas(ruta);
+        if (ruta.success) {
+          setRutas(ruta.data.body);
+        } else {
+          console.error('error al obtener la informacion de las rutas');
+        }
       } catch (error) {
         console.error('error al obtener las rutas', error);
       }
@@ -82,46 +102,38 @@ export default function RegistroCliente() {
           <div className={styles.detalleUsuario}>
             <div className={styles.inputbox}>
               <label className={styles.details}>Nombre </label>
-              <input type="text" name="nombres" placeholder="Ingrese su nombre" className={styles.input} value={formData.nombres} onChange={handleInputChangue} required/>
+              <input type="text" name="nombres" placeholder="Ingrese su nombre" className={styles.input} value={formData.nombres} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Email </label>
-              <input type="email" name="correo"  placeholder="Ingrese su correo" className={styles.input} value={formData.correo} onChange={handleInputChangue} required/>
+              <input type="email" name="correo" placeholder="Ingrese su correo" className={styles.input} value={formData.correo} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Apellido </label>
-              <input type="text" name="apellidos" placeholder="Ingrese su apellido" className={styles.input} value={formData.apellidos} onChange={handleInputChangue} required/>
+              <input type="text" name="apellidos" placeholder="Ingrese su apellido" className={styles.input} value={formData.apellidos} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Telefono </label>
               <div className={styles.containerPhone}>
-                <select name="codPais" className={styles.select} value={formData.codPais} onChange={handleInputChangue}>
+                <select name="codPais" className={styles.select} onChange={handleInputChangue}>
                   <option value="+57" className={styles.option}>
                     57
                   </option>
                 </select>
-                <input
-                  type="number"
-                  name="numeroCelular"
-                  placeholder="Ingrese su telefono"
-                  className={styles.input}
-                  value={formData.numeroCelular}
-                  onChange={handleInputChangue}
-                  required
-                />
+                <input type="number" name="numeroCelular" placeholder="Ingrese su telefono" className={styles.input} value={formData.numeroCelular} onChange={handleInputChangue} required />
               </div>
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Direccion </label>
-              <input type="text" name="direccion"  placeholder="Ingrese su direccion" className={styles.input} value={formData.direccion} onChange={handleInputChangue} required/>
+              <input type="text" name="direccion" placeholder="Ingrese su direccion" className={styles.input} value={formData.direccion} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Ruta </label>
-              <select name="id_ruta"  className={styles.select} value={formData.id_ruta} onChange={handleInputChangue} required>
+              <select name="id_ruta" className={styles.select} value={formData.id_ruta} onChange={handleInputChangue} required>
                 {Array.isArray(rutas) &&
                   rutas.map((rut) => (
-                    <option key={rut.id} value={rut.id} className={styles.option}>
-                      {rut.nombreRuta}
+                    <option key={rut.id_ruta} value={rut.id_ruta} className={styles.option}>
+                      {rut.nombre_ruta}
                     </option>
                   ))}
               </select>

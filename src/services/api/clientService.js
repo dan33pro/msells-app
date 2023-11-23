@@ -119,10 +119,7 @@ const clientService = {
 
   obtenerClientesPorAtributo: async (query) => {
     const { key, value } = query;
-    let { token } = userStorage.getUserData();
-    if ( !token ) {
-      token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxOSwidXNlclBhc3N3b3JkIjoiJDJiJDA1JFAxY3dDbkcvTkN1R1FPRFlDRkF1RS56UVFOU3pnTWdmTGJjbWNRaE1OQm9NeU5waDIxdlRHIiwiaWF0IjoxNzAwMzQ4NjM3fQ.5_l8L8cUeVJitQsIeI8hVdH2MQEvGD7mb9EFFzYaDMQ';
-    }
+    const { token } = userStorage.getUserData();
     try {
       const response = await axios.get(`${API_URL}/api/client/${key}/${value}/`, {
         headers: {
@@ -178,9 +175,15 @@ const clientService = {
   },
 
   obtenerRutas: async () => {
+
+    const { token } = userStorage.getUserData();
     try {
-      const response = await axios.get(`${API_URL}/api/routes`);
-      if (response === 200) {
+      const response = await axios.get(`${API_URL}/api/route`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
         const data = response.data;
         return {
           success: true,
