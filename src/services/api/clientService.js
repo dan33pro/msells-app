@@ -173,7 +173,6 @@ const clientService = {
       };
     }
   },
-
   obtenerRutas: async () => {
 
     const { token } = userStorage.getUserData();

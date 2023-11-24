@@ -2,18 +2,17 @@ import styles from '@styles/ContainerFormProduct.module.scss';
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '@context/AppContext';
 import userStorage from '@services/api/userStorage';
+import routeService from '@services/api/routeService';
+import userService from '@services/api/usuarioService';
 
 export default function RegistroRuta() {
   const { state } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
-    nombre: '',
-    descripcion: '',
-    precio: '',
-    empresa: '',
-    id_tipo_producto: 0,
+    nombre_ruta: '',
     id_usuario: 0,
-    imagen: '',
+    id_vendedor: 0,
+    id_entregador: 0,
     accion: 'insert', //se agrega el campo "accion" con el valor "insert"
   });
 
@@ -36,18 +35,18 @@ export default function RegistroRuta() {
     }
   }, []);
 
-  const handleRegistroProducto = async (e) => {
+  const handleRegistroRuta = async (e) => {
     e.preventDefault();
     try {
-      const response = await productService.registrarProducto(formData);
-      console.log(formData)
+      const response = await routeService.registrarRuta(formData);
+      console.log(formData);
       if (response.success) {
-        alert('Producto registrado exitosamente');
+        alert('Ruta registrada exitosamente');
         setTimeout(() => {
           window.location.reload();
         }, 2000);
       } else {
-        alert('Error al registrar el producto');
+        alert('Error al registrar la ruta');
       }
     } catch (error) {
       console.error('error al enviar los datos', error);
@@ -56,10 +55,10 @@ export default function RegistroRuta() {
   const handleInputChangue = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'id_tipo_producto') {
+    if (name === 'id_vendedor' || name === 'id_entregador') {
       setFormData((prevData) => ({
         ...prevData,
-        id_tipo_producto: parseInt(value, 10),
+        [name]: parseInt(value, 10),
       }));
     } else {
       setFormData((prevData) => ({
@@ -68,39 +67,38 @@ export default function RegistroRuta() {
       }));
     }
   };
-  const handleImagenChange = (e) => {
-    const file = e.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64Img = reader.result;
-        setFormData((prevData) => ({
-          ...prevData,
-          imagen: base64Img,
-        }));
-      };
-      reader.readAsDataURL(file);
-    } else {
-      console.error('Por favor, seleccione una imagen valida');
-    }
-  };
-
-  const [tiposProducto, setTiposProducto] = useState([]);
-
+  const [vendedores, setVendedor] = useState([]);
+  const [delivery, setDelivery] = useState([]);
   useEffect(() => {
-    const obtenerTipoProducto = async () => {
+    const obtenerVendedores = async () => {
       try {
-        const tipos = await productService.obtenerTipoProducto();
-        if(tipos.success){
-        setTiposProducto(tipos.data.body);
-        }else{
-          console.error('error al obtener la informacion del tipo de producto'); 
+        const info = await userService.obtenerVendedores();
+        if (info.success) {
+          setVendedor(info.data.body);
+        } else {
+          console.error('error al obtener la informacion del vendedor');
         }
       } catch (error) {
-        console.error('Error al obtener tipos de productos: ', error);
+        console.error('Error al obtener la informacion del vendedor: ', error);
       }
     };
-    obtenerTipoProducto();
+    obtenerVendedores();
+  }, []);
+
+  useEffect(() => {
+    const obtenerDelivery = async () => {
+      try {
+        const info = await userService.obtenerDelivery();
+        if (info.success) {
+          setDelivery(info.data.body);
+        } else {
+          console.error('error al obtener la informacion del delivery');
+        }
+      } catch (error) {
+        console.error('Error al obtener la informacion del delivery: ', error);
+      }
+    };
+    obtenerDelivery();
   }, []);
 
   const handleCancelar = () => {
@@ -110,39 +108,34 @@ export default function RegistroRuta() {
   return (
     <section className={styles.containerPrinciple}>
       <section className={styles.containerUser}>
-        <h2 className={styles.title}>Crear Producto</h2>
-        <form className={styles.formularioUsuario} onSubmit={handleRegistroProducto}>
+        <h2 className={styles.title}>Crear Ruta</h2>
+        <form className={styles.formularioUsuario} onSubmit={handleRegistroRuta}>
           <div className={styles.detalleUsuario}>
             <div className={styles.inputbox}>
-              <label className={styles.details}>Subir Imagen </label>
-              <input type="file" name="imagen" className={styles.input} onChange={handleImagenChange} />
+              <label className={styles.details}>Nombre Ruta: </label>
+              <input type="text" name="nombre_ruta" placeholder="ingrese el nombre de la ruta" className={styles.input} value={formData.nombre_ruta} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
-              <label className={styles.details}>Precio </label>
-              <input type="number" name="precio" placeholder="ingrese el precio" className={styles.input} value={formData.precio} onChange={handleInputChangue} required />
-            </div>
-            <div className={styles.inputbox}>
-              <label className={styles.details}>Nombre </label>
-              <input type="text" name="nombre" placeholder="ingrese el nombre del producto" className={styles.input} value={formData.nombre} onChange={handleInputChangue} required />
-            </div>
-            <div className={styles.inputbox}>
-              <label className={styles.details}>Empresa: </label>
-              <input type="text" name="empresa"  placeholder="ingrese el nombre de la empresa" className={styles.input} value={formData.empresa} onChange={handleInputChangue} required />
-            </div>
-            <div className={styles.inputbox}>
-              <label className={styles.details}>Tipo de producto </label>
-              <select name="id_tipo_producto" className={styles.select} value={formData.id_tipo_producto} onChange={handleInputChangue} required>
-                {Array.isArray(tiposProducto) &&
-                  tiposProducto.map((tipo) => (
-                    <option key={tipo.id_tipo_producto} value={tipo.id_tipo_producto} className={styles.option}>
-                      {tipo.detalle}
+              <label className={styles.details}>Seleccione el vendedor: </label>
+              <select name="id_vendedor" className={styles.select} value={formData.id_vendedor} onChange={handleInputChangue} required>
+                {Array.isArray(vendedores) &&
+                  vendedores.map((vendor) => (
+                    <option key={vendor.id_usuario} value={vendor.id_usuario} className={styles.option}>
+                      {vendor.nombres + ' ' + vendor.apellidos}
                     </option>
                   ))}
               </select>
             </div>
-            <div className={styles.inputboxDescripcion}>
-              <label className={styles.details}> Descripcion </label>
-              <textarea name="descripcion" cols="105" rows="20" className={styles.textarea} value={formData.descripcion} onChange={handleInputChangue} required></textarea>
+             <div className={styles.inputbox}>
+              <label className={styles.details}>Seleccione el Delivery: </label>
+              <select name="id_entregador" className={styles.select} value={formData.id_entregador} onChange={handleInputChangue} required>
+                {Array.isArray(delivery) &&
+                  delivery.map((deliv) => (
+                    <option key={deliv.id_usuario} value={deliv.id_usuario} className={styles.option}>
+                      {deliv.nombres + ' ' + deliv.apellidos}
+                    </option>
+                  ))}
+              </select>
             </div>
             <div className={styles.inputbox}>
               <div className={styles.containerButton}>

@@ -3,6 +3,9 @@ import userStorage from './userStorage';
 
 const API_URL = 'http://34.16.138.227:3103';
 
+
+
+
 const routeService = {
   registrarRuta: async (routeData) => {
     const { token } = userStorage.getUserData();
@@ -12,7 +15,7 @@ const routeService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 201) {
         return {
           success: true,
           data: response.data,
@@ -40,7 +43,7 @@ const routeService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 200) {
         return {
           success: true,
           data: response.data,
@@ -154,7 +157,7 @@ const routeService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 200) {
         const data = response.data;
         return {
           success: true,
@@ -173,6 +176,8 @@ const routeService = {
       };
     }
   },
+ 
+
 };
 
 export default routeService;
