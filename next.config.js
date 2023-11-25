@@ -7,4 +7,7 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = {
+  nextConfig,
+  middlewares: ['_middleware'],
+};
