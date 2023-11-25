@@ -1,7 +1,7 @@
 import axios from 'axios';
 import userStorage from './userStorage';
 
-const API_URL = 'http://34.16.138.227:3103';
+const API_URL = '';
 
 
 
@@ -65,7 +65,7 @@ const routeService = {
 
   obtenerRutas: async () => {
     const { token } = userStorage.getUserData();
-  
+
     try {
       const response = await axios.get(`${API_URL}/api/route`, {
         headers: {

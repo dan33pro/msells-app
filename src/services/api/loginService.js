@@ -1,7 +1,7 @@
 import axios from 'axios';
 import UserStorage from './userStorage';
 
-const API_URL = 'http://34.16.138.227:3102';
+const API_URL = '';
 
 const loginService = async (email, password) => {
   try {
