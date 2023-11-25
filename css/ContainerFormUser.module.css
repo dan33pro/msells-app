@@ -1,0 +1,115 @@
+.containerPrinciple {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.containerPrinciple .containerUser {
+  max-width: 900px;
+  width: 100vw;
+  height: auto;
+  padding: 25px 30px;
+  justify-content: center;
+  background-color: lavender;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+  border: solid 1px #cbc9c9;
+  -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+  -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+  border-radius: 8px/7px;
+  -webkit-border-radius: 8px/7px;
+  -moz-border-radius: 8px/7px;
+}
+.containerPrinciple .containerUser .title {
+  font-size: 2em;
+  color: #0A54E7;
+  margin: 20px 0;
+  font-weight: bold;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario {
+  display: flex;
+  flex-wrap: wrap;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox {
+  width: calc(50% - 20px);
+  padding-right: 5px;
+  padding-bottom: 20px;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .select {
+  width: 100%;
+  height: 45px;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .input {
+  height: 45px;
+  width: 100%;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .details {
+  display: flex;
+  padding-bottom: 10px;
+  color: #000000;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .containerPhone {
+  display: flex;
+  flex-direction: row;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .containerPhone .select {
+  width: 20%;
+  height: 45px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .containerButton {
+  display: flex;
+  height: auto;
+  justify-content: center;
+  width: 100%;
+  margin-top: 60px;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .containerButton .input {
+  margin-right: 10px;
+  border-radius: 30px;
+  background-color: #0A54E7;
+  color: #FFFFFF;
+}
+.containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .containerButton .input[type=submit] {
+  width: 40%;
+}
+
+@media (max-width: 912px) {
+  .containerPrinciple {
+    align-items: start;
+    justify-content: center;
+  }
+  .containerPrinciple .containerUser {
+    max-width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .containerPrinciple .containerUser .title {
+    margin-bottom: 70px;
+  }
+  .containerPrinciple .containerUser .formularioUsuario .detalleUsuario {
+    max-height: 400px;
+    margin-left: 6px;
+  }
+  .containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox {
+    display: block;
+    margin-bottom: 15px;
+    width: 100%;
+  }
+  .containerPrinciple .containerUser .formularioUsuario .detalleUsuario .inputbox .input[type=submit] {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+  }
+}/*# sourceMappingURL=ContainerFormUser.module.css.map */

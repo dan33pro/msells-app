@@ -3,6 +3,9 @@ import userStorage from './userStorage';
 
 const API_URL = 'http://34.16.138.227:3103';
 
+
+
+
 const routeService = {
   registrarRuta: async (routeData) => {
     const { token } = userStorage.getUserData();
@@ -12,7 +15,7 @@ const routeService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 201) {
         return {
           success: true,
           data: response.data,
@@ -40,7 +43,7 @@ const routeService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 200) {
         return {
           success: true,
           data: response.data,
@@ -61,10 +64,8 @@ const routeService = {
   },
 
   obtenerRutas: async () => {
-    let { token } = userStorage.getUserData();
-    if ( !token ) {
-      token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c3VhcmlvIjoxOSwidXNlclBhc3N3b3JkIjoiJDJiJDA1JFAxY3dDbkcvTkN1R1FPRFlDRkF1RS56UVFOU3pnTWdmTGJjbWNRaE1OQm9NeU5waDIxdlRHIiwiaWF0IjoxNzAwMzQ4NjM3fQ.5_l8L8cUeVJitQsIeI8hVdH2MQEvGD7mb9EFFzYaDMQ';
-    }
+    const { token } = userStorage.getUserData();
+  
     try {
       const response = await axios.get(`${API_URL}/api/route`, {
         headers: {
@@ -156,7 +157,7 @@ const routeService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 200) {
         const data = response.data;
         return {
           success: true,
@@ -175,6 +176,8 @@ const routeService = {
       };
     }
   },
+ 
+
 };
 
 export default routeService;

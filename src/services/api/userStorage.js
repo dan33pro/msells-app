@@ -1,3 +1,5 @@
+
+
 class userStorage {
 
 
@@ -10,18 +12,18 @@ class userStorage {
   }
 
   static saveNombre(nombre) {
-    localStorage.setItem('nombre', JSON.stringify(nombre));
+    localStorage.setItem('nombres', JSON.stringify(nombre));
   }
 
   static saveApellido(apellido) {
-    localStorage.setItem('apellido', JSON.stringify(apellido));
+    localStorage.setItem('apellidos', JSON.stringify(apellido));
   }
   static saveCorreo(correo) {
     localStorage.setItem('correo', JSON.stringify(correo));
   }
 
   static saveTelefono(telefono) {
-    localStorage.setItem('telefono', JSON.stringify(telefono));
+    localStorage.setItem('numeroCelular', JSON.stringify(telefono));
   }
 
   static saveRol(id_rol) {
@@ -31,22 +33,22 @@ class userStorage {
   static clearUserData() {
     localStorage.removeItem('token');
     localStorage.removeItem('id_usuario');
-    localStorage.removeItem('nombre');
-    localStorage.removeItem('apellido');
+    localStorage.removeItem('nombres');
+    localStorage.removeItem('apellidos');
     localStorage.removeItem('correo');
-    localStorage.removeItem('telefono');
+    localStorage.removeItem('numeroCelular');
     localStorage.removeItem('id_rol');
   }
 
   static getUserData() {
     return {
-      token: localStorage.getItem('token'),
-      id_usuario: JSON.parse(localStorage.getItem('id_usuario')),
-      nombre: JSON.parse(localStorage.getItem('nombre')),
-      apellido: JSON.parse(localStorage.getItem('apellido')),
+      token: JSON.parse(localStorage.getItem('token')),
+      id_usuario: parseInt(localStorage.getItem('id_usuario')),
+      nombres: JSON.parse(localStorage.getItem('nombres')),
+      apellidos: JSON.parse(localStorage.getItem('apellidos')),
       correo: JSON.parse(localStorage.getItem('correo')),
-      telefono: JSON.parse(localStorage.getItem('telefono')),
-      rol: JSON.parse(localStorage.getItem('id_rol')),
+      numeroCelular: JSON.parse(localStorage.getItem('numeroCelular')),
+      rol: parseInt(localStorage.getItem('id_rol')),
     };
   }
 }

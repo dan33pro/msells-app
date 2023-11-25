@@ -11,7 +11,7 @@ export default function RegistroProducto() {
     nombre: '',
     descripcion: '',
     precio: '',
-    empresa: '', 
+    empresa: '',
     id_tipo_producto: 0,
     id_usuario: 0,
     imagen: '',
@@ -23,7 +23,7 @@ export default function RegistroProducto() {
 
     if (userDataString && userDataString.id_usuario) {
       const idAdmin = parseInt(userDataString.id_usuario, 10);
-      if (!isNaN(id_usuario)) {
+      if (!isNaN(idAdmin)) {
         setFormData((prevData) => ({
           ...prevData,
           id_usuario: idAdmin,
@@ -40,21 +40,38 @@ export default function RegistroProducto() {
   const handleRegistroProducto = async (e) => {
     e.preventDefault();
     try {
-      await productService.registrarProducto(formData);
+      const response = await productService.registrarProducto(formData);
+      console.log(formData)
+      if (response.success) {
+        alert('Producto registrado exitosamente');
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        alert('Error al registrar el producto');
+      }
     } catch (error) {
       console.error('error al enviar los datos', error);
     }
   };
   const handleInputChangue = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+
+    if (name === 'id_tipo_producto') {
+      setFormData((prevData) => ({
+        ...prevData,
+        id_tipo_producto: parseInt(value, 10),
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
   const handleImagenChange = (e) => {
     const file = e.target.files[0];
-    if (file && file.type.startWith('image/')) {
+    if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64Img = reader.result;
@@ -75,20 +92,21 @@ export default function RegistroProducto() {
     const obtenerTipoProducto = async () => {
       try {
         const tipos = await productService.obtenerTipoProducto();
-        setTiposProducto(tipos.data);
+        if(tipos.success){
+        setTiposProducto(tipos.data.body);
+        }else{
+          console.error('error al obtener la informacion del tipo de producto'); 
+        }
       } catch (error) {
         console.error('Error al obtener tipos de productos: ', error);
       }
     };
-
     obtenerTipoProducto();
   }, []);
 
-
   const handleCancelar = () => {
-
-    window.location.reload(); 
-  }
+    window.location.reload();
+  };
 
   return (
     <section className={styles.containerPrinciple}>
@@ -98,51 +116,34 @@ export default function RegistroProducto() {
           <div className={styles.detalleUsuario}>
             <div className={styles.inputbox}>
               <label className={styles.details}>Subir Imagen </label>
-              <input type="file" name="imagen" id="imagen" className={styles.input} onChange={handleImagenChange} />
+              <input type="file" name="imagen" className={styles.input} onChange={handleImagenChange} />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Precio </label>
-              <input type="number" name="precioUnitario" id="precioUnitario" placeholder="ingrese el precio" className={styles.input} value={formData.precio} onChange={handleInputChangue} required />
+              <input type="number" name="precio" placeholder="ingrese el precio" className={styles.input} value={formData.precio} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Nombre </label>
-              <input
-                type="text"
-                name = "nombre"
-                placeholder="ingrese el precio"
-                className={styles.input}
-                value={formData.nombre}
-                onChange={handleInputChangue}
-                required
-              />
+              <input type="text" name="nombre" placeholder="ingrese el nombre del producto" className={styles.input} value={formData.nombre} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Empresa: </label>
-              <input
-                type="text"
-                name="empresa"
-                id="empresa"
-                placeholder="ingrese el nombre de la empresa"
-                className={styles.input}
-                value={formData.nombreProducto}
-                onChange={handleInputChangue}
-                required
-              />
+              <input type="text" name="empresa"  placeholder="ingrese el nombre de la empresa" className={styles.input} value={formData.empresa} onChange={handleInputChangue} required />
             </div>
             <div className={styles.inputbox}>
               <label className={styles.details}>Tipo de producto </label>
-              <select name="id_tipo_producto" className={styles.select} value={formData.tipoProducto} onChange={handleInputChangue} required>
+              <select name="id_tipo_producto" className={styles.select} value={formData.id_tipo_producto} onChange={handleInputChangue} required>
                 {Array.isArray(tiposProducto) &&
                   tiposProducto.map((tipo) => (
-                    <option key={tipo.id} value={tipo.id} className={styles.option}>
-                      {tipo.nombreTipoProducto}
+                    <option key={tipo.id_tipo_producto} value={tipo.id_tipo_producto} className={styles.option}>
+                      {tipo.detalle}
                     </option>
                   ))}
               </select>
             </div>
             <div className={styles.inputboxDescripcion}>
               <label className={styles.details}> Descripcion </label>
-              <textarea name="descripcion" id="descripcion" cols="105" rows="20" className={styles.textarea} value={formData.descripcion} onChange={handleInputChangue} required></textarea>
+              <textarea name="descripcion" cols="105" rows="20" className={styles.textarea} value={formData.descripcion} onChange={handleInputChangue} required></textarea>
             </div>
             <div className={styles.inputbox}>
               <div className={styles.containerButton}>
