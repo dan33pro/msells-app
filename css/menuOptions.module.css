@@ -1,0 +1,63 @@
+@charset "UTF-8";
+.containerPrinciple {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.containerPrinciple .titulo {
+  color: #0a54e7;
+  padding-left: 5px;
+  margin-bottom: 60px;
+}
+.containerPrinciple .contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(314px, 0fr));
+  width: 60vw;
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: ghostwhite;
+  border: 10px solid cornflowerblue;
+  justify-content: center;
+  align-items: center;
+}
+.containerPrinciple .contenedor::-webkit-scrollbar {
+  --webkit-appearance: none;
+}
+.containerPrinciple .contenedor::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+.containerPrinciple .contenedor::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+.containerPrinciple .contenedor::-webkit-scrollbar-button:increment, .containerPrinciple .contenedor::-webkit-scrollbar-button {
+  display: none;
+}
+.containerPrinciple .contenedor::-webkit-scrollbar-thumb {
+  background: #0a54e7;
+  border: 2px solid #ffffff;
+  border-radius: 20px;
+}
+.containerPrinciple .contenedor::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+.containerPrinciple .contenedor .diseño1 {
+  display: flex;
+  width: 341px;
+  padding: 6px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+  margin-bottom: 35px;
+}
+.containerPrinciple .contenedor .diseño1 .negrilla {
+  font-weight: bold;
+  color: #0a54e7;
+}/*# sourceMappingURL=menuOptions.module.css.map */

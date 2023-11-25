@@ -2,7 +2,6 @@ class Button {
   constructor({ description, classN, handler }) {
     this.description = typeof description == 'string' ? description : null;
     this.classN = typeof classN == 'string' ? classN : null;
-    this.handler = typeof handler == 'function' ? handler : null;
   }
 }
 
@@ -25,6 +24,15 @@ class Card {
   }
 }
 
+class CardProduct {
+  constructor({ nameProduct, description, caracteristics, img }) {
+    this.nameProduct = typeof nameProduct == 'string' ? nameProduct : null;
+    this.description = typeof description == 'string' ? description : null;
+    this.caracteristics = Array.isArray(caracteristics) ? caracteristics : null;
+    this.img = img;
+  }
+}
+
 class Filtro {
   constructor({ id, description, values }) {
     this.id = typeof id == 'string' ? id : null;
@@ -34,11 +42,12 @@ class Filtro {
 }
 
 class View {
-  constructor({ title, stateView, entidad, search }) {
+  constructor({ title, stateView, entidad, search, cardElement }) {
     this.title = typeof title == 'string' ? title : null;
     this.stateView = typeof stateView == 'boolean' ? stateView : null;
     this.entidad = typeof entidad == 'string' ? entidad : null;
     this.search = typeof search == 'boolean' ? search : null;
+    this.cardElement = typeof cardElement == 'string' ? cardElement : null;
     this.filtros = [];
     this.content = [];
   }
@@ -54,8 +63,14 @@ class View {
   }
 
   addContent(newContent) {
-    if (newContent instanceof Card) {
+    if (newContent instanceof Card || newContent instanceof CardProduct) {
       this.content.push(newContent);
+    }
+  }
+
+  removeContent() {
+    if (this.content.length != 0) {
+      this.content = [];
     }
   }
 
@@ -64,4 +79,4 @@ class View {
   }
 }
 
-export {View, Filtro, Card, Button};
+export {View, Filtro, Card, CardProduct, Button};

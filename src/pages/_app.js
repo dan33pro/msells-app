@@ -1,10 +1,8 @@
 import AppContext from '@context/AppContext';
 import useInitialState from '@hooks/useInitialState';
-import Header from '@components/Header';
 import Script from 'next/script';
 
 import '@styles/globals.scss';
-import NavOptions from '@components/NavOptions';
 
 export default function App({ Component, pageProps }) {
   const initialState = useInitialState();
@@ -20,8 +18,6 @@ export default function App({ Component, pageProps }) {
           gtag('config', 'G-C689L541VP');
         `}
       </Script>
-      <Header />
-      <NavOptions />
       <Component {...pageProps} />
     </AppContext.Provider>
   );
