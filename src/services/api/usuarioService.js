@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_URL = '';
-const API_ROL = '';
+const API_URL = 'http://34.16.138.227:3102';
+const API_ROL = 'http://34.16.138.227:3101';
 
 const usuarioService = {
   registrarUsuario: async (userData) => {
