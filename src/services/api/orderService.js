@@ -1,7 +1,7 @@
 import axios from 'axios';
 import userStorage from './userStorage';
 
-const API_URL = 'http://34.16.138.227:3103';
+const API_URL = '';
 
 const orderService = {
   registrarPedido: async (orderData) => {

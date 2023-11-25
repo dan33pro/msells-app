@@ -2,9 +2,9 @@
     "configurations": [
         {
             "type": "msedge",
-            "name": "http://localhost:3000/main",
+            "name": "http://localhost:3000/",
             "request": "launch",
-            "url": "http://localhost:3000/main"
+            "url": "http://localhost:3000/"
         }
     ]
 }
