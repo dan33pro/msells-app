@@ -14,7 +14,7 @@ const loginService = async (email, password) => {
 
       const datosUsuario = await consultarUsuarioPorCorreo(email);
       if (datosUsuario) {
-        
+
         UserStorage.saveidUser(datosUsuario.id_usuario);
         UserStorage.saveNombre(datosUsuario.nombres);
         UserStorage.saveApellido(datosUsuario.apellidos);
