@@ -32,7 +32,7 @@ const Header = () => {
         </div>
         <ul className={styles.menu} onClick={handleToggleD} onKeyDown={handleToggleD}>
           <li className={styles['option-menu']}>
-            <span>{state.user}</span>
+            <span>{state.user} - Rol: {state.idRol == 1 ? 'Administrador' : state.idRol == 2 ? 'Vendedor' : state.idRol == 3 ? 'Entregador' : ''}</span>
           </li>
           <li className={styles['option-menu']}>
             <Image src={iconPerson} alt="" />

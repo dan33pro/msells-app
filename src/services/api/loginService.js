@@ -27,6 +27,7 @@ const loginService = async (email, password) => {
         success: true,
         token,
         id_rol,
+        name: datosUsuario.nombres,
       };
     } else {
       alert('no se pudo acceder');

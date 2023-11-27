@@ -10,7 +10,16 @@ const useSesion = () => {
     return false;
   };
 
-  return { validSesion };
+  const getID = () => {
+    const { id_usuario } = userStorage.getUserData();
+    if ((id_usuario)) {
+      return id_usuario;
+    }
+
+    return 0;
+  };
+
+  return { validSesion, getID };
 };
 
 export default useSesion;

@@ -7,9 +7,11 @@ import ContentPane from './ContentPane';
 import useRutas from '@hooks/useRutas';
 import useClients from '@hooks/useClients';
 import useOrders from '@hooks/useOrders';
+import useSesion from '@hooks/useSesion';
 
 const MainConatiner = (props) => {
   const { state } = useContext(AppContext);
+  const { getID } = useSesion();
 
   const { currentView } = props;
   const [myCurrentView, setMyCurrentView] = useState(null);
@@ -27,7 +29,14 @@ const MainConatiner = (props) => {
       if (currentView) {
         switch(currentView.entidad) {
           case 'ruta':
-            await myRouter.consultarRutas();
+            let id = getID();
+            let rol = state.idRol;
+            if (rol == 1) {
+              await myRouter.consultarRutas();
+            } else if (rol == 2 || rol == 3) {
+              await myRouter.consultarRutasVendedorEntregador(rol, id);
+            }
+
             changeMyCurrentView(myRouter.state.viewConsultarRutas);
             break;
           case 'cliente':

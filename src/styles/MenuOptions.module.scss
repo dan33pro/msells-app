@@ -1,19 +1,26 @@
 @import 'vars';
 
 
-.containerPrinciple{
+.containerPrinciple {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 70px;
+  bottom: 0;
+
+  margin: auto;
   font-family: Arial, sans-serif;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: min-content;
-    height: min-content;
-    padding: 20px;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 4px 4px 4px $--black-tr;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: min-content;
+  height: min-content;
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 4px 4px 4px $--black-tr;
 
   .titulo {
     color: #0a54e7;
@@ -23,7 +30,7 @@
 
   .contenedor {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(314px, 0fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(314px, 0fr));
     width: 60vw;
     height: 60vh;
     overflow-y: scroll;
@@ -81,5 +88,3 @@
 
 
 }
-
-
