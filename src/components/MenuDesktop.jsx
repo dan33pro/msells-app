@@ -1,29 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from '@styles/MenuDesktop.module.scss';
-import { useRouter } from 'next/router';
 import userStorage from '@services/api/userStorage';
+import AppContext from '@context/AppContext';
+import { useContext } from 'react';
 
 const MenuDesktop = () => {
-
-  const router = useRouter(); 
-
+  const { changeSesionState, toggleMenuDesktop } = useContext(AppContext);
 
   const cerrarSesion = () => {
-
-    userStorage.clearUserData(); 
-    router.push('/'); 
-    
+    toggleMenuDesktop(false);
+    userStorage.clearUserData();
+    changeSesionState(false);
   };
 
-
   return (
-    <div className ={styles.MenuDesktop}>
-        <ul>
-            <li>
-                <Link href="#" onClick={cerrarSesion}>Cerrar Sesión</Link>
-            </li>
-        </ul>
+    <div className={styles.MenuDesktop}>
+      <ul>
+        <li>
+          <Link href="" onClick={cerrarSesion}>
+            Cerrar Sesión
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 };

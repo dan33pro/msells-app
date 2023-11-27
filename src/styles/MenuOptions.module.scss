@@ -8,13 +8,14 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
+    width: min-content;
+    height: min-content;
+    padding: 20px;
     overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px $--black-tr;
 
-.titulo {
-
-  
+  .titulo {
     color: #0a54e7;
     padding-left: 5px;
     margin-bottom: 60px;
@@ -27,8 +28,9 @@
     height: 60vh;
     overflow-y: scroll;
     overflow-x: hidden;
+    gap: 10px;
     background-color: ghostwhite;
-    border: 10px solid cornflowerblue;
+    border: 1px solid cornflowerblue;
     justify-content: center;
     align-items: center;
 
@@ -60,13 +62,12 @@
       border-radius: 10px;
     }
 
-    .diseño1 {
+    .menu-option {
       display: flex;
-      width: 341px;
       padding: 6px 16px;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      gap: 10px;
       flex-direction: column;
       margin-bottom: 35px;
 
