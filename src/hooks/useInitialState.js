@@ -84,6 +84,11 @@ const initialState = {
   isViewMenuMobile: false,
   isViewPedidoDetail: false,
 
+  isViewOCDevivery: false,
+  isViewOCMixta: false,
+  isViewORAdmin: false,
+  isViewORVendedor: false,
+
   viewConsultarRutas: viewConsultarRutas,
   viewConsultarPedidos: viewConsultarPedidos,
   viewConsultarClientes: viewConsultarClientes,
@@ -95,10 +100,46 @@ const initialState = {
     client: null,
   },
   user: 'Daniel Cespedes',
+  sesion: false,
 };
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
+
+  const changeSesionState = (newState) => {
+    setState({
+      ...state,
+      sesion: newState,
+    });
+  };
+
+  const toggleOCD = (newState) => {
+    setState({
+      ...state,
+      isViewOCDevivery: newState,
+    });
+  };
+
+  const toggleOCM = (newState) => {
+    setState({
+      ...state,
+      isViewOCMixta: newState,
+    });
+  };
+
+  const toggleORA = (newState) => {
+    setState({
+      ...state,
+      isViewORAdmin: newState,
+    });
+  };
+
+  const toggleORV = (newState) => {
+    setState({
+      ...state,
+      isViewORVendedor: newState,
+    });
+  };
 
   const toggleMenuDesktop = (newState) => {
     setState({
@@ -190,6 +231,11 @@ const useInitialState = () => {
     changeCurrentRuta,
     changeCurrentCliente,
     changeCurrentPedido,
+    toggleOCD,
+    toggleOCM,
+    toggleORA,
+    toggleORV,
+    changeSesionState,
   };
 };
 

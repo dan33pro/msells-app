@@ -22,13 +22,7 @@ const loginService = async (email, password) => {
         UserStorage.saveTelefono(datosUsuario.numeroCelular);
         UserStorage.saveRol(datosUsuario.id_rol);
       }
-      if (id_rol === 1) {
-        window.location.href = './main';
-      } else if (id_rol === 2) {
-        window.location.href = './main';
-      } else if (id_rol === 3) {
-        window.location.href = './main';
-      }
+      
       return {
         success: true,
         token,

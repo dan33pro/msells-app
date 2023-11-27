@@ -11,8 +11,7 @@ import { useContext, useEffect, useState } from 'react';
 import PedidoDetail from '@containers/PedidoDetail';
 
 export default function Home() {
-  const { state } = useContext(AppContext);
-  const [sesion, setSesion] = useState(false);
+  const { state, changeSesionState } = useContext(AppContext);
   const router = useRouter();
   const { validSesion } = useSesion();
 
@@ -20,13 +19,13 @@ export default function Home() {
     if (!validSesion()) {
       router.push('/');
     } else {
-      setSesion(true)
+      changeSesionState(true);
     }
-  }, []);
+  }, [state.sesion]);
 
   return (
     <>
-      {sesion && (
+      {state.sesion && (
         <>
           <Head>
             <title>Create Next App</title>
