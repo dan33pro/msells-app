@@ -7,7 +7,7 @@ const orderDetailService = {
   registrarDetallePedido: async (orderDetailData) => {
     const { token } = userStorage.getUserData();
     try {
-      const response = await axios.post(`${API_URL}/api/order_detail`, orderDetailData, {
+      const response = await axios.post(`${API_URL}/api/order_detail/`, orderDetailData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

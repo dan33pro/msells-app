@@ -20,10 +20,14 @@ export default function RegistroDetallePedido() {
     cantidad: 0,
     total: '',
     id_usuario: 0,
+    accion: 'insert-compose',
   });
 
-  //pasar el id vendedor
   useEffect(() => {
+    if (productosEncontrados === undefined || productosEncontrados === null) {
+      setProductosEncontrados([]);
+    }
+
     const userDataString = userStorage.getUserData();
     if (userDataString && userDataString.id_usuario) {
       const idVendedor = parseInt(userDataString.id_usuario, 10);
@@ -39,34 +43,29 @@ export default function RegistroDetallePedido() {
     } else {
       console.error('no se encontro el id del usuario');
     }
-  }, []);
+  }, [productosEncontrados]); // Add productosEncontrados as a dependency to the useEffect
 
-  const handleRegistrarDetallePedido = async (e) => {
-    e.preventDefault();
-
+  
+  const handleRegistrarDetallePedido = async () => {
     try {
-      const detallesPedido = [];
-      productosEncontrados.forEach((producto) => {
-        const detalle = {
-          id_producto: producto.id_producto,
-          id_pedido: formData.id_pedido,
-          cantidad: parseInt(cantidadInput[producto.id_producto] || 0, 10),
-          total: String(totalInput[producto.id_producto] || 0),
-          id_usuario: formData.id_usuario,
-          accion: formData.accion,
-        };
-        detallesPedido.push(detalle);
-        console.log('Detalle del pedido:', detalle);
-      });
+      const detallesPedido = productosEncontrados.map((producto) => ({
+        id_producto: producto.id_producto,
+        id_pedido: formData.id_pedido,
+        cantidad: parseInt(cantidadInput[producto.id_producto], 10) || 0,
+        total: String(totalInput[producto.id_producto] || 0),
+        id_usuario: formData.id_usuario,
+        accion: formData.accion,
+      }));
+        console.log(detallesPedido); 
       const response = await orderDetailService.registrarDetallePedido(detallesPedido);
-      console.log('Detalles del pedido registrados con éxito:', response);
-      if (response && response.success) {
-        alert('Pedido registrado exitosamente');
+
+      if (response.success) {
+        alert('Pedidos registrados exitosamente');
         setTimeout(() => {
           window.location.reload();
         }, 2000);
       } else {
-        alert('Error al registrar el detalle del pedido');
+        alert('Error al registrar los detalles del pedido');
       }
     } catch (error) {
       console.error('error al enviar los datos', error);
@@ -99,14 +98,13 @@ export default function RegistroDetallePedido() {
   const handleInputChange = (e) => {
     const { value } = e.target;
     setInputValue(value);
-    setProductosEncontrados([]);
   };
 
   const handleCantidadInputChange = (e, id) => {
     const { value } = e.target;
     setCantidadInput((prevCantidad) => ({
       ...prevCantidad,
-      [id]: value,
+      [id]: value !== '' ? value : 0,
     }));
     setTotalInput((prevTotal) => ({
       ...prevTotal,
@@ -158,7 +156,7 @@ export default function RegistroDetallePedido() {
         </form>
         <div className={styles.inputbox}>
           <div className={styles.containerButton}>
-            <input type="button" value="Registrar" className={styles.input} onClick={handleRegistrarDetallePedido} />
+            <input type="submit" value="Registrar" className={styles.input} onClick={handleRegistrarDetallePedido}/>
             <input type="button" value="Cancelar" className={styles.input} onClick={handleCancelar} />
           </div>
         </div>
