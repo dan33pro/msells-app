@@ -1,9 +1,21 @@
-import { useState } from 'react';
-import { View, Card, Button } from '@hooks/useEntidades';
+import {
+  useState
+} from 'react';
+import {
+  View,
+  Card,
+  Button
+} from '@hooks/useEntidades';
 import clientService from '@services/api/clientService';
 
 // Vista
-const viewConsultarClientes = new View({ title: 'Consultar Clientes', stateView: false, entidad: 'cliente', search: true, cardElement: 'CardDetail' });
+const viewConsultarClientes = new View({
+  title: 'Consultar Clientes',
+  stateView: false,
+  entidad: 'cliente',
+  search: true,
+  cardElement: 'CardDetail'
+});
 
 // Botones
 const btnNuevaFactura = new Button({
