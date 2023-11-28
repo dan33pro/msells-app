@@ -1,24 +1,30 @@
 @import 'vars';
 
 .containerPrinciple {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+
+  position: absolute;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
-  overflow: hidden;
-  margin: 0;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: min-content;
+  height: min-content;
+  overflow: hidden;
 
   .containerUser {
     max-width: 900px;
-    width: 100vw;
-    height: auto;
+    width: 60vw;
+    height: calc(90vh - 70px);
     padding: 25px 30px;
     justify-content: center;
-    background-color: lavender;
+    background-color: $--white;
+    border: 10px solid $--white;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
-    border: solid 1px #cbc9c9;
+    overflow-y: scroll;
     -webkit-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
     -moz-box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
     border-radius: 8px/7px;
@@ -61,7 +67,6 @@
           .containerPhone {
             display: flex;
             flex-direction: row;
-            background-color: $--white;
             color: $--black;
             .select {
               width: 20%;
@@ -124,4 +129,35 @@
       }
     }
   }
+}
+
+/* Estilos scroll bar none */
+.containerUser::-webkit-scrollbar {
+  --webkit-appearance: none;
+}
+
+/* Estilos barra scroll vertical y horizontal*/
+.containerUser::-webkit-scrollbar:vertical {
+  width: 10px;
+}
+
+.containerUser::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+/* Botones y carril */
+.containerUser::-webkit-scrollbar-button:increment,
+.containerUser::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Almohadilla de la barra de scroll*/
+.containerUser::-webkit-scrollbar-thumb {
+  background: $--blue-color;
+  border: 2px solid #FFFFFF;
+  border-radius: 20px;
+}
+
+.containerUser::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
