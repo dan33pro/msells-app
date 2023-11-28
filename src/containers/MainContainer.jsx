@@ -43,7 +43,7 @@ const MainConatiner = (props) => {
             break;
           case 'cliente':
             if(state.elements.ruta && !isNaN(state.elements.ruta)) {
-              await myClienter.consultarClientesPorRuta(parseInt(state.elements.ruta));
+              await myClienter.consultarClientesPorRuta(parseInt(state.elements.ruta), state.idRol);
               changeMyCurrentView(myClienter.state.viewConsultarClientes);
             }
             break;

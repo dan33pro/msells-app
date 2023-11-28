@@ -13,7 +13,7 @@ const NavOptions = () => {
   const { state, toggleMenuDesktop, toggleOCM, toggleOCD, toggleORA, toggleORV } = useContext(AppContext);
 
   const handleToggleListOptions = () => {
-    switch(state.idRol) {
+    switch (state.idRol) {
       case 1:
         toggleOCM(!state.isViewOCMixta);
         toggleORA(false);
@@ -30,7 +30,7 @@ const NavOptions = () => {
   };
 
   const handleToggleRegisterOptions = () => {
-    switch(state.idRol) {
+    switch (state.idRol) {
       case 1:
         toggleOCM(false);
         toggleORA(!state.isViewORAdmin);
@@ -55,12 +55,14 @@ const NavOptions = () => {
           </div>
           <span className={styles['info-mobile']}>Opciones de consulta</span>
         </li>
-        <li className={styles['option-menu']} onClick={handleToggleRegisterOptions} onKeyDown={handleToggleRegisterOptions}>
-          <div className={styles['container-img']}>
-            <Image src={iconSearch} alt="" />
-          </div>
-          <span className={styles['info-mobile']}>Opciones de registro</span>
-        </li>
+        {state.idRol != 3 && (
+          <li className={styles['option-menu']} onClick={handleToggleRegisterOptions} onKeyDown={handleToggleRegisterOptions}>
+            <div className={styles['container-img']}>
+              <Image src={iconSearch} alt="" />
+            </div>
+            <span className={styles['info-mobile']}>Opciones de registro</span>
+          </li>
+        )}
       </ul>
       <div className={styles['config-btn']}>
         <button className={styles['info-mobile']}>Cerrar Sesión</button>
