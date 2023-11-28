@@ -61,10 +61,6 @@ const OpcionesRegistroAdmin = () => {
           <span className={styles.negrilla}>Eliminar Cliente</span>
           <Image src={logoEliminar} alt="imagen logo eliminar" />
         </div>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Eliminar Usuario</span>
-          <Image src={logoEliminar} alt="imagen logo eliminar" />
-        </div>
       </article>
     </section>
   );
