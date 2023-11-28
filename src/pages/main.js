@@ -18,8 +18,6 @@ export default function Home() {
   useEffect(() => {
     if (!validSesion()) {
       router.push('/');
-    } else {
-      changeSesionState(true);
     }
   }, [state.sesion]);
 

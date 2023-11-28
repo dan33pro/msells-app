@@ -99,17 +99,20 @@ const initialState = {
     pedido: null,
     client: null,
   },
-  user: 'Daniel Cespedes',
+  user: '',
+  idRol: 0,
   sesion: false,
 };
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
 
-  const changeSesionState = (newState) => {
+  const changeSesionState = (newState, name, idRol) => {
     setState({
       ...state,
       sesion: newState,
+      user: name,
+      idRol: idRol,
     });
   };
 
@@ -190,13 +193,6 @@ const useInitialState = () => {
     });
   };
 
-  const changeUser = (nameUser) => {
-    setState({
-      ...state,
-      user: nameUser,
-    });
-  };
-
   const changeCurrentRuta = (idRuta) => {
     state.elements.ruta = idRuta;
     setState({
@@ -223,7 +219,6 @@ const useInitialState = () => {
     toggleMenuDesktop,
     toggleMenuMobile,
     togglePedidoDetail,
-    changeUser,
     toggleConsultarRutas,
     toggleConsultarPedidos,
     toggleviewConsultarClientes,

@@ -9,7 +9,7 @@ import useSesion from '@hooks/useSesion';
 import loginService from '@services/api/loginService';
 
 export default function Login() {
-  const { state, changeSesionState } = useContext(AppContext);
+  const { state, changeSesionState,  changeUser} = useContext(AppContext);
   const [formData, setFormData] = useState({ correo: '', userPassword: '' });
   const router = useRouter();
   const { validSesion } = useSesion();
@@ -27,7 +27,7 @@ export default function Login() {
     try {
       const res = await loginService(formData.correo, formData.userPassword);
       if(res.success) {
-        changeSesionState(true);
+        changeSesionState(true, res.name, res.id_rol);
       }
     } catch (error) {
       console.error('error al iniciar sesion', error);

@@ -11,7 +11,7 @@ const MenuDesktop = () => {
   const cerrarSesion = () => {
     toggleMenuDesktop(false);
     userStorage.clearUserData();
-    changeSesionState(false);
+    changeSesionState(false, '', 0);
   };
 
   return (
