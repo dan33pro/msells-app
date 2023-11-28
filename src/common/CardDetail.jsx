@@ -10,7 +10,8 @@ const CardDetail = (props) => {
     toggleConsultarRutas,
     toggleConsultarPedidos,
     toggleviewConsultarClientes,
-    togglePedidoDetail} = useContext(AppContext);
+    togglePedidoDetail,
+    toggleRegisterPedido} = useContext(AppContext);
   const { cardDetail } = props;
   const { title, description, caracteristics, buttons } = cardDetail;
 
@@ -45,6 +46,18 @@ const CardDetail = (props) => {
         });
         changeCurrentPedido(infoClient[0]);
         togglePedidoDetail(true);
+        break;
+      case "Factura":
+        let contactInfoClient = (description.split("contactar al cliente a través de: Correo: ")[1]).split(" - Número: ");
+        let infoClientFactura = caracteristics.map(c => c.split(": ")[1]);
+        changeCurrentCliente({
+          fullName: title,
+          mail: contactInfoClient[0],
+          phone: contactInfoClient[1],
+          idCliente: infoClientFactura[1],
+          address: infoClientFactura[2],
+        });
+        toggleRegisterPedido(true);
         break;
     }
   }
