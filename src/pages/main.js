@@ -18,6 +18,7 @@ import RegistroProducto from '@components/RegistroProducto';
 import RegistroRuta from '@components/RegistroRuta';
 import RegistroCliente from '@components/RegistroCliente';
 import RegistroPedido from '@components/RegistroPedido';
+import RegistroDetallePedido from '@components/RegisterPedidoDetalle';
 
 export default function Home() {
   const { state, changeSesionState } = useContext(AppContext);
@@ -65,6 +66,7 @@ export default function Home() {
             {state.isViewRegisterClient && <RegistroCliente /> }
 
             {state.isViewRegisterPedido && <RegistroPedido />}
+            {state.isViewRegisterDetailPedido && <RegistroDetallePedido />}
           </Layout>
         </>
       )}

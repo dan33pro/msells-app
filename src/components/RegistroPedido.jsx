@@ -7,7 +7,7 @@ import userStorage from '@services/api/userStorage';
 import pedidoService from '@services/api/orderService';
 
 const RegistroPedido = () => {
-  const { state, toggleRegisterPedido } = useContext(AppContext);
+  const { state, toggleRegisterPedido, toggleRegisterDetailPedido, changeCurrentPedido } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     notas: '',
@@ -45,10 +45,20 @@ const RegistroPedido = () => {
       const response = await pedidoService.registrarPedido(formData);
       console.log(formData);
       if (response.success) {
-        alert('Pedido registrado exitosamente');
-        setTimeout(() => {
-          handleCancelar();
-        }, 2000);
+        const pedidosCliente = await pedidoService.obtenerPedidosPorAtributo({ key: 'id_cliente', value: formData.id_cliente});
+        if (pedidosCliente.success) {
+          const lastPedido = pedidosCliente.data.body.reduce(
+            (lastPedido, currentPedido) => {
+              if (lastPedido == null || currentPedido.id_pedido > lastPedido.id_pedido) {
+                return currentPedido;
+              } else {
+                return lastPedido;
+              }
+            }, null);
+          const idPedido = lastPedido.id_pedido;
+          changeCurrentPedido(idPedido);
+          registrarDetallePedido();
+        }
       } else {
         alert('Error al registrar el pedido del cliente con id', formData.id_cliente);
       }
@@ -69,6 +79,10 @@ const RegistroPedido = () => {
     toggleRegisterPedido(false);
    };
 
+   const registrarDetallePedido = () => {
+    toggleRegisterDetailPedido(true);
+    toggleRegisterPedido(false);
+   };
 
   return (
     <section className={styles.containerPrinciple}>

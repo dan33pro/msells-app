@@ -84,6 +84,7 @@ const initialState = {
   isViewMenuMobile: false,
   isViewPedidoDetail: false,
   isViewRegisterPedido: false,
+  isViewRegisterDetailPedido: false,
 
   isViewOCDevivery: false,
   isViewOCMixta: false,
@@ -112,6 +113,15 @@ const initialState = {
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
+
+  const toggleRegisterDetailPedido = (newState) => {
+    state.isViewRegisterDetailPedido = newState;
+
+    setState({
+      ...state,
+      isViewRegisterDetailPedido: newState,
+    });
+  };
 
   const toggleRegisterPedido = (newState) => {
     state.isViewRegisterPedido = newState;
@@ -313,6 +323,7 @@ const useInitialState = () => {
     toggleRegisterRoute,
     toggleRegisterClient,
     closePrincipalViews,
+    toggleRegisterDetailPedido,
   };
 };
 

@@ -149,7 +149,7 @@
 
         .input[type='submit'] {
           font-weight: 600;
-          width: 30%;
+          width: min-content;
           background-color: $--blue-color;
           color: #fff;
           border: none;
