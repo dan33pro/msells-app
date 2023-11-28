@@ -7,30 +7,31 @@ import { useContext } from 'react';
 import closeIcon from '@icons/close_icon.svg';
 
 const OpcionesRegistroAdmin = () => {
-   const { state,
-    toggleORA,
-    toggleRegisterUser,
-    toggleRegisterProduct,
-    toggleRegisterRoute } = useContext(AppContext);
+  const { state, toggleORA, toggleRegisterUser, toggleRegisterProduct, toggleRegisterRoute, toggleDeleteProduct } = useContext(AppContext);
 
-   const closeView = () => {
+  const closeView = () => {
     toggleORA(false);
-   };
+  };
 
-   const openRU = () => {
+  const openRU = () => {
     toggleRegisterUser(true);
     toggleORA(false);
-   };
+  };
 
-   const openRP = () => {
+  const openRP = () => {
     toggleRegisterProduct(true);
     toggleORA(false);
-   };
+  };
 
-   const openRR = () => {
+  const openRR = () => {
     toggleRegisterRoute(true);
     toggleORA(false);
-   };
+  };
+
+  const openDP = () => {
+    toggleDeleteProduct(true);
+    toggleORA(false);
+  };
 
   return (
     <section className={styles.containerPrinciple}>
@@ -53,14 +54,10 @@ const OpcionesRegistroAdmin = () => {
           <span className={styles.negrilla}>Registrar Ruta</span>
           <Image src={logoRegistro} alt="imagen logo registro" />
         </button>
-        <div className={styles['menu-option']}>
+        <button onClick={openDP} onKeyDown={openDP} className={styles['menu-option']}>
           <span className={styles.negrilla}>Eliminar Producto</span>
           <Image src={logoEliminar} alt="imagen logo eliminar" />
-        </div>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Eliminar Cliente</span>
-          <Image src={logoEliminar} alt="imagen logo eliminar" />
-        </div>
+        </button>
       </article>
     </section>
   );

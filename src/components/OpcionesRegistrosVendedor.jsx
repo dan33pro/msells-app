@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import closeIcon from '@icons/close_icon.svg';
 
 const OpcionesRegistroVendedor = () => {
-  const { state, toggleORV, toggleRegisterClient } = useContext(AppContext);
+  const { state, toggleORV, toggleRegisterClient, toggleDeleteClient } = useContext(AppContext);
 
   const closeView = () => {
     toggleORV(false);
@@ -14,6 +14,10 @@ const OpcionesRegistroVendedor = () => {
 
   const openRC = () => {
     toggleRegisterClient(true);
+    toggleORV(false);
+   };
+   const openDC = () => {
+    toggleDeleteClient(true);
     toggleORV(false);
    };
 
@@ -29,6 +33,10 @@ const OpcionesRegistroVendedor = () => {
         <button onClick={openRC} onKeyDown={openRC} className={styles['menu-option']}>
           <span className={styles.negrilla}>Registrar Cliente</span>
           <Image src={logoRegistro} alt="imagen logo registro" />
+        </button>
+         <button onClick={openDC} onKeyDown={openDC} className={styles['menu-option']}>
+          <span className={styles.negrilla}>Eliminar Cliente</span>
+          <Image src={logoEliminar} alt="imagen logo eliminar" />
         </button>
       </article>
     </section>
