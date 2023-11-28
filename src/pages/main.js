@@ -19,8 +19,8 @@ import RegistroRuta from '@components/RegistroRuta';
 import RegistroCliente from '@components/RegistroCliente';
 import RegistroPedido from '@components/RegistroPedido';
 import RegistroDetallePedido from '@components/RegisterPedidoDetalle';
-import EliminarCliente from '@components/eliminarCliente';
-import EliminarProducto from '@components/eliminarProducto';
+import EliminarCliente from '@components/EliminarCliente';
+import EliminarProducto from '@components/EliminarProducto';
 
 export default function Home() {
   const { state, changeSesionState } = useContext(AppContext);

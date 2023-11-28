@@ -1,15 +1,24 @@
 @import 'vars';
 
 .containerPrinciple {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+
   font-family: Arial, sans-serif;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  width: 80vw;
+  height: calc(90vh - 70px);
   overflow: hidden;
+  background: $--white;
+  border-radius: 8px;
+  box-shadow: 4px -4px 4px $--gary;
 
   .title {
     color: #0a54e7;
@@ -39,8 +48,9 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     width: 80vw;
     height: 60vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+
     .contenedor::-webkit-scrollbar {
       --webkit-appearance: none;
     }
