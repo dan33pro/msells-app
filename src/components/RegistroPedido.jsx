@@ -14,7 +14,7 @@ const RegistroPedido = () => {
     id_estado: 1,
     id_cliente: 0,
     fecha: '',
-    total: '',
+    total: '0',
     id_usuario: 0,
     accion: 'insert',
   });
@@ -47,7 +47,7 @@ const RegistroPedido = () => {
       if (response.success) {
         alert('Pedido registrado exitosamente');
         setTimeout(() => {
-          window.location.reload();
+          handleCancelar();
         }, 2000);
       } else {
         alert('Error al registrar el pedido del cliente con id', formData.id_cliente);
@@ -56,7 +56,7 @@ const RegistroPedido = () => {
       console.error('error al enviar los datos ', error);
     }
   };
-  
+
   const handleInputChangue = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -82,8 +82,6 @@ const RegistroPedido = () => {
           <label className={styles.labelInfo}><span className={styles.bold}>Nombre:</span> {state.elements.client.fullName}</label>
           <label className={styles.label}>Fecha Pedido</label>
           <input type="date" name="fecha" className={styles.input} placeholder="seleccione la fecha del pedido" value={formData.fecha} onChange={handleInputChangue} required />
-          <label className={styles.label}>Total Pedido</label>
-          <input type="number" name="total" className={styles.input} placeholder="Ingrese el total del pedido" value={formData.total} onChange={handleInputChangue} required />
           <div className={styles.inputboxDescripcion}>
             <label className={styles.label}> Notas </label>
             <textarea name="notas" id="notas" cols="105" rows="20" className={styles.textarea} value={formData.notas} onChange={handleInputChangue} required></textarea>
