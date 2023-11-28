@@ -41,7 +41,7 @@ const orderService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status == 201) {
         return {
           success: true,
           data: response.data,
