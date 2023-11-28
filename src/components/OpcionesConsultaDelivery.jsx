@@ -7,12 +7,23 @@ import { useContext } from 'react';
 import closeIcon from '@icons/close_icon.svg';
 
 const OpcionesConsultaDelivery = () => {
-  const { state, toggleOCD } = useContext(AppContext);
+  const { state, toggleOCD, closePrincipalViews, toggleviewConsultarProductos, toggleConsultarRutas } = useContext(AppContext);
 
   const closeView = () => {
    toggleOCD(false);
   };
 
+  const openCP = () => {
+    toggleOCD(false);
+    closePrincipalViews();
+    toggleviewConsultarProductos(true);
+   };
+
+   const openCR = () => {
+    toggleOCD(false);
+    closePrincipalViews();
+    toggleConsultarRutas(true);
+   };
   return (
     <section className={styles.containerPrinciple}>
       <nav className={styles['title-container']}>
@@ -22,26 +33,14 @@ const OpcionesConsultaDelivery = () => {
         </button>
       </nav>
       <article className={styles.contenedor}>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Consultar Detalle Recorrido</span>
-          <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
-        <div className={styles['menu-option']}>
+        <button onClick={openCP} onKeyDown={openCP} className={styles['menu-option']}>
           <span className={styles.negrilla}>Consultar Productos</span>
           <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
-        <div className={styles['menu-option']}>
+        </button>
+        <button onClick={openCR} onKeyDown={openCR} className={styles['menu-option']}>
           <span className={styles.negrilla}>Consultar Rutas</span>
           <Image src={logoRuta} alt="imagen logo consulta" />
-        </div>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Consultar Clientes</span>
-          <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Consultar Pedidos</span>
-          <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
+        </button>
       </article>
     </section>
   );

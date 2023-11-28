@@ -6,11 +6,16 @@ import { useContext } from 'react';
 import closeIcon from '@icons/close_icon.svg';
 
 const OpcionesRegistroVendedor = () => {
-  const { state, toggleORV } = useContext(AppContext);
+  const { state, toggleORV, toggleRegisterClient } = useContext(AppContext);
 
   const closeView = () => {
     toggleORV(false);
   };
+
+  const openRC = () => {
+    toggleRegisterClient(true);
+    toggleORV(false);
+   };
 
   return (
     <section className={styles.containerPrinciple}>
@@ -21,10 +26,10 @@ const OpcionesRegistroVendedor = () => {
         </button>
       </nav>
       <article className={styles.contenedor}>
-        <div className={styles['menu-option']}>
+        <button onClick={openRC} onKeyDown={openRC} className={styles['menu-option']}>
           <span className={styles.negrilla}>Registrar Cliente</span>
           <Image src={logoRegistro} alt="imagen logo registro" />
-        </div>
+        </button>
       </article>
     </section>
   );

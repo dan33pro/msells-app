@@ -4,8 +4,8 @@ import AppContext from '@context/AppContext';
 import productService from '@services/api/productService';
 import userStorage from '@services/api/userStorage';
 
-export default function RegistroProducto() {
-  const { state } = useContext(AppContext);
+const RegistroProducto = () => {
+  const { state, toggleRegisterProduct } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     nombre: '',
@@ -105,7 +105,7 @@ export default function RegistroProducto() {
   }, []);
 
   const handleCancelar = () => {
-    window.location.reload();
+    toggleRegisterProduct(false);
   };
 
   return (
@@ -157,3 +157,5 @@ export default function RegistroProducto() {
     </section>
   );
 }
+
+export default RegistroProducto;

@@ -18,10 +18,6 @@ const viewConsultarClientes = new View({
 });
 
 // Botones
-const btnEditarFactura = new Button({
-  description: 'Editar Factura',
-  classN: 'secondary',
-});
 const btnNuevaFactura = new Button({
   description: 'Nueva Factura',
   classN: 'primary',
@@ -40,7 +36,7 @@ const useClients = () => {
     })
   };
 
-  const updateViewConsultarClientes = (clients) => {
+  const updateViewConsultarClientes = (clients, idRol) => {
     state.viewConsultarClientes.removeContent();
     clients.forEach((client) => {
       let card = new Card({
@@ -48,7 +44,9 @@ const useClients = () => {
         description: `Puede contactar al cliente a través de: Correo: ${client.correo} - Número: +${client.codPais} ${client.numeroCelular}`,
         caracteristics: [`ID-Ruta: ${client.id_ruta}`, `ID-Cliente: ${client.id_cliente}`, `Dirección: ${client.direccion}`],
       });
-      card.addButtons([btnEditarFactura, btnNuevaFactura]);
+      if (idRol == 2) {
+        card.addButtons([btnNuevaFactura]);
+      }
       state.viewConsultarClientes.addContent(card);
     });
 
@@ -63,7 +61,7 @@ const useClients = () => {
     }
   };
 
-  const consultarClientesPorRuta = async (idRuta) => {
+  const consultarClientesPorRuta = async (idRuta, idRol) => {
     let query = {
       key: 'id_ruta',
       value: idRuta,
@@ -71,7 +69,7 @@ const useClients = () => {
     let response = await clientService.obtenerClientesPorAtributo(query);
 
     if (response.success) {
-      updateViewConsultarClientes(response.data.body)
+      updateViewConsultarClientes(response.data.body, idRol)
     }
   };
 

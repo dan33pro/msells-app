@@ -14,6 +14,9 @@ import OpcionesConsultaDelivery from '@components/OpcionesConsultaDelivery';
 import OpcionesRegistroAdmin from '@components/OpcionesRegistrosAdmin';
 import OpcionesRegistroVendedor from '@components/OpcionesRegistrosVendedor';
 import RegistroUsuario from '@components/RegisterUser';
+import RegistroProducto from '@components/RegistroProducto';
+import RegistroRuta from '@components/RegistroRuta';
+import RegistroCliente from '@components/RegistroCliente';
 
 export default function Home() {
   const { state, changeSesionState } = useContext(AppContext);
@@ -56,6 +59,9 @@ export default function Home() {
             {state.isViewORVendedor && <OpcionesRegistroVendedor />}
 
             {state.isViewRegisterUser && <RegistroUsuario />}
+            {state.isViewRegisterProduct && <RegistroProducto />}
+            {state.isViewRegisterRoute && <RegistroRuta />}
+            {state.isViewRegisterClient && <RegistroCliente /> }
           </Layout>
         </>
       )}

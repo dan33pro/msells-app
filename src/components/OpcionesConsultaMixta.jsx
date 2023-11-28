@@ -7,11 +7,23 @@ import { useContext } from 'react';
 import closeIcon from '@icons/close_icon.svg';
 
 const OpcionesConsultaMixta = () => {
-  const { state, toggleOCM } = useContext(AppContext);
+  const { state, toggleOCM, toggleviewConsultarProductos, toggleConsultarRutas, closePrincipalViews } = useContext(AppContext);
 
   const closeView = () => {
     toggleOCM(false);
   };
+
+  const openCP = () => {
+    toggleOCM(false);
+    closePrincipalViews();
+    toggleviewConsultarProductos(true);
+   };
+
+   const openCR = () => {
+    toggleOCM(false);
+    closePrincipalViews();
+    toggleConsultarRutas(true);
+   };
 
   return (
     <section className={styles.containerPrinciple}>
@@ -22,22 +34,14 @@ const OpcionesConsultaMixta = () => {
         </button>
       </nav>
       <article className={styles.contenedor}>
-        <div className={styles['menu-option']}>
+        <button className={styles['menu-option']} onClick={openCP} onKeyDown={openCP}>
           <span className={styles.negrilla}>Consultar Productos</span>
           <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
-        <div className={styles['menu-option']}>
+        </button>
+        <button className={styles['menu-option']} onClick={openCR} onKeyDown={openCR}>
           <span className={styles.negrilla}>Consultar Rutas</span>
           <Image src={logoRuta} alt="imagen logo consulta" />
-        </div>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Consultar Clientes</span>
-          <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Consultar Pedidos</span>
-          <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
+        </button>
       </article>
     </section>
   );

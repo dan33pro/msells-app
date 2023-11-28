@@ -9,7 +9,9 @@ import closeIcon from '@icons/close_icon.svg';
 const OpcionesRegistroAdmin = () => {
    const { state,
     toggleORA,
-    toggleRegisterUser } = useContext(AppContext);
+    toggleRegisterUser,
+    toggleRegisterProduct,
+    toggleRegisterRoute } = useContext(AppContext);
 
    const closeView = () => {
     toggleORA(false);
@@ -17,6 +19,16 @@ const OpcionesRegistroAdmin = () => {
 
    const openRU = () => {
     toggleRegisterUser(true);
+    toggleORA(false);
+   };
+
+   const openRP = () => {
+    toggleRegisterProduct(true);
+    toggleORA(false);
+   };
+
+   const openRR = () => {
+    toggleRegisterRoute(true);
     toggleORA(false);
    };
 
@@ -33,14 +45,14 @@ const OpcionesRegistroAdmin = () => {
           <span className={styles.negrilla}>Registrar Usuario</span>
           <Image src={logoRegistro} alt="imagen logo registro" />
         </button>
-        <div className={styles['menu-option']}>
+        <button onClick={openRP} onKeyDown={openRP} className={styles['menu-option']}>
           <span className={styles.negrilla}>Registrar Producto</span>
           <Image src={logoRegistro} alt="imagen logo registro" />
-        </div>
-        <div className={styles['menu-option']}>
+        </button>
+        <button onClick={openRR} onKeyDown={openRR} className={styles['menu-option']}>
           <span className={styles.negrilla}>Registrar Ruta</span>
           <Image src={logoRegistro} alt="imagen logo registro" />
-        </div>
+        </button>
         <div className={styles['menu-option']}>
           <span className={styles.negrilla}>Eliminar Producto</span>
           <Image src={logoEliminar} alt="imagen logo eliminar" />

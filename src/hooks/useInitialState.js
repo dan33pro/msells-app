@@ -90,6 +90,9 @@ const initialState = {
   isViewORVendedor: false,
 
   isViewRegisterUser: false,
+  isViewRegisterProduct: false,
+  isViewRegisterRoute: false,
+  isViewRegisterClient: false,
 
   viewConsultarRutas: viewConsultarRutas,
   viewConsultarPedidos: viewConsultarPedidos,
@@ -108,6 +111,33 @@ const initialState = {
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
+
+  const toggleRegisterClient = (newState) => {
+    state.isViewRegisterClient = newState;
+
+    setState({
+      ...state,
+      isViewRegisterClient: newState,
+    });
+  };
+
+  const toggleRegisterRoute = (newState) => {
+    state.isViewRegisterRoute = newState;
+
+    setState({
+      ...state,
+      isViewRegisterRoute: newState,
+    });
+  };
+
+  const toggleRegisterProduct = (newState) => {
+    state.isViewRegisterProduct = newState;
+
+    setState({
+      ...state,
+      isViewRegisterProduct: newState,
+    });
+  };
 
   const toggleRegisterUser = (newState) => {
     state.isViewRegisterUser = newState;
@@ -191,6 +221,16 @@ const useInitialState = () => {
     });
   };
 
+  const closePrincipalViews = () => {
+    state.viewConsultarRutas.stateView = false;
+    state.viewConsultarPedidos.stateView = false;
+    state.viewConsultarClientes.stateView = false;
+    state.viewConsultarProductos.stateView = false;
+    setState({
+      ...state,
+    });
+  };
+
   const toggleConsultarRutas = (newState) => {
     state.viewConsultarRutas.stateView = newState;
     setState({
@@ -258,6 +298,10 @@ const useInitialState = () => {
     toggleORV,
     changeSesionState,
     toggleRegisterUser,
+    toggleRegisterProduct,
+    toggleRegisterRoute,
+    toggleRegisterClient,
+    closePrincipalViews,
   };
 };
 
