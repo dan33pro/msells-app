@@ -18,7 +18,7 @@ export default function Login() {
     if (validSesion()) {
       router.push('/main');
     } else {
-      changeSesionState(false);
+      changeSesionState(false, '', 0);
     }
   }, [state.sesion]);
 

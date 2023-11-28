@@ -21,11 +21,24 @@
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 4px 4px 4px $--black-tr;
+  background: $--white;
+
+  .title-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    place-items: center;
+    margin-bottom: 30px;
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
 
   .titulo {
     color: #0a54e7;
-    padding-left: 5px;
-    margin-bottom: 60px;
   }
 
   .contenedor {
@@ -77,6 +90,7 @@
       gap: 10px;
       flex-direction: column;
       margin-bottom: 35px;
+      cursor: pointer;
 
       .negrilla {
         font-weight: bold;

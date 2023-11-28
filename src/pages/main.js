@@ -9,6 +9,10 @@ import AppContext from '@context/AppContext';
 import Head from 'next/head';
 import { useContext, useEffect, useState } from 'react';
 import PedidoDetail from '@containers/PedidoDetail';
+import OpcionesConsultaMixta from '@components/OpcionesConsultaMixta';
+import OpcionesConsultaDelivery from '@components/OpcionesConsultaDelivery';
+import OpcionesRegistroAdmin from '@components/OpcionesRegistrosAdmin';
+import OpcionesRegistroVendedor from '@components/OpcionesRegistrosVendedor';
 
 export default function Home() {
   const { state, changeSesionState } = useContext(AppContext);
@@ -40,6 +44,12 @@ export default function Home() {
             {state.viewConsultarProductos.stateView && <MainConatiner currentView={state.viewConsultarProductos} />}
 
             {state.isViewPedidoDetail && <PedidoDetail />}
+
+            {state.isViewOCMixta && <OpcionesConsultaMixta />}
+            {state.isViewOCDevivery && <OpcionesConsultaDelivery />}
+
+            {state.isViewORAdmin && <OpcionesRegistroAdmin />}
+            {state.isViewORVendedor && <OpcionesRegistroVendedor />}
           </Layout>
         </>
       )}
