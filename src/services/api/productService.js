@@ -147,6 +147,45 @@ const productService = {
       };
     }
   },
+  deleteProduct: async (idProduct, idUsuario) => {
+    const {
+      token
+    } = userStorage.getUserData();
+    try {
+      const response = await axios.delete(`${API_URL}/api/product/${idProduct}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          id_usuario: idUsuario
+        },
+      });
+
+      if (response.status === 202) {
+        const data = response.data;
+        return {
+          success: true,
+          data,
+        };
+      } else {
+        console.error('Error al eliminar el producto');
+        return {
+          success: false,
+          message: 'Error al eliminar el producto  !!!',
+          status: response.status,
+          data: response.data,
+        };
+      }
+    } catch (error) {
+      console.error('Error al eliminar', error);
+      return {
+        success: false,
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      };
+    }
+  },
 };
 
 export default productService;
