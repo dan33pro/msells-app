@@ -16,11 +16,10 @@ export default function RegistroDetallePedido() {
   const [totalInput, setTotalInput] = useState({});
   const [formData, setFormData] = useState({
     id_producto: 0,
-    id_pedido: 3,
+    id_pedido: 7,
     cantidad: 0,
     total: '',
     id_usuario: 0,
-    accion: 'insert-compose',
   });
 
   //pasar el id vendedor
@@ -51,16 +50,18 @@ export default function RegistroDetallePedido() {
         const detalle = {
           id_producto: producto.id_producto,
           id_pedido: formData.id_pedido,
-          cantidad: cantidadInput[producto.id_producto] || 0,
+          cantidad: parseInt(cantidadInput[producto.id_producto] || 0, 10),
           total: String(totalInput[producto.id_producto] || 0),
           id_usuario: formData.id_usuario,
           accion: formData.accion,
         };
         detallesPedido.push(detalle);
+        console.log('Detalle del pedido:', detalle);
       });
       const response = await orderDetailService.registrarDetallePedido(detallesPedido);
-      if (response.success) {
-        alert('Pedido regsitrado exitosamente');
+      console.log('Detalles del pedido registrados con éxito:', response);
+      if (response && response.success) {
+        alert('Pedido registrado exitosamente');
         setTimeout(() => {
           window.location.reload();
         }, 2000);
@@ -98,6 +99,7 @@ export default function RegistroDetallePedido() {
   const handleInputChange = (e) => {
     const { value } = e.target;
     setInputValue(value);
+    setProductosEncontrados([]);
   };
 
   const handleCantidadInputChange = (e, id) => {
@@ -156,7 +158,7 @@ export default function RegistroDetallePedido() {
         </form>
         <div className={styles.inputbox}>
           <div className={styles.containerButton}>
-            <input type="submit" value="Registrar" className={styles.input} onClick={handleRegistrarDetallePedido}/>
+            <input type="button" value="Registrar" className={styles.input} onClick={handleRegistrarDetallePedido} />
             <input type="button" value="Cancelar" className={styles.input} onClick={handleCancelar} />
           </div>
         </div>

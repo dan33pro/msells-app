@@ -7,7 +7,7 @@ const orderDetailService = {
   registrarDetallePedido: async (orderDetailData) => {
     const { token } = userStorage.getUserData();
     try {
-      const response = await axios.post(`${API_URL}/api/order_detail/`, orderDetailData, {
+      const response = await axios.post(`${API_URL}/api/order_detail`, orderDetailData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -22,11 +22,12 @@ const orderDetailService = {
       }
     } catch (error) {
       console.error('Error acceso a los datos', error);
+      console.log('Error response', error.response); 
 
       return {
         success: false,
         message: error.message,
-        status: error?.status,
+        status: error.response?.status,
         data: error.response?.data,
       };
     }
