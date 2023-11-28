@@ -65,7 +65,7 @@ const routeService = {
 
   obtenerRutas: async () => {
     const { token } = userStorage.getUserData();
-  
+
     try {
       const response = await axios.get(`${API_URL}/api/route`, {
         headers: {

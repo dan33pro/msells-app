@@ -83,7 +83,20 @@ const initialState = {
   isViewMenuDesktop: false,
   isViewMenuMobile: false,
   isViewPedidoDetail: false,
+  isViewRegisterPedido: false,
+  isViewRegisterDetailPedido: false,
 
+  isViewOCDevivery: false,
+  isViewOCMixta: false,
+  isViewORAdmin: false,
+  isViewORVendedor: false,
+
+  isViewRegisterUser: false,
+  isViewRegisterProduct: false,
+  isViewRegisterRoute: false,
+  isViewRegisterClient: false,
+  isViewDeleteClient: false,
+  isViewDeleteProduct: false,
   viewConsultarRutas: viewConsultarRutas,
   viewConsultarPedidos: viewConsultarPedidos,
   viewConsultarClientes: viewConsultarClientes,
@@ -94,13 +107,135 @@ const initialState = {
     pedido: null,
     client: null,
   },
-  user: 'Daniel Cespedes',
+  user: '',
+  idRol: 0,
+  sesion: false,
 };
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
 
+  const toggleRegisterDetailPedido = (newState) => {
+    state.isViewRegisterDetailPedido = newState;
+
+    setState({
+      ...state,
+      isViewRegisterDetailPedido: newState,
+    });
+  };
+
+  const toggleRegisterPedido = (newState) => {
+    state.isViewRegisterPedido = newState;
+
+    setState({
+      ...state,
+      isViewRegisterPedido: newState,
+    });
+  };
+
+  const toggleDeleteProduct = (newState) => {
+    state.isViewDeleteProduct = newState;
+
+    setState({
+      ...state,
+      isViewDeleteProduct: newState,
+    });
+  };
+
+  const toggleDeleteClient = (newState) => {
+    state.isViewDeleteClient = newState;
+
+    setState({
+      ...state,
+      isViewDeleteClient: newState,
+    });
+  };
+
+  const toggleRegisterClient = (newState) => {
+    state.isViewRegisterClient = newState;
+
+    setState({
+      ...state,
+      isViewRegisterClient: newState,
+    });
+  };
+
+  const toggleRegisterRoute = (newState) => {
+    state.isViewRegisterRoute = newState;
+
+    setState({
+      ...state,
+      isViewRegisterRoute: newState,
+    });
+  };
+
+  const toggleRegisterProduct = (newState) => {
+    state.isViewRegisterProduct = newState;
+
+    setState({
+      ...state,
+      isViewRegisterProduct: newState,
+    });
+  };
+
+  const toggleRegisterUser = (newState) => {
+    state.isViewRegisterUser = newState;
+
+    setState({
+      ...state,
+      isViewRegisterUser: newState,
+    });
+  };
+
+  const changeSesionState = (newState, name, idRol) => {
+    state.sesion = newState;
+    state.user = name;
+    state.idRol = idRol;
+
+    setState({
+      ...state,
+    });
+  };
+
+  const toggleOCD = (newState) => {
+    state.isViewOCDevivery = newState;
+
+    setState({
+      ...state,
+      isViewOCDevivery: newState,
+    });
+  };
+
+  const toggleOCM = (newState) => {
+    state.isViewOCMixta = newState;
+
+    setState({
+      ...state,
+      isViewOCMixta: newState,
+    });
+  };
+
+  const toggleORA = (newState) => {
+    state.isViewORAdmin = newState;
+
+    setState({
+      ...state,
+      isViewORAdmin: newState,
+    });
+  };
+
+  const toggleORV = (newState) => {
+    state.isViewORVendedor = newState;
+
+    setState({
+      ...state,
+      isViewORVendedor: newState,
+    });
+  };
+
   const toggleMenuDesktop = (newState) => {
+    state.isViewMenuDesktop = newState;
+
     setState({
       ...state,
       isViewMenuDesktop: newState,
@@ -108,6 +243,8 @@ const useInitialState = () => {
   };
 
   const toggleMenuMobile = (newState) => {
+    state.isViewMenuMobile = newState;
+
     setState({
       ...state,
       isViewMenuMobile: newState,
@@ -115,9 +252,21 @@ const useInitialState = () => {
   };
 
   const togglePedidoDetail = (newState) => {
+    state.isViewPedidoDetail = newState;
+
     setState({
       ...state,
       isViewPedidoDetail: newState,
+    });
+  };
+
+  const closePrincipalViews = () => {
+    state.viewConsultarRutas.stateView = false;
+    state.viewConsultarPedidos.stateView = false;
+    state.viewConsultarClientes.stateView = false;
+    state.viewConsultarProductos.stateView = false;
+    setState({
+      ...state,
     });
   };
 
@@ -149,13 +298,6 @@ const useInitialState = () => {
     });
   };
 
-  const changeUser = (nameUser) => {
-    setState({
-      ...state,
-      user: nameUser,
-    });
-  };
-
   const changeCurrentRuta = (idRuta) => {
     state.elements.ruta = idRuta;
     setState({
@@ -182,7 +324,7 @@ const useInitialState = () => {
     toggleMenuDesktop,
     toggleMenuMobile,
     togglePedidoDetail,
-    changeUser,
+    toggleRegisterPedido,
     toggleConsultarRutas,
     toggleConsultarPedidos,
     toggleviewConsultarClientes,
@@ -190,6 +332,19 @@ const useInitialState = () => {
     changeCurrentRuta,
     changeCurrentCliente,
     changeCurrentPedido,
+    toggleOCD,
+    toggleOCM,
+    toggleORA,
+    toggleORV,
+    changeSesionState,
+    toggleRegisterUser,
+    toggleRegisterProduct,
+    toggleRegisterRoute,
+    toggleRegisterClient,
+    closePrincipalViews,
+    toggleRegisterDetailPedido,
+    toggleDeleteProduct, 
+    toggleDeleteClient, 
   };
 };
 

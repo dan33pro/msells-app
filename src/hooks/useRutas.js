@@ -56,9 +56,23 @@ const useRutas = () => {
     }
   };
 
+  const consultarRutasVendedorEntregador = async (idRol, id) => {
+    let response = null;
+    if (idRol == 2) {
+      response = await routeService.obtenerRutasPorAtributo({key: 'id_vendedor', value: id});
+    } else if( idRol == 3) {
+      response = await routeService.obtenerRutasPorAtributo({key: 'id_entregador', value: id});
+    }
+
+    if (response.success) {
+      updateViewConsultarRutas(response.data.body)
+    }
+  };
+
   return {
     state,
     consultarRutas,
+    consultarRutasVendedorEntregador
   };
 };
 

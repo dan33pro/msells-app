@@ -5,8 +5,8 @@ import userStorage from '@services/api/userStorage';
 import routeService from '@services/api/routeService';
 import userService from '@services/api/usuarioService';
 
-export default function RegistroRuta() {
-  const { state } = useContext(AppContext);
+const RegistroRuta = () => {
+  const { state, toggleRegisterRoute } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     nombre_ruta: '',
@@ -102,7 +102,7 @@ export default function RegistroRuta() {
   }, []);
 
   const handleCancelar = () => {
-    window.location.reload();
+    toggleRegisterRoute(false);
   };
 
   return (
@@ -149,3 +149,5 @@ export default function RegistroRuta() {
     </section>
   );
 }
+
+export default RegistroRuta;

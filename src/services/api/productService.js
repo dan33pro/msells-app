@@ -60,6 +60,34 @@ const productService = {
     }
   },
 
+  obtenerProductos: async (idProducto) => {
+    const { token } = userStorage.getUserData();
+    try {
+      const response = await axios.get(`${API_URL}/api/product/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        const data = response.data;
+        return {
+          success: true,
+          data,
+        };
+      } else {
+        console.error('Error al obtener la informacion de los productos');
+      }
+    } catch (error) {
+      console.error('Error en la respuesta', error);
+      return {
+        success: false,
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      };
+    }
+  },
+
   obtenerTipoProducto: async () => {
 
     const {token} = userStorage.getUserData(); 
@@ -81,6 +109,75 @@ const productService = {
       }
     } catch (error) {
       console.error('Error en la respuesta', error);
+      return {
+        success: false,
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      };
+    }
+  },
+
+  obtenerProductoNombre: async (nombre) => {
+    const {
+      token
+    } = userStorage.getUserData();
+    try {
+      const response = await axios.get(`${API_URL}/api/product/nombre/${nombre}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        const data = response.data;
+        return {
+          success: true,
+          data,
+        };
+      } else {
+        console.error('Error al obtener la informacion del producto');
+      }
+    } catch (error) {
+      console.error('Error en la respuesta', error);
+      return {
+        success: false,
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      };
+    }
+  },
+  deleteProduct: async (idProduct, idUsuario) => {
+    const {
+      token
+    } = userStorage.getUserData();
+    try {
+      const response = await axios.delete(`${API_URL}/api/product/${idProduct}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          id_usuario: idUsuario
+        },
+      });
+
+      if (response.status === 202) {
+        const data = response.data;
+        return {
+          success: true,
+          data,
+        };
+      } else {
+        console.error('Error al eliminar el producto');
+        return {
+          success: false,
+          message: 'Error al eliminar el producto  !!!',
+          status: response.status,
+          data: response.data,
+        };
+      }
+    } catch (error) {
+      console.error('Error al eliminar', error);
       return {
         success: false,
         message: error.message,

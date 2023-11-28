@@ -3,8 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 import AppContext from '@context/AppContext';
 import usuarioService from '@services/api/usuarioService';
 
-export default function RegistroUsuario() {
-  const { state } = useContext(AppContext);
+const RegistroUsuario = () => {
+  const { state, toggleRegisterUser } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     nombres: '',
@@ -88,7 +88,7 @@ export default function RegistroUsuario() {
   }, []);
 
   const handleCancelar = () => {
-    window.location.reload();
+    toggleRegisterUser(false);
   };
 
   return (
@@ -162,3 +162,5 @@ export default function RegistroUsuario() {
     </section>
   );
 }
+
+export default RegistroUsuario;

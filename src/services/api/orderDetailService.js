@@ -6,14 +6,13 @@ const API_URL = 'http://34.16.138.227:3103';
 const orderDetailService = {
   registrarDetallePedido: async (orderDetailData) => {
     const { token } = userStorage.getUserData();
-
     try {
       const response = await axios.post(`${API_URL}/api/order_detail/`, orderDetailData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response === 200) {
+      if (response.status === 201) {
         return {
           success: true,
           data: response.data,
@@ -23,11 +22,12 @@ const orderDetailService = {
       }
     } catch (error) {
       console.error('Error acceso a los datos', error);
+      console.log('Error response', error.response); 
 
       return {
         success: false,
         message: error.message,
-        status: error?.status,
+        status: error.response?.status,
         data: error.response?.data,
       };
     }
@@ -41,7 +41,7 @@ const orderDetailService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 200) {
         return {
           success: true,
           data: response.data,
@@ -161,7 +161,7 @@ const orderDetailService = {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status == 200) {
+      if (response.status === 200) {
         const data = response.data;
         return {
           success: true,

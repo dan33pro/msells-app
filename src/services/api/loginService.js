@@ -14,7 +14,7 @@ const loginService = async (email, password) => {
 
       const datosUsuario = await consultarUsuarioPorCorreo(email);
       if (datosUsuario) {
-        
+
         UserStorage.saveidUser(datosUsuario.id_usuario);
         UserStorage.saveNombre(datosUsuario.nombres);
         UserStorage.saveApellido(datosUsuario.apellidos);
@@ -22,17 +22,12 @@ const loginService = async (email, password) => {
         UserStorage.saveTelefono(datosUsuario.numeroCelular);
         UserStorage.saveRol(datosUsuario.id_rol);
       }
-      if (id_rol === 1) {
-        window.location.href = './main';
-      } else if (id_rol === 2) {
-        window.location.href = './main';
-      } else if (id_rol === 3) {
-        window.location.href = './main';
-      }
+      
       return {
         success: true,
         token,
         id_rol,
+        name: datosUsuario.nombres,
       };
     } else {
       alert('no se pudo acceder');
