@@ -8,6 +8,7 @@ import useRutas from '@hooks/useRutas';
 import useClients from '@hooks/useClients';
 import useOrders from '@hooks/useOrders';
 import useSesion from '@hooks/useSesion';
+import useProduct from '@hooks/useProduct';
 
 const MainConatiner = (props) => {
   const { state } = useContext(AppContext);
@@ -19,6 +20,7 @@ const MainConatiner = (props) => {
   const myRouter = useRutas();
   const myClienter = useClients();
   const myOrderer = useOrders();
+  const myProduct = useProduct();
 
   const changeMyCurrentView = (currentView) => {
     setMyCurrentView(currentView);
@@ -50,6 +52,10 @@ const MainConatiner = (props) => {
               await myOrderer.consultarPedidosPorRuta(parseInt(state.elements.ruta));
               changeMyCurrentView(myOrderer.state.viewConsultarPedidos);
             }
+            break;
+          case 'producto':
+            await myProduct.consultarProductos();
+            changeMyCurrentView(myProduct.state.viewConsultarProductos);
             break;
         }
       }

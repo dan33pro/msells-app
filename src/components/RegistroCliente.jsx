@@ -4,8 +4,8 @@ import AppContext from '@context/AppContext';
 import clientService from '@services/api/clientService';
 import userStorage from '@services/api/userStorage';
 
-export default function RegistroCliente() {
-  const { state } = useContext(AppContext);
+const RegistroCliente = () => {
+  const { state, toggleRegisterClient } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     nombres: '',
@@ -91,7 +91,7 @@ export default function RegistroCliente() {
   }, []);
 
   const handleCancelar = () => {
-    window.location.reload();
+    toggleRegisterClient(false);
   };
 
   return (
@@ -150,3 +150,5 @@ export default function RegistroCliente() {
     </section>
   );
 }
+
+export default RegistroCliente;
