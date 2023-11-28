@@ -1,0 +1,90 @@
+@import 'vars';
+
+.containerPrinciple {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  .title {
+    color: #0a54e7;
+    padding-left: 5px;
+  }
+  .searchcontainer {
+    margin-top: 20px;
+    .searchinput {
+      padding: 10px;
+      width: 600px;
+      border: 1px solid #79787b;
+      background-color: #ffffff;
+      color: #000;
+      border-radius: 35px;
+      .searchbutton {
+        width: 80px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 2px;
+        background: #0a54e7;
+        color: #fff;
+      }
+    }
+  }
+  .contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    width: 80vw;
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .contenedor::-webkit-scrollbar {
+      --webkit-appearance: none;
+    }
+
+    .contenedor::-webkit-scrollbar:vertical {
+      width: 10px;
+    }
+
+    .contenedor::-webkit-scrollbar:horizontal {
+      height: 10px;
+    }
+
+    .contenedor::-webkit-scrollbar-button:increment,
+    .contenedor::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    .contenedor::-webkit-scrollbar-thumb {
+      background: var(--blue-color);
+      border: 2px solid #ffffff;
+      border-radius: 20px;
+    }
+
+    .contenedor::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+    .diseño1 {
+      display: flex;
+      width: 341px;
+      padding: 6px 16px;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      .span{
+        color: #000;
+      }
+      .eliminarButton {
+        width: 80px;
+        height: 30px;
+        flex-shrink: 0;
+        border-radius: 2px;
+        background: #0a54e7;
+        color: #fff;
+      }
+    }
+  }
+}

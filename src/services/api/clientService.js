@@ -146,15 +146,19 @@ const clientService = {
     }
   },
 
-  deleteClient: async (idClient) => {
+  deleteClient: async (idClient, idUsuario) => {
     const { token } = userStorage.getUserData();
     try {
       const response = await axios.delete(`${API_URL}/api/client/${idClient}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        data: {
+          id_usuario: idUsuario
+        },
       });
-      if (response.status == 200) {
+
+      if (response.status === 202) {
         const data = response.data;
         return {
           success: true,
@@ -162,6 +166,12 @@ const clientService = {
         };
       } else {
         console.error('Error al eliminar el cliente');
+        return {
+          success: false,
+          message: 'Error al eliminar el cliente  !!!',
+          status: response.status,
+          data: response.data,
+        };
       }
     } catch (error) {
       console.error('Error al eliminar', error);
@@ -174,7 +184,6 @@ const clientService = {
     }
   },
   obtenerRutas: async () => {
-
     const { token } = userStorage.getUserData();
     try {
       const response = await axios.get(`${API_URL}/api/route`, {
@@ -202,5 +211,4 @@ const clientService = {
     }
   },
 };
-
 export default clientService;
