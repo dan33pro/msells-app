@@ -7,8 +7,9 @@ import userStorage from '@services/api/userStorage';
 import productService from '@services/api/productService';
 import orderDetailService from '@services/api/orderDetailService';
 
+
 export default function RegistroDetallePedido() {
-  const { state } = useContext(AppContext);
+  const { state, toggleRegisterDetailPedido } = useContext(AppContext);
 
   const [productosEncontrados, setProductosEncontrados] = useState([]);
   const [inputValue, setInputValue] = useState('');
@@ -16,12 +17,22 @@ export default function RegistroDetallePedido() {
   const [totalInput, setTotalInput] = useState({});
   const [formData, setFormData] = useState({
     id_producto: 0,
-    id_pedido: 6,
+    id_pedido: 0,
     cantidad: 0,
     total: '',
     id_usuario: 0,
     accion: 'insert-compose',
   });
+
+  useEffect(() => {
+    if (state?.elements?.pedido) {
+      setFormData((prevData) => ({
+        ...prevData,
+        id_pedido: state.elements.pedido,
+      }));
+    }
+  }, [state.elements.pedido]);
+
   useEffect(() => {
     if (productosEncontrados === undefined || productosEncontrados === null) {
       setProductosEncontrados([]);
@@ -71,7 +82,9 @@ export default function RegistroDetallePedido() {
     e.preventDefault();
 
     try {
-      for (const producto of productosEncontrados) {
+      let isOk = false;
+      for (let i = 0; i < productosEncontrados.length; i++) {
+        let producto = productosEncontrados[i];
         const detallePedido = {
           id_producto: producto.id_producto,
           id_pedido: formData.id_pedido,
@@ -81,24 +94,25 @@ export default function RegistroDetallePedido() {
           accion: formData.accion,
         };
 
-        console.log('Detalle del pedido:', detallePedido);
-
         try {
           const response = await orderDetailService.registrarDetallePedido(detallePedido);
 
           if (response.success) {
-            alert(`Pedido ${detallePedido.id_producto} registrado exitosamente`);
+            if (i == (productosEncontrados.length - 1)) {
+              isOk = true;
+            }
+            console.log(`Producto con id: ${detallePedido.id_producto} asociado exitosamente`);
           } else {
-            alert(`Error al registrar el pedido ${detallePedido.id_producto}`);
+            console.log(`Error al asociar el producto con id: ${detallePedido.id_producto}`);
           }
         } catch (error) {
           console.error(`Error al enviar el detalle del pedido ${detallePedido.id_producto}`, error);
         }
       }
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      if (isOk) {
+        toggleRegisterDetailPedido(false);
+      }
     } catch (error) {
       console.error('Error al enviar los datos', error);
     }
@@ -122,11 +136,14 @@ export default function RegistroDetallePedido() {
   };
 
   const handleCancelar = () => {
-    window.location.reload();
+    toggleRegisterDetailPedido(false);
   };
 
   return (
     <section className={styles.containerPrinciple}>
+      <section className={styles.rightform}>
+        <Image src={imagePedido} alt="Imagen de pedido" />
+      </section>
       <section className={styles.leftForm}>
         <form className={styles.form} onSubmit={handleBuscarProducto}>
           <h2 className={styles.title}>Registrar Detalle Pedido</h2>

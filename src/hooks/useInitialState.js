@@ -83,6 +83,8 @@ const initialState = {
   isViewMenuDesktop: false,
   isViewMenuMobile: false,
   isViewPedidoDetail: false,
+  isViewRegisterPedido: false,
+  isViewRegisterDetailPedido: false,
 
   isViewOCDevivery: false,
   isViewOCMixta: false,
@@ -111,6 +113,24 @@ const initialState = {
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
+
+  const toggleRegisterDetailPedido = (newState) => {
+    state.isViewRegisterDetailPedido = newState;
+
+    setState({
+      ...state,
+      isViewRegisterDetailPedido: newState,
+    });
+  };
+
+  const toggleRegisterPedido = (newState) => {
+    state.isViewRegisterPedido = newState;
+
+    setState({
+      ...state,
+      isViewRegisterPedido: newState,
+    });
+  };
 
   const toggleRegisterClient = (newState) => {
     state.isViewRegisterClient = newState;
@@ -285,6 +305,7 @@ const useInitialState = () => {
     toggleMenuDesktop,
     toggleMenuMobile,
     togglePedidoDetail,
+    toggleRegisterPedido,
     toggleConsultarRutas,
     toggleConsultarPedidos,
     toggleviewConsultarClientes,
@@ -302,6 +323,7 @@ const useInitialState = () => {
     toggleRegisterRoute,
     toggleRegisterClient,
     closePrincipalViews,
+    toggleRegisterDetailPedido,
   };
 };
 

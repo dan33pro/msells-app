@@ -6,18 +6,19 @@ import imagePedido from '@icons/pedido.svg';
 import userStorage from '@services/api/userStorage';
 import pedidoService from '@services/api/orderService';
 
-export default function RegistroPedido() {
-  const { state } = useContext(AppContext);
+const RegistroPedido = () => {
+  const { state, toggleRegisterPedido, toggleRegisterDetailPedido, changeCurrentPedido } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     notas: '',
     id_estado: 1,
-    id_cliente: 2,
+    id_cliente: 0,
     fecha: '',
-    total: '',
+    total: '0',
     id_usuario: 0,
     accion: 'insert',
   });
+
   useEffect(() => {
     const userDataString = userStorage.getUserData();
     if (userDataString && userDataString.id_usuario) {
@@ -28,14 +29,15 @@ export default function RegistroPedido() {
           ...prevData,
           id_usuario: idVendedor,
         }));
-        console.log('idVendedor: ', idVendedor);
-      } else {
-        console.error('el id del usuario no es valido. ');
       }
-    } else {
-      console.error('No se encontro el id del usuario');
     }
-  }, []);
+    if(state?.elements?.client) {
+      setFormData((prevData) => ({
+        ...prevData,
+        id_cliente: state.elements.client.idCliente,
+      }));
+    }
+  }, [state.elements.client]);
 
   const handleRegistrarPedido = async (e) => {
     e.preventDefault();
@@ -43,10 +45,20 @@ export default function RegistroPedido() {
       const response = await pedidoService.registrarPedido(formData);
       console.log(formData);
       if (response.success) {
-        alert('Pedido registrado exitosamente');
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        const pedidosCliente = await pedidoService.obtenerPedidosPorAtributo({ key: 'id_cliente', value: formData.id_cliente});
+        if (pedidosCliente.success) {
+          const lastPedido = pedidosCliente.data.body.reduce(
+            (lastPedido, currentPedido) => {
+              if (lastPedido == null || currentPedido.id_pedido > lastPedido.id_pedido) {
+                return currentPedido;
+              } else {
+                return lastPedido;
+              }
+            }, null);
+          const idPedido = lastPedido.id_pedido;
+          changeCurrentPedido(idPedido);
+          registrarDetallePedido();
+        }
       } else {
         alert('Error al registrar el pedido del cliente con id', formData.id_cliente);
       }
@@ -54,7 +66,7 @@ export default function RegistroPedido() {
       console.error('error al enviar los datos ', error);
     }
   };
-  
+
   const handleInputChangue = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -64,9 +76,13 @@ export default function RegistroPedido() {
   };
 
    const handleCancelar = () => {
-     window.location.reload();
+    toggleRegisterPedido(false);
    };
 
+   const registrarDetallePedido = () => {
+    toggleRegisterDetailPedido(true);
+    toggleRegisterPedido(false);
+   };
 
   return (
     <section className={styles.containerPrinciple}>
@@ -76,12 +92,12 @@ export default function RegistroPedido() {
       <section className={styles.leftForm}>
         <form className={styles.form} onSubmit={handleRegistrarPedido}>
           <h2 className={styles.title}>Crear Pedido</h2>
+          <label className={styles.labelInfo}><span className={styles.bold}>ID Cliente:</span> {state.elements.client.idCliente}</label>
+          <label className={styles.labelInfo}><span className={styles.bold}>Nombre:</span> {state.elements.client.fullName}</label>
           <label className={styles.label}>Fecha Pedido</label>
           <input type="date" name="fecha" className={styles.input} placeholder="seleccione la fecha del pedido" value={formData.fecha} onChange={handleInputChangue} required />
-          <label className={styles.label}>Total Pedido</label>
-          <input type="number" name="total" className={styles.input} placeholder="Ingrese el total del pedido" value={formData.total} onChange={handleInputChangue} required />
           <div className={styles.inputboxDescripcion}>
-            <label className={styles.details}> Notas </label>
+            <label className={styles.label}> Notas </label>
             <textarea name="notas" id="notas" cols="105" rows="20" className={styles.textarea} value={formData.notas} onChange={handleInputChangue} required></textarea>
           </div>
           <section className={styles.containerButton}>
@@ -93,3 +109,5 @@ export default function RegistroPedido() {
     </section>
   );
 }
+
+export default RegistroPedido;
