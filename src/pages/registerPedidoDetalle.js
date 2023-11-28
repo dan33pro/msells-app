@@ -16,13 +16,12 @@ export default function RegistroDetallePedido() {
   const [totalInput, setTotalInput] = useState({});
   const [formData, setFormData] = useState({
     id_producto: 0,
-    id_pedido: 7,
+    id_pedido: 6,
     cantidad: 0,
     total: '',
     id_usuario: 0,
     accion: 'insert-compose',
   });
-
   useEffect(() => {
     if (productosEncontrados === undefined || productosEncontrados === null) {
       setProductosEncontrados([]);
@@ -44,32 +43,6 @@ export default function RegistroDetallePedido() {
       console.error('no se encontro el id del usuario');
     }
   }, [productosEncontrados]);
-  
-  const handleRegistrarDetallePedido = async (e) => {
-    try {
-      const detallesPedido = productosEncontrados.map((producto) => ({
-        id_producto: producto.id_producto,
-        id_pedido: formData.id_pedido,
-        cantidad: parseInt(cantidadInput[producto.id_producto], 10) || 0,
-        total: String(totalInput[producto.id_producto] || 0),
-        id_usuario: formData.id_usuario,
-        accion: formData.accion,
-      }));
-        console.log(detallesPedido); 
-      const response = await orderDetailService.registrarDetallePedido(detallesPedido);
-
-      if (response.success) {
-        alert('Pedidos registrados exitosamente');
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
-      } else {
-        alert('Error al registrar los detalles del pedido');
-      }
-    } catch (error) {
-      console.error('error al enviar los datos', error);
-    }
-  };
 
   const handleBuscarProducto = async (e) => {
     e.preventDefault();
@@ -78,19 +51,56 @@ export default function RegistroDetallePedido() {
       console.log('API Response:', response.data.body);
 
       if (response.success) {
-        setProductosEncontrados((prevProductos) =>
-          prevProductos.map((producto) => ({
+        setProductosEncontrados((prevProductos) => [
+          ...prevProductos.map((producto) => ({
             ...producto,
             cantidad: cantidadInput[producto.id_producto] || 0,
             total: (cantidadInput[producto.id_producto] || 0) * parseInt(producto.precio),
-          }))
-        );
-        setProductosEncontrados((prevProductos) => [...prevProductos, ...response.data.body]);
+          })),
+          ...response.data.body,
+        ]);
       } else {
         console.error('Error al buscar el producto:', response.message);
       }
     } catch (error) {
       console.error('Error al buscar el producto:', error);
+    }
+  };
+
+  const handleRegistrarDetallePedido = async (e) => {
+    e.preventDefault();
+
+    try {
+      for (const producto of productosEncontrados) {
+        const detallePedido = {
+          id_producto: producto.id_producto,
+          id_pedido: formData.id_pedido,
+          cantidad: parseInt(cantidadInput[producto.id_producto], 10) || 0,
+          total: String(totalInput[producto.id_producto] || 0),
+          id_usuario: formData.id_usuario,
+          accion: formData.accion,
+        };
+
+        console.log('Detalle del pedido:', detallePedido);
+
+        try {
+          const response = await orderDetailService.registrarDetallePedido(detallePedido);
+
+          if (response.success) {
+            alert(`Pedido ${detallePedido.id_producto} registrado exitosamente`);
+          } else {
+            alert(`Error al registrar el pedido ${detallePedido.id_producto}`);
+          }
+        } catch (error) {
+          console.error(`Error al enviar el detalle del pedido ${detallePedido.id_producto}`, error);
+        }
+      }
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    } catch (error) {
+      console.error('Error al enviar los datos', error);
     }
   };
 
@@ -117,24 +127,23 @@ export default function RegistroDetallePedido() {
 
   return (
     <section className={styles.containerPrinciple}>
-      <section className={styles.rightform}>
-        <Image src={imagePedido} alt="Imagen de pedido" />
-      </section>
       <section className={styles.leftForm}>
         <form className={styles.form} onSubmit={handleBuscarProducto}>
           <h2 className={styles.title}>Registrar Detalle Pedido</h2>
           <label className={styles.label}>Producto</label>
-          <input type="text" name="nombreProducto" className={styles.input} placeholder="Ingrese el nombre del producto" value={inputValue} onChange={handleInputChange} required />
-          <section className={styles.containerButton}>
-            <input type="submit" value="Buscar Producto" className={styles.input} />
-          </section>
-          <table>
+          <div className={styles.containerText}>
+            <input type="text" name="nombreProducto" className={styles.input} placeholder="Ingrese el nombre del producto" value={inputValue} onChange={handleInputChange} required />
+            <section className={styles.containerButton}>
+              <input type="submit" value="Buscar Producto" className={styles.input} />
+            </section>
+          </div>
+          <table className={styles.table}>
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
+                <th className={styles.th}>Nombre</th>
+                <th className={styles.th}>Precio</th>
+                <th className={styles.th}>Cantidad</th>
+                <th className={styles.th}>Total</th>
               </tr>
             </thead>
             <tbody>
@@ -142,23 +151,23 @@ export default function RegistroDetallePedido() {
                 productosEncontrados.length > 0 &&
                 productosEncontrados.map((producto) => (
                   <tr key={producto.id_producto}>
-                    <td>{producto.nombre}</td>
-                    <td>{parseInt(producto.precio)}</td>
-                    <td>
+                    <td className={styles.td}>{producto.nombre}</td>
+                    <td className={styles.td}>{parseInt(producto.precio)}</td>
+                    <td className={styles.td}>
                       <input type="number" value={cantidadInput[producto.id_producto] || 0} onChange={(e) => handleCantidadInputChange(e, producto.id_producto)} />
                     </td>
-                    <td>{totalInput[producto.id_producto] || 0}</td>
+                    <td className={styles.td}>{totalInput[producto.id_producto] || 0}</td>
                   </tr>
                 ))}
             </tbody>
           </table>
-        </form>
-        <div className={styles.inputbox}>
-          <div className={styles.containerButton}>
-            <input type="submit" value="Registrar" className={styles.input} onClick={handleRegistrarDetallePedido}/>
-            <input type="button" value="Cancelar" className={styles.input} onClick={handleCancelar} />
+          <div className={styles.inputbox}>
+            <div className={styles.containerButton}>
+              <input type="submit" value="Registrar" className={styles.input} onClick={handleRegistrarDetallePedido} />
+              <input type="submit" value="Cancelar" className={styles.input} onClick={handleCancelar} />
+            </div>
           </div>
-        </div>
+        </form>
       </section>
     </section>
   );
