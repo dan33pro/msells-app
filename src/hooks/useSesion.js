@@ -2,8 +2,8 @@ import userStorage from '@services/api/userStorage';
 
 const useSesion = () => {
   const validSesion = () => {
-    const { token, id_rol, id_usuario } = userStorage.getUserData();
-    if ((token && id_rol, id_usuario)) {
+    const { token, rol } = userStorage.getUserData();
+    if ((token && rol)) {
       return true;
     }
 
@@ -19,7 +19,19 @@ const useSesion = () => {
     return 0;
   };
 
-  return { validSesion, getID };
+  const getUserData = () => {
+    const { token, rol, nombres } = userStorage.getUserData();
+    if ((token && rol && nombres)) {
+      return {
+        rol,
+        nombres,
+      };
+    }
+
+    return null;
+  };
+
+  return { validSesion, getID, getUserData };
 };
 
 export default useSesion;

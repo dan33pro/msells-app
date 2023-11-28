@@ -17,8 +17,6 @@ export default function Login() {
   useEffect(() => {
     if (validSesion()) {
       router.push('/main');
-    } else {
-      changeSesionState(false, '', 0);
     }
   }, [state.sesion]);
 
