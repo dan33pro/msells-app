@@ -34,6 +34,7 @@
     width: 50%;
     height: min-content;
     margin: 0;
+    padding: 0 20px;
     float: right;
     background-color: $--white;
     display: flex;
@@ -57,10 +58,33 @@
 
     .form {
       height: 100%;
-      width: 75%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: start;
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        overflow-y: auto;
+        max-height: 300px;
+      }
+
+      .th,
+      .td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      .th {
+        background-color: $--blue-color;
+      }
+
+      .td {
+        color: #000;
+      }
 
       .title {
         font-size: 2em;
@@ -68,6 +92,7 @@
         margin: 20px 0;
         font-weight: bold;
       }
+
       .input {
         width: 100%;
         padding: 15px 0;
@@ -91,9 +116,11 @@
       }
 
       .inputbox {
-        width: calc(100% / 2 - 20px);
+        width: 100%;
         padding-right: 5px;
         padding-bottom: 20px;
+        display: flex;
+        justify-content: center;
 
         .select {
           width: 100%;
@@ -109,25 +136,26 @@
         font-weight: 700;
         margin: 20px 0;
         padding-bottom: 11px;
-        color: $--black;
+        color: $--blue-color;
       }
 
       .containerButton {
         display: flex;
         width: 100%;
-        justify-content: left;
+        justify-content: center;
         align-items: center;
         margin-bottom: 15px;
 
         .input[type='submit'] {
           font-weight: 600;
-          width: 70%;
+          width: 30%;
           background-color: $--blue-color;
           color: #fff;
           border: none;
           font-size: 18px;
           padding: 8px 30px;
           margin-top: 50px;
+          margin-right: 10px;
           border-radius: 30px;
           display: flex;
           justify-content: center;
@@ -145,18 +173,18 @@
 
 @media only screen and (max-width: 768px) {
   .containerPrinciple {
-    .rightform {
-      display: none;
-    }
-
     .leftForm {
       width: 100%;
       padding-left: 6px;
       height: 100vh;
-
       .form {
         width: 95%;
         padding: 0 1em;
+        .containerButton {
+          .input[type='submit'] {
+            width: 50%;
+          }
+        }
       }
     }
   }
