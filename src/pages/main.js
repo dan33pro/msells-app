@@ -17,11 +17,14 @@ import OpcionesRegistroVendedor from '@components/OpcionesRegistrosVendedor';
 export default function Home() {
   const { state, changeSesionState } = useContext(AppContext);
   const router = useRouter();
-  const { validSesion } = useSesion();
+  const { validSesion, getUserData } = useSesion();
 
   useEffect(() => {
     if (!validSesion()) {
       router.push('/');
+    } else if (!state.sesion) {
+      let user = getUserData();
+      changeSesionState(true, user.nombres, user.rol);
     }
   }, [state.sesion]);
 
