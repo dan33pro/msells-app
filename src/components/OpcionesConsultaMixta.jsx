@@ -6,11 +6,11 @@ import Image from 'next/image';
 import { useContext } from 'react';
 import closeIcon from '@icons/close_icon.svg';
 
-const OpcionesConsultaDelivery = () => {
-  const { state, toggleOCD } = useContext(AppContext);
+const OpcionesConsultaMixta = () => {
+  const { state, toggleOCM } = useContext(AppContext);
 
   const closeView = () => {
-   toggleOCD(false);
+    toggleOCM(false);
   };
 
   return (
@@ -22,10 +22,6 @@ const OpcionesConsultaDelivery = () => {
         </button>
       </nav>
       <article className={styles.contenedor}>
-        <div className={styles['menu-option']}>
-          <span className={styles.negrilla}>Consultar Detalle Recorrido</span>
-          <Image src={logoConsulta} alt="imagen logo consulta" />
-        </div>
         <div className={styles['menu-option']}>
           <span className={styles.negrilla}>Consultar Productos</span>
           <Image src={logoConsulta} alt="imagen logo consulta" />
@@ -47,4 +43,4 @@ const OpcionesConsultaDelivery = () => {
   );
 }
 
-export default OpcionesConsultaDelivery;
+export default OpcionesConsultaMixta;

@@ -6,7 +6,7 @@ import AppContext from '@context/AppContext';
 import { useContext } from 'react';
 
 const MenuDesktop = () => {
-  const { changeSesionState, toggleMenuDesktop } = useContext(AppContext);
+  const { state, changeSesionState, toggleMenuDesktop } = useContext(AppContext);
 
   const cerrarSesion = () => {
     toggleMenuDesktop(false);

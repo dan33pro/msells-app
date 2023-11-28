@@ -10,25 +10,45 @@ import iconSetings from '@icons/setings_icon.svg';
 import styles from '@styles/NavOptions.module.scss';
 
 const NavOptions = () => {
-  const { state, toggleMenuDesktop } = useContext(AppContext);
+  const { state, toggleMenuDesktop, toggleOCM, toggleOCD, toggleORA, toggleORV } = useContext(AppContext);
 
-  const [toggleListOptions, setToggleListOptions] = useState(false);
   const handleToggleListOptions = () => {
-    setToggleListOptions(!toggleListOptions);
-    setToggleRegisterOptions(false);
+    switch(state.idRol) {
+      case 1:
+        toggleOCM(!state.isViewOCMixta);
+        toggleORA(false);
+        break;
+      case 2:
+        toggleOCM(!state.isViewOCMixta);
+        toggleORV(false);
+        break;
+      case 3:
+        toggleOCD(!state.isViewOCDevivery);
+        break;
+    }
     toggleMenuDesktop(false);
   };
 
-  const [toggleRegisterOptions, setToggleRegisterOptions] = useState(false);
   const handleToggleRegisterOptions = () => {
-    setToggleRegisterOptions(!toggleRegisterOptions);
-    setToggleListOptions(false);
+    switch(state.idRol) {
+      case 1:
+        toggleOCM(false);
+        toggleORA(!state.isViewORAdmin);
+        break;
+      case 2:
+        toggleOCM(false);
+        toggleORV(!state.isViewORVendedor);
+        break;
+      case 3:
+        toggleOCD(false);
+        break;
+    }
     toggleMenuDesktop(false);
   };
 
   return (
     <aside className={`${styles.NavOptions} ${state.isViewMenuMobile ? styles['NavOptionsAnimantion'] : ''}`}>
-      <ul className={styles.menu} onClick={handleToggleListOptions}>
+      <ul className={styles.menu}>
         <li className={styles['option-menu']} onClick={handleToggleListOptions} onKeyDown={handleToggleListOptions}>
           <div className={styles['container-img']}>
             <Image src={iconList} alt="" />

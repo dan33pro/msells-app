@@ -108,15 +108,18 @@ const useInitialState = () => {
   const [state, setState] = useState(initialState);
 
   const changeSesionState = (newState, name, idRol) => {
+    state.sesion = newState;
+    state.user = name;
+    state.idRol = idRol;
+
     setState({
       ...state,
-      sesion: newState,
-      user: name,
-      idRol: idRol,
     });
   };
 
   const toggleOCD = (newState) => {
+    state.isViewOCDevivery = newState;
+
     setState({
       ...state,
       isViewOCDevivery: newState,
@@ -124,6 +127,8 @@ const useInitialState = () => {
   };
 
   const toggleOCM = (newState) => {
+    state.isViewOCMixta = newState;
+
     setState({
       ...state,
       isViewOCMixta: newState,
@@ -131,6 +136,8 @@ const useInitialState = () => {
   };
 
   const toggleORA = (newState) => {
+    state.isViewORAdmin = newState;
+
     setState({
       ...state,
       isViewORAdmin: newState,
@@ -138,6 +145,8 @@ const useInitialState = () => {
   };
 
   const toggleORV = (newState) => {
+    state.isViewORVendedor = newState;
+
     setState({
       ...state,
       isViewORVendedor: newState,
@@ -145,6 +154,8 @@ const useInitialState = () => {
   };
 
   const toggleMenuDesktop = (newState) => {
+    state.isViewMenuDesktop = newState;
+
     setState({
       ...state,
       isViewMenuDesktop: newState,
@@ -152,6 +163,8 @@ const useInitialState = () => {
   };
 
   const toggleMenuMobile = (newState) => {
+    state.isViewMenuMobile = newState;
+
     setState({
       ...state,
       isViewMenuMobile: newState,
@@ -159,6 +172,8 @@ const useInitialState = () => {
   };
 
   const togglePedidoDetail = (newState) => {
+    state.isViewPedidoDetail = newState;
+
     setState({
       ...state,
       isViewPedidoDetail: newState,
