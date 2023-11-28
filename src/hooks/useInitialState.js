@@ -89,6 +89,8 @@ const initialState = {
   isViewORAdmin: false,
   isViewORVendedor: false,
 
+  isViewRegisterUser: false,
+
   viewConsultarRutas: viewConsultarRutas,
   viewConsultarPedidos: viewConsultarPedidos,
   viewConsultarClientes: viewConsultarClientes,
@@ -106,6 +108,15 @@ const initialState = {
 
 const useInitialState = () => {
   const [state, setState] = useState(initialState);
+
+  const toggleRegisterUser = (newState) => {
+    state.isViewRegisterUser = newState;
+
+    setState({
+      ...state,
+      isViewRegisterUser: newState,
+    });
+  };
 
   const changeSesionState = (newState, name, idRol) => {
     state.sesion = newState;
@@ -246,6 +257,7 @@ const useInitialState = () => {
     toggleORA,
     toggleORV,
     changeSesionState,
+    toggleRegisterUser,
   };
 };
 

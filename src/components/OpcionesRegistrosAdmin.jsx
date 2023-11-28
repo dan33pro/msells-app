@@ -7,9 +7,16 @@ import { useContext } from 'react';
 import closeIcon from '@icons/close_icon.svg';
 
 const OpcionesRegistroAdmin = () => {
-   const { state, toggleORA } = useContext(AppContext);
+   const { state,
+    toggleORA,
+    toggleRegisterUser } = useContext(AppContext);
 
    const closeView = () => {
+    toggleORA(false);
+   };
+
+   const openRU = () => {
+    toggleRegisterUser(true);
     toggleORA(false);
    };
 
@@ -22,10 +29,10 @@ const OpcionesRegistroAdmin = () => {
         </button>
       </nav>
       <article className={styles.contenedor}>
-        <div className={styles['menu-option']}>
+        <button className={styles['menu-option']} onClick={openRU} onKeyDown={openRU}>
           <span className={styles.negrilla}>Registrar Usuario</span>
           <Image src={logoRegistro} alt="imagen logo registro" />
-        </div>
+        </button>
         <div className={styles['menu-option']}>
           <span className={styles.negrilla}>Registrar Producto</span>
           <Image src={logoRegistro} alt="imagen logo registro" />

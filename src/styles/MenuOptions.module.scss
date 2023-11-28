@@ -30,15 +30,16 @@
     place-items: center;
     margin-bottom: 30px;
 
-    button {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-    }
   }
 
   .titulo {
     color: #0a54e7;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
   }
 
   .contenedor {
