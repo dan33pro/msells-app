@@ -6,11 +6,13 @@ import imagePedido from '@icons/pedido.svg';
 import userStorage from '@services/api/userStorage';
 import productService from '@services/api/productService';
 import orderDetailService from '@services/api/orderDetailService';
+import orderService from '@services/api/orderService';
+import useSesion from '@hooks/useSesion';
 
 
 export default function RegistroDetallePedido() {
   const { state, toggleRegisterDetailPedido } = useContext(AppContext);
-
+  const { getID }  = useSesion();
   const [productosEncontrados, setProductosEncontrados] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [cantidadInput, setCantidadInput] = useState({});
@@ -83,6 +85,7 @@ export default function RegistroDetallePedido() {
 
     try {
       let isOk = false;
+      let totalOrder = 0;
       for (let i = 0; i < productosEncontrados.length; i++) {
         let producto = productosEncontrados[i];
         const detallePedido = {
@@ -98,8 +101,21 @@ export default function RegistroDetallePedido() {
           const response = await orderDetailService.registrarDetallePedido(detallePedido);
 
           if (response.success) {
+            totalOrder = totalOrder + (parseInt(String(totalInput[producto.id_producto] || 0), 10) || 0)
             if (i == (productosEncontrados.length - 1)) {
-              isOk = true;
+              let orderRes = await orderService.obtenerPedido(state.elements.pedido);
+              if (orderRes.success) {
+                let order = orderRes.data.body[0];
+                order['fecha'] = convertirFecha(order['fecha']);
+                order['id_usuario'] = getID();
+                order['accion'] = 'update';
+                order['total'] = totalOrder.toString();
+
+                let editOrderRes = await orderService.editarPedido(order);
+                if (editOrderRes.success) {
+                  isOk = true;
+                }
+              }
             }
             console.log(`Producto con id: ${detallePedido.id_producto} asociado exitosamente`);
           } else {
@@ -117,6 +133,11 @@ export default function RegistroDetallePedido() {
       console.error('Error al enviar los datos', error);
     }
   };
+
+  const convertirFecha = (fecha) => {
+    const fechaSinHora = fecha.substring(0, 10);
+    return fechaSinHora;
+  }
 
   const handleInputChange = (e) => {
     const { value } = e.target;
