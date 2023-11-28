@@ -43,10 +43,9 @@ export default function RegistroDetallePedido() {
     } else {
       console.error('no se encontro el id del usuario');
     }
-  }, [productosEncontrados]); // Add productosEncontrados as a dependency to the useEffect
-
+  }, [productosEncontrados]);
   
-  const handleRegistrarDetallePedido = async () => {
+  const handleRegistrarDetallePedido = async (e) => {
     try {
       const detallesPedido = productosEncontrados.map((producto) => ({
         id_producto: producto.id_producto,
