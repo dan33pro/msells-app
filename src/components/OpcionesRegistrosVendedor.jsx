@@ -1,5 +1,6 @@
 import styles from '@styles/MenuOptions.module.scss';
 import logoRegistro from '@icons/registrar.svg';
+import logoEliminar from '@icons/Eliminar.svg';
 import AppContext from '@context/AppContext';
 import Image from 'next/image';
 import { useContext } from 'react';

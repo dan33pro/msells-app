@@ -6,8 +6,8 @@ import imageUser from '@icons/imagen.svg';
 import userStorage from '@services/api/userStorage';
 import clientService from '@services/api/clientService';
 
-export default function EliminarCliente() {
-  const { state } = useContext(AppContext);
+const EliminarCliente = () => {
+  const { state, toggleDeleteClient } = useContext(AppContext);
   const [clients, setClients] = useState([]);
   const [formData, setFormData] = useState({
     id_usuario: 0,
@@ -46,14 +46,11 @@ export default function EliminarCliente() {
     event.preventDefault();
 
     try {
-
-      console.log(idCliente, formData.id_usuario)
+      console.log(idCliente, formData.id_usuario);
       const response = await clientService.deleteClient(idCliente, formData.id_usuario);
 
       if (response.success) {
-        setClients((prevClients) =>
-          prevClients.filter((client) => client.id_cliente !== idCliente)
-        );
+        setClients((prevClients) => prevClients.filter((client) => client.id_cliente !== idCliente));
         alert('Cliente eliminado exitosamente');
       } else {
         alert('No se puede eliminar este cliente porque el id esta siendo utilizado en un pedido');
@@ -62,7 +59,9 @@ export default function EliminarCliente() {
       console.error('Error al enviar la solicitud de eliminación', error);
     }
   };
-
+  const handleCancelar = () => {
+    toggleDeleteClient(false);
+  };
   return (
     <section className={styles.containerPrinciple}>
       <form className={styles.form}>
@@ -74,17 +73,21 @@ export default function EliminarCliente() {
               <div key={client.id_cliente} className={styles.diseño1}>
                 <Image src={imageUser} alt="Imagen de Usuario" />
                 <span className={styles.span}>{`${client.nombres}  ${client.apellidos}`}</span>
-                <button
-                  className={styles.eliminarButton}
-                  onClick = {
-                    (event) => handleEliminarCliente(client.id_cliente, event)
-                  } >
+                <button className={styles.eliminarButton} onClick={(event) => handleEliminarCliente(client.id_cliente, event)}>
                   Eliminar
                 </button>
               </div>
             ))}
+
+          <div className={styles.inputbox}>
+            <div className={styles.containerButton}>
+              <input type="button" value="Cancelar" className={styles.input} onClick={handleCancelar} />
+            </div>
+          </div>
         </article>
       </form>
     </section>
   );
 }
+
+export default EliminarCliente; 

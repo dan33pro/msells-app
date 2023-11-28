@@ -19,6 +19,8 @@ import RegistroRuta from '@components/RegistroRuta';
 import RegistroCliente from '@components/RegistroCliente';
 import RegistroPedido from '@components/RegistroPedido';
 import RegistroDetallePedido from '@components/RegisterPedidoDetalle';
+import EliminarCliente from '@components/eliminarCliente';
+import EliminarProducto from '@components/eliminarProducto';
 
 export default function Home() {
   const { state, changeSesionState } = useContext(AppContext);
@@ -51,20 +53,17 @@ export default function Home() {
             {state.viewConsultarPedidos.stateView && <MainConatiner currentView={state.viewConsultarPedidos} />}
             {state.viewConsultarClientes.stateView && <MainConatiner currentView={state.viewConsultarClientes} />}
             {state.viewConsultarProductos.stateView && <MainConatiner currentView={state.viewConsultarProductos} />}
-
             {state.isViewPedidoDetail && <PedidoDetail />}
-
             {state.isViewOCMixta && <OpcionesConsultaMixta />}
             {state.isViewOCDevivery && <OpcionesConsultaDelivery />}
-
             {state.isViewORAdmin && <OpcionesRegistroAdmin />}
             {state.isViewORVendedor && <OpcionesRegistroVendedor />}
-
             {state.isViewRegisterUser && <RegistroUsuario />}
             {state.isViewRegisterProduct && <RegistroProducto />}
             {state.isViewRegisterRoute && <RegistroRuta />}
-            {state.isViewRegisterClient && <RegistroCliente /> }
-
+            {state.isViewRegisterClient && <RegistroCliente />}
+            {state.isViewDeleteClient && < EliminarCliente />}
+            {state.isViewDeleteProduct && <EliminarProducto />}
             {state.isViewRegisterPedido && <RegistroPedido />}
             {state.isViewRegisterDetailPedido && <RegistroDetallePedido />}
           </Layout>

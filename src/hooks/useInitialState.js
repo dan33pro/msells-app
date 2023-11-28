@@ -95,7 +95,8 @@ const initialState = {
   isViewRegisterProduct: false,
   isViewRegisterRoute: false,
   isViewRegisterClient: false,
-
+  isViewDeleteClient: false,
+  isViewDeleteProduct: false,
   viewConsultarRutas: viewConsultarRutas,
   viewConsultarPedidos: viewConsultarPedidos,
   viewConsultarClientes: viewConsultarClientes,
@@ -129,6 +130,24 @@ const useInitialState = () => {
     setState({
       ...state,
       isViewRegisterPedido: newState,
+    });
+  };
+
+  const toggleDeleteProduct = (newState) => {
+    state.isViewDeleteProduct = newState;
+
+    setState({
+      ...state,
+      isViewDeleteProduct: newState,
+    });
+  };
+
+  const toggleDeleteClient = (newState) => {
+    state.isViewDeleteClient = newState;
+
+    setState({
+      ...state,
+      isViewDeleteClient: newState,
     });
   };
 
@@ -324,6 +343,8 @@ const useInitialState = () => {
     toggleRegisterClient,
     closePrincipalViews,
     toggleRegisterDetailPedido,
+    toggleDeleteProduct, 
+    toggleDeleteClient, 
   };
 };
 
